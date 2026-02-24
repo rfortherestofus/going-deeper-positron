@@ -1,0 +1,4 @@
+- source: presentations.qmd
+  netlify:
+    - id: e59408e5-63cb-478b-9826-b13b894f0134
+      url: 'https://stellar-unicorn-b3f30c.netlify.app'

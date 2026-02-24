@@ -1,0 +1,11 @@
+---
+title: "My Document"
+format: 
+  typst:
+    papersize: us-letter
+    fontsize: "20pt"
+margin:
+  top: "5in"
+---
+
+Nisi ipsum reprehenderit Lorem commodo excepteur fugiat laborum incididunt. Reprehenderit nulla sunt consectetur excepteur veniam aute in officia. Eu nulla consequat proident minim esse excepteur sit tempor cillum occaecat. Fugiat commodo aliqua laboris labore magna labore id eiusmod veniam officia consequat fugiat. Cupidatat culpa laborum ad ad. Pariatur magna commodo dolore pariatur nisi eu ullamco in commodo.

@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slides-quarto_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slides-quarto_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slides-quarto_files/libs/quarto-html/popper.min.js"></script>
+<script src="slides-quarto_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slides-quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slides-quarto_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slides-quarto_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="slides-quarto_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.449">
+
+  <title>Going Deeper with R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="slides-quarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slides-quarto_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slides-quarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slides-quarto_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="assets/rru-hex-bg-gradient-dark.svg" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Going Deeper with R</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section>
+<section id="advanced-markdown" class="title-slide slide level1 inverse center" data-background-image="assets/fancy-text.jpg">
+<h1>Advanced Markdown</h1>
+
+</section>
+<section id="links" class="slide level2 center">
+<h2>Links</h2>
+<p>This is a <a href="http://rfortherestofus.com/">link to the Rest for the Rest of Us website</a></p>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a>This is a <span class="co">[</span><span class="ot">link to the Rest for the Rest of Us website</span><span class="co">](http://rfortherestofus.com/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="images" class="slide level2 center">
+<h2>Images</h2>
+
+<img data-src="assets/girl-meditating.jpg" class="r-stretch"></section>
+<section id="image-sizing" class="slide level2 center">
+<h2>Image Sizing</h2>
+<div class="fragment">
+<p>Set the width of your images in pixels</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{width=300px}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Set the width of your images in inches</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{width=4in}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Set the width of your images as a percent</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{width=50%}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="image-alignment" class="slide level2 center">
+<h2>Image Alignment</h2>
+<p>Images are centered by default but you can change this.</p>
+<div class="fragment">
+<p>Align images to the left</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{fig-align="left"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Align images to the right</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{fig-align="right"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Center align images</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{fig-align="center"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="caption" class="slide level2 center">
+<h2>Caption</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="al">![A girl meditating](assets/girl-meditating.jpg)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="alt-text" class="slide level2 center">
+<h2>Alt Text</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="al">![](assets/girl-meditating.jpg)</span>{fig-alt="A girl meditating"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="blockquotes" class="slide level2 center">
+<h2>Blockquotes</h2>
+<p>And here is what Abraham Lincoln said:</p>
+<div class="fragment">
+<blockquote>
+<p>Four score and seven years ago …</p>
+</blockquote>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="at">&gt; Four score and seven years ago ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="footnotes" class="slide level2 center">
+<h2>Footnotes</h2>
+<p>Here is some text.<sup>1</sup></p>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Here is a footnote</p></li></ol></aside></section>
+<section id="footnotes-1" class="slide level2 center">
+<h2>Footnotes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a>Here is some text.^<span class="co">[</span><span class="ot">Here is a footnote</span><span class="co">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="my-turn" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll create a Quarto document and do the following:</p>
+<ol type="1">
+<li class="fragment"><p>Add a link</p></li>
+<li class="fragment"><p>Add an image and adjust its alignment and alt text</p></li>
+<li class="fragment"><p>Add a blockquote</p></li>
+<li class="fragment"><p>Add a footnote</p></li>
+</ol>
+</section>
+<section id="your-turn" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment"><p>Add the Oregon Department of Education logo to the top of your report. You can find it at the <a href="https://github.com/rfortherestofus/going-deeper/raw/master/slides/assets/ode-logo.jpg">link below</a>.</p></li>
+<li class="fragment"><p>Add the following text (make sure you include the <a href="https://www.oregon.gov/ode/pages/default.aspx">link</a>, which is below):</p></li>
+</ul>
+<div class="fragment">
+<p>This is a report for the <a href="https://www.oregon.gov/ode/pages/default.aspx">Oregon Department of Education</a> on diversity in Oregon school districts.</p>
+</div>
+</section>
+<section id="your-turn-continued" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<ul>
+<li class="fragment">Add the following text as a block quote:</li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p>The Oregon Department of Education fosters equity and excellence for every learner through collaboration with educators, partners, and communities.</p>
+</blockquote>
+</div>
+<ul>
+<li class="fragment">Add a <a href="https://www.oregon.gov/ode/about-us/Pages/default.aspx">link to the source for mission statement</a> as a footnote.</li>
+</ul>
+</section></section>
+<section>
+<section id="tables" class="title-slide slide level1 inverse center" data-background-image="assets/table.jpg">
+<h1>Tables</h1>
+
+</section>
+<section id="tables-usually-need-wide-data" class="slide level2 center">
+<h2>Tables Usually Need Wide Data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   year      school                      percent_proficient_formatted
+   &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;                       
+ 1 2018-2019 Abernethy Elementary School 71%                         
+ 2 2021-2022 Abernethy Elementary School 79%                         
+ 3 2018-2019 Ainsworth Elementary School 80%                         
+ 4 2021-2022 Ainsworth Elementary School 68%                         
+ 5 2018-2019 Alameda Elementary School   83%                         
+ 6 2021-2022 Alameda Elementary School   82%                         
+ 7 2018-2019 Arleta Elementary School    42%                         
+ 8 2021-2022 Arleta Elementary School    52%                         
+ 9 2018-2019 Atkinson Elementary School  51%                         
+10 2021-2022 Atkinson Elementary School  58%                         </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  school                      `2018-2019` `2021-2022`
+  &lt;chr&gt;                       &lt;chr&gt;       &lt;chr&gt;      
+1 Abernethy Elementary School 71%         79%        
+2 Ainsworth Elementary School 80%         68%        
+3 Alameda Elementary School   83%         82%        
+4 Arleta Elementary School    42%         52%        
+5 Atkinson Elementary School  51%         58%        </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="pivot_wider" class="slide level2 center">
+<h2><code>pivot_wider()</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>data_long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   year      school                      percent_proficient_formatted
+   &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;                       
+ 1 2018-2019 Abernethy Elementary School 71%                         
+ 2 2021-2022 Abernethy Elementary School 79%                         
+ 3 2018-2019 Ainsworth Elementary School 80%                         
+ 4 2021-2022 Ainsworth Elementary School 68%                         
+ 5 2018-2019 Alameda Elementary School   83%                         
+ 6 2021-2022 Alameda Elementary School   82%                         
+ 7 2018-2019 Arleta Elementary School    42%                         
+ 8 2021-2022 Arleta Elementary School    52%                         
+ 9 2018-2019 Atkinson Elementary School  51%                         
+10 2021-2022 Atkinson Elementary School  58%                         </code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>data_long <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> school,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>              <span class="at">names_from =</span> year,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>              <span class="at">values_from =</span> percent_proficient_formatted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  school                      `2018-2019` `2021-2022`
+  &lt;chr&gt;                       &lt;chr&gt;       &lt;chr&gt;      
+1 Abernethy Elementary School 71%         79%        
+2 Ainsworth Elementary School 80%         68%        
+3 Alameda Elementary School   83%         82%        
+4 Arleta Elementary School    42%         52%        
+5 Atkinson Elementary School  51%         58%        </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="dont-use-the-default-output" class="slide level2 center">
+<h2>Don’t Use the Default Output</h2>
+
+<img data-src="assets/default-table-output.png" data-fig-width="100%" class="r-stretch"></section>
+<section id="table-packages" class="slide level2 inverse center" data-background-image="assets/packages.jpg">
+<h2>Table Packages</h2>
+</section>
+<section id="flextable" class="slide level2 center-slide center">
+<h2><code>flextable</code></h2>
+
+<img data-src="assets/flextable.svg" class="r-stretch"></section>
+<section id="gt" class="slide level2 center-slide center">
+<h2><code>gt</code></h2>
+
+<img data-src="assets/gt_parts_of_a_table.svg" class="r-stretch"></section>
+<section id="interactive-tables-with-gt" class="slide level2 center-slide center">
+<h2>Interactive Tables with <code>gt</code></h2>
+
+<img data-src="assets/gt-interactive.gif" class="r-stretch"><aside class="notes">
+<p>https://posit.co/blog/new-in-gt-0-9-0-interactive-tables/</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="my-turn-1" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll demonstrate making effective tables using <code>flextable</code> and <code>gt</code>.</p>
+<aside class="notes">
+<ul>
+<li>Set Names (cols_label)</li>
+<li>Align</li>
+<li>Column Width</li>
+<li>Formatting numbers</li>
+<li>Source</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="your-turn-1" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment"><p>Copy the starter code below into RStudio and use it to make a table using <code>flextable</code> or <code>gt</code>.</p></li>
+<li class="fragment"><p>Work on adjusting your column names, column width, number formatting, and anything else you might want to try out.</p></li>
+</ul>
+</section></section>
+<section>
+<section id="advanced-yaml-and-code-chunk-options" class="title-slide slide level1 inverse center" data-background-image="assets/book.jpg">
+<h1>Advanced YAML and Code Chunk Options</h1>
+<aside class="notes">
+<p>https://quarto.org/docs/reference/cells/cells-knitr.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="table-of-contents" class="slide level2 center">
+<h2>Table of Contents</h2>
+<div class="fragment">
+<p>Add a table of contents</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Choose how many levels of headings should be included in the table of contents</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Choose the location for the table of contents</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="at">    </span><span class="fu">toc-location</span><span class="kw">:</span><span class="at"> left</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="set-the-default-figure-width-and-height" class="slide level2 center">
+<h2>Set the Default Figure Width and Height</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="3-4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="at">    </span><span class="fu">fig-width</span><span class="kw">:</span><span class="at"> </span><span class="dv">4</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="at">    </span><span class="fu">fig-height</span><span class="kw">:</span><span class="at"> </span><span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="override-default-figure-width-and-height" class="slide level2 center">
+<h2>Override Default Figure Width and Height</h2>
+<div class="fragment">
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="in">#| fig-width: 3</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="in">#| fig-height: 5</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="in">penguins |&gt; </span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="in">  filter(year == 2007) |&gt; </span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="in">  count(island) |&gt; </span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="in">  ggplot(aes(x = n,</span></span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="in">             y = reorder(island, n),</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="in">             fill = island,</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="in">             label = n)) +</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="in">  geom_col() +</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="in">  geom_text(family = "Papyrus") +</span></span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="in">  labs(title = "My Amazing Penguins Chart") +</span></span>
+<span id="cb22-15"><a href="#cb22-15"></a><span class="in">  theme_minimal(base_family = "Papyrus") +</span></span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="in">  theme(axis.text = element_text(family = "Inter"))</span></span>
+<span id="cb22-17"><a href="#cb22-17"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="captions-and-alt-text" class="slide level2 center">
+<h2>Captions and Alt Text</h2>
+<div class="fragment">
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="in">#| fig-cap: A plot about penguins</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="in">#| fig-alt: A bar chart showing the number of penguins on each island</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="in">penguins |&gt; </span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="in">  filter(year == 2007) |&gt; </span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="in">  count(island) |&gt; </span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="in">  ggplot(aes(x = n,</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="in">             y = reorder(island, n),</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="in">             fill = island,</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a><span class="in">             label = n)) +</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="in">  geom_col() +</span></span>
+<span id="cb23-13"><a href="#cb23-13"></a><span class="in">  geom_text(family = "Papyrus") +</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a><span class="in">  labs(title = "My Amazing Penguins Chart") +</span></span>
+<span id="cb23-15"><a href="#cb23-15"></a><span class="in">  theme_minimal(base_family = "Papyrus") +</span></span>
+<span id="cb23-16"><a href="#cb23-16"></a><span class="in">  theme(axis.text = element_text(family = "Inter"))</span></span>
+<span id="cb23-17"><a href="#cb23-17"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="my-turn-2" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Add a table of contents and adjust where it goes</p></li>
+<li class="fragment"><p>Set default figure width and height</p></li>
+<li class="fragment"><p>Change the figure width and height in an individual code chunk</p></li>
+<li class="fragment"><p>Add a figure caption and alt text</p></li>
+</ol>
+</section>
+<section id="your-turn-2" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Add a table of contents and adjust where it goes</p></li>
+<li class="fragment"><p>Set default figure width and height</p></li>
+<li class="fragment"><p>Change the figure width and height in an individual code chunk</p></li>
+<li class="fragment"><p>Add a figure caption and alt text</p></li>
+</ol>
+</section></section>
+<section>
+<section id="inline-r-code" class="title-slide slide level1 inverse center" data-background-image="assets/inline-skating.jpg">
+<h1>Inline R Code</h1>
+<aside class="notes">
+<p>The goal is to make everything reproducible, including text</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="inline-r-code-1" class="slide level2 center">
+<h2>Inline R Code</h2>
+<p>These two lines of text look identical, right?</p>
+<div class="fragment">
+<p>There are 210 school districts in Oregon.</p>
+</div>
+<div class="fragment">
+<p>There are 210 school districts in Oregon.</p>
+</div>
+</section>
+<section id="inline-r-code-2" class="slide level2 center">
+<h2>Inline R Code</h2>
+<p>They’re not identical!</p>
+<div class="fragment">
+<p>There are 210 school districts in Oregon.</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>There are <span class="in">`r oregon_school_districts`</span> school districts in Oregon.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="my-turn-3" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll add a line to my report that uses inline R code.</p>
+</section>
+<section id="your-turn-3" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>Add a line to your report that uses inline R code.</p>
+</section></section>
+<section>
+<section id="making-your-reports-shine-word-edition" class="title-slide slide level1 inverse center" data-background-image="assets/microsoft-word.jpg">
+<h1>Making Your Reports Shine: Word Edition</h1>
+
+</section>
+<section id="making-your-reports-shine-word-edition-1" class="slide level2 center">
+<h2>Making Your Reports Shine: Word Edition</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="at">    </span><span class="fu">reference-doc</span><span class="kw">:</span><span class="at"> custom-reference-doc.docx</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>https://quarto.org/docs/output-formats/ms-word-templates.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="my-turn-4" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll use a reference document to change the look and feel of my report that is rendered to Word.</p>
+</section>
+<section id="your-turn-4" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>Use a reference document to change the look and feel of your report when rendered to Word.</p>
+</section></section>
+<section>
+<section id="making-your-reports-shine-pdf-edition" class="title-slide slide level1 inverse center" data-background-image="assets/report.jpg">
+<h1>Making Your Reports Shine: PDF Edition</h1>
+<aside class="notes">
+<p>You need to download Quarto 1.4</p>
+<p>https://github.com/cscheid/2023-posit-conf-talk/blob/main/talk.qmd</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+<div class="center-slide">
+<p><a href="https://twitter.com/jefflittlejohn/status/1216869830726316033"><img data-src="assets/littlejohn-latex-tweet.png"></a></p>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="center-slide">
+<p><a href="https://twitter.com/andrewheiss/status/1204870408148832257"><img data-src="assets/heiss-latex-tweet.png"></a></p>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="center-slide">
+<p><a href="https://twitter.com/MattCowgill/status/1249190934392307712"><img data-src="assets/latex-table-tweet.png"></a></p>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="center-slide">
+<p><a href="https://twitter.com/thattommyhall/status/1248679614337241089"><img data-src="assets/latex-book-tweet.png"></a></p>
+</div>
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/typst.png" class="quarto-figure-center r-stretch"></section>
+<section id="typst" class="slide level2 center">
+<h2><code>typst</code></h2>
+<ul>
+<li class="fragment"><p>Very much in development now!</p></li>
+<li class="fragment"><p>To use it, you must install a <a href="https://quarto.org/docs/download/prerelease">pre-release version of Quarto</a></p></li>
+<li class="fragment"><p>Provides syntax to relatively easily adjust page size, margins, font size, etc.</p></li>
+</ul>
+</section>
+<section id="typst-1" class="slide level2 center">
+<h2><code>typst</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="at">  </span><span class="fu">typst</span><span class="kw">:</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="at">    </span><span class="fu">papersize</span><span class="kw">:</span><span class="at"> us-letter</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> Inter</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="at">    </span><span class="fu">fontsize</span><span class="kw">:</span><span class="at"> 20pt</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="fu">margin</span><span class="kw">:</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="at">  </span><span class="fu">top</span><span class="kw">:</span><span class="at"> 5in</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>https://quarto.org/docs/prerelease/1.4/typst.html#typst-format</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="page-breaks" class="slide level2 center">
+<h2>Page Breaks</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1"></a>{{&lt; pagebreak &gt;}}</span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu"># Header I want to go on the next page</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="my-turn-5" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ul>
+<li class="fragment"><p>Create a PDF document using the <code>typst</code> format</p></li>
+<li class="fragment"><p>Add page breaks to make my report easier to read</p></li>
+</ul>
+</section>
+<section id="your-turn-5" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment">Create a PDF document using the <code>typst</code> format</li>
+</ul>
+</section></section>
+<section>
+<section id="making-your-reports-shine-html-edition" class="title-slide slide level1 inverse center" data-background-image="assets/html.jpg">
+<h1>Making Your Reports Shine: HTML Edition</h1>
+
+</section>
+<section id="built-in-themes" class="slide level2 center">
+<h2>Built-In Themes</h2>
+<p><a href="https://quarto.org/docs/output-formats/html-themes.html">Quarto has a number of built-in themes</a></p>
+</section>
+<section id="built-in-themes-1" class="slide level2 center">
+<h2>Built-In Themes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Document"</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>https://quarto.org/docs/output-formats/html-themes.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="customizing-built-in-themes" class="slide level2 center">
+<h2>Customizing Built-In Themes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><code>max-width</code></li>
+<li class="fragment"><code>mainfont</code></li>
+<li class="fragment"><code>fontsize</code></li>
+<li class="fragment"><code>fontcolor</code></li>
+<li class="fragment"><code>linkcolor</code></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><code>monofont</code></li>
+<li class="fragment"><code>monobackgroundcolor</code></li>
+<li class="fragment"><code>linestretch</code></li>
+<li class="fragment"><code>backgroundcolor</code></li>
+<li class="fragment"><code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, <code>margin-bottom</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="customizing-built-in-themes-1" class="slide level2 center">
+<h2>Customizing Built-In Themes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="5-6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Document"</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> Inter</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="at">    </span><span class="fu">fontsize</span><span class="kw">:</span><span class="at"> 20px</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-your-own-theme" class="slide level2 center">
+<h2>Creating Your Own Theme</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Document"</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb30-4"><a href="#cb30-4"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> custom.scss</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="anatomy-of-a-.scss-file" class="slide level2 center">
+<h2>Anatomy of a <code>.scss</code> File</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource scss number-lines code-with-copy"><code class="sourceCode scss"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">/*-- scss:defaults --*/</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co">/*-- scss:rules --*/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<style type="text/css">
+
+</style>
+</div>
+</section>
+<section id="anatomy-of-a-.scss-file-1" class="slide level2 center">
+<h2>Anatomy of a <code>.scss</code> File</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="1-5"><pre class="sourceCode numberSource scss number-lines code-with-copy"><code class="sourceCode scss"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">/*-- scss:defaults --*/</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="va">$body-bg</span>: <span class="cn">red</span><span class="op">;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="va">$body-color</span>: <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="va">$font-size-root</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="co">/*-- scss:rules --*/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<style type="text/css">
+
+</style>
+</div>
+<aside class="notes">
+<p>Talk about Sass variables https://quarto.org/docs/output-formats/html-themes.html#sass-variables</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="anatomy-of-a-.scss-file-2" class="slide level2 center">
+<h2>Anatomy of a <code>.scss</code> File</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33" data-code-line-numbers="7-11"><pre class="sourceCode numberSource scss number-lines code-with-copy"><code class="sourceCode scss"><span id="cb33-1"><a href="#cb33-1"></a><span class="co">/*-- scss:defaults --*/</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="va">$body-bg</span>: <span class="cn">red</span><span class="op">;</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="va">$body-color</span>: <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="va">$font-size-root</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb33-6"><a href="#cb33-6"></a></span>
+<span id="cb33-7"><a href="#cb33-7"></a><span class="co">/*-- scss:rules --*/</span></span>
+<span id="cb33-8"><a href="#cb33-8"></a></span>
+<span id="cb33-9"><a href="#cb33-9"></a>h1 {</span>
+<span id="cb33-10"><a href="#cb33-10"></a>  <span class="kw">text-shadow</span>: <span class="op">-</span><span class="dv">1</span><span class="dt">px</span> <span class="op">-</span><span class="dv">1</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">.3</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb33-11"><a href="#cb33-11"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<style type="text/css">
+h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
+</style>
+</div>
+</section>
+<section id="my-turn-6" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Apply a built-in HTML theme to my report.</p></li>
+<li class="fragment"><p>Customize the built-in HTML theme.</p></li>
+<li class="fragment"><p>Create my own theme using an <code>.scss</code> file, Sass variables, and some custom CSS.</p></li>
+</ol>
+</section>
+<section id="your-turn-6" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Apply a built-in HTML theme to your report.</p></li>
+<li class="fragment"><p>Customize the built-in HTML theme.</p></li>
+<li class="fragment"><p>Create your own theme using an <code>.scss</code> file and Sass variables</p></li>
+<li class="fragment"><p>If you know any CSS, customize your <code>.scss</code> file further.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="presentations" class="title-slide slide level1 inverse center" data-background-image="assets/projector.jpg">
+<h1>Presentations</h1>
+
+</section>
+<section id="powerpoint" class="slide level2 inverse center">
+<h2>PowerPoint</h2>
+<aside class="notes">
+<p>Can use reference docs</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="reference-documents" class="slide level2 center">
+<h2>Reference Documents</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="at">    </span><span class="fu">reference-doc</span><span class="kw">:</span><span class="at"> template.pptx</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="revealjs" class="slide level2 inverse center">
+<h2>Revealjs</h2>
+<aside class="notes">
+<p>https://quarto.org/docs/reference/formats/presentations/revealjs.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="creating-slides" class="slide level2 center">
+<h2>Creating Slides</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu"># Slide 1</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a></span>
+<span id="cb35-3"><a href="#cb35-3"></a>Content on slide 1</span>
+<span id="cb35-4"><a href="#cb35-4"></a></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="fu">## Slide 2</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a></span>
+<span id="cb35-7"><a href="#cb35-7"></a>Content on slide 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="columns" class="slide level2 center">
+<h2>Columns</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1"></a>:::: {.columns}</span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a>::: {.column width="50%"}</span>
+<span id="cb36-4"><a href="#cb36-4"></a>Content in column 1</span>
+<span id="cb36-5"><a href="#cb36-5"></a>:::</span>
+<span id="cb36-6"><a href="#cb36-6"></a></span>
+<span id="cb36-7"><a href="#cb36-7"></a>::: {.column width="50%"}</span>
+<span id="cb36-8"><a href="#cb36-8"></a>Content in column 2</span>
+<span id="cb36-9"><a href="#cb36-9"></a>:::</span>
+<span id="cb36-10"><a href="#cb36-10"></a></span>
+<span id="cb36-11"><a href="#cb36-11"></a>::::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Content in column 1</p>
+</div><div class="column" style="width:50%;">
+<p>Content in column 2</p>
+</div>
+</div>
+</div>
+</section>
+<section id="incremental-reveal" class="slide level2 center">
+<h2>Incremental Reveal</h2>
+<ul>
+<li class="fragment"><p>You can incrementally reveal</p></li>
+<li class="fragment"><p>content by putting it in a bulleted list</p></li>
+<li class="fragment"><p>and adding <code>incremental: true</code> to the YAML</p></li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Presentation"</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a><span class="at">    </span><span class="fu">incremental</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at">   </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li class="fragment">or surrounding content with an <code>incremental</code> div</li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1"></a>::: {.incremental}</span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="ss">- </span>List item 1</span>
+<span id="cb38-3"><a href="#cb38-3"></a></span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="ss">- </span>List item 2</span>
+<span id="cb38-5"><a href="#cb38-5"></a></span>
+<span id="cb38-6"><a href="#cb38-6"></a><span class="ss">- </span>List item 3</span>
+<span id="cb38-7"><a href="#cb38-7"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="adding-content-to-the-footer" class="slide level2 center">
+<h2>Adding Content to the Footer</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39" data-code-line-numbers="4-5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1"></a><span class="pp">---</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a><span class="at">  </span><span class="fu">revealjs</span><span class="kw">:</span></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> logo.png</span></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="at">    </span><span class="fu">footer</span><span class="kw">:</span><span class="at"> </span><span class="st">"Footer text"</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>Show https://quarto.org/docs/presentations/revealjs/#footer-logo</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="slide-background-color" class="slide level2 center" data-background-color="red">
+<h2>Slide Background Color</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">## Slide Title {background-color="red"}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="slide-background-image" class="slide level2 inverse center" data-background-image="assets/kids-laughing.jpg">
+<h2>Slide Background Image</h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">## Slide Background Image {background-image="assets/kids-laughing.jpg"}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="revealjs-themes" class="slide level2 center">
+<h2>Revealjs Themes</h2>
+<ul>
+<li class="fragment"><p>Revealjs has built-in themes</p></li>
+<li class="fragment"><p>There are also <a href="https://quarto.org/docs/extensions/listing-revealjs.html">custom Revealjs themes</a></p></li>
+<li class="fragment"><p>You can customize further using a .scss file</p></li>
+</ul>
+<aside class="notes">
+<p>For more, see https://quarto.org/docs/presentations/revealjs/themes.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="speaker-notes" class="slide level2 center">
+<h2>Speaker Notes</h2>
+<ul>
+<li class="fragment">You can add speaker notes with the <code>.notes</code> class:</li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1"></a>::: {.notes}</span>
+<span id="cb42-2"><a href="#cb42-2"></a>This content is only visible to the speaker</span>
+<span id="cb42-3"><a href="#cb42-3"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="speaker-view" class="slide level2 center">
+<h2>Speaker View</h2>
+<div class="fragment">
+<p>Allows you to see:</p>
+<ul>
+<li class="fragment"><p>Speaker notes</p></li>
+<li class="fragment"><p>Upcoming slide</p></li>
+<li class="fragment"><p>Timer</p></li>
+</ul>
+</div>
+</section>
+<section id="my-turn-7" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ul>
+<li class="fragment"><p>Turn my report into a Revealjs presentation</p></li>
+<li class="fragment"><p>Demonstrate putting content in columns and using incremental reveal</p></li>
+<li class="fragment"><p>Adjust the look-and-feel of my presentation by adding a logo and footer text, adjusting slide backgrounds, and using a custom theme</p></li>
+<li class="fragment"><p>Demonstrate how to present using Revealjs slides</p></li>
+</ul>
+</section>
+<section id="your-turn-7" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment"><p>Turn your report into a Revealjs presentation</p></li>
+<li class="fragment"><p>Demonstrate putting content in columns and using incremental reveal</p></li>
+<li class="fragment"><p>Adjust the look-and-feel of your presentation by adding a logo and footer text, adjusting slide backgrounds, and using a custom theme</p></li>
+<li class="fragment"><p>Practice presenting using Revealjs slides</p></li>
+</ul>
+</section></section>
+<section>
+<section id="dashboards" class="title-slide slide level1 inverse center" data-background-image="assets/dashboard.jpg">
+<h1>Dashboards</h1>
+<aside class="notes">
+<p>https://quarto.org/docs/dashboards/ https://quarto.org/docs/dashboards/components.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dashboard-layout" class="slide level2 center">
+<h2>Dashboard Layout</h2>
+<ul>
+<li class="fragment"><p>First-level headers make <strong>pages</strong></p></li>
+<li class="fragment"><p>Second-level headers make <strong>rows</strong> or <strong>columns</strong></p></li>
+<li class="fragment"><p>Code chunks make <strong>cards</strong></p></li>
+</ul>
+</section>
+<section id="navigation-bars" class="slide level2 center">
+<h2>Navigation Bars</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb43-1"><a href="#cb43-1"></a><span class="pp">---</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> dashboard</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a><span class="fu">logo</span><span class="kw">:</span><span class="at"> </span><span class="st">"portland-public-schools-logo.svg"</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sidebars" class="slide level2 center">
+<h2>Sidebars</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">## {.sidebar}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fill-versus-scroll" class="slide level2 center">
+<h2>Fill Versus Scroll</h2>
+<ul>
+<li class="fragment"><p>By default, dashboard content will <strong>fill</strong> the space available on the screen</p></li>
+<li class="fragment"><p>You can also make your content <strong>scroll</strong> using the YAML</p></li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb45-3"><a href="#cb45-3"></a><span class="at">  </span><span class="fu">dashboard</span><span class="kw">:</span></span>
+<span id="cb45-4"><a href="#cb45-4"></a><span class="at">    </span><span class="fu">scrolling</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="themes" class="slide level2 center">
+<h2>Themes</h2>
+<div class="fragment">
+<p>Exactly the same as HTML and Revealjs presentations:</p>
+<ul>
+<li class="fragment"><p>Custom themes</p></li>
+<li class="fragment"><p>You can customize further with <code>.scss</code> file</p></li>
+</ul>
+<aside class="notes">
+<p>https://quarto.org/docs/dashboards/theming.html</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="my-turn-8" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ul>
+<li class="fragment">Turn my presentation into a dashboard</li>
+</ul>
+</section>
+<section id="your-turn-8" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment">Turn your presentation into a dashboard</li>
+</ul>
+</section></section>
+<section>
+<section id="websites" class="title-slide slide level1 inverse center" data-background-image="assets/website.jpg">
+<h1>Websites</h1>
+
+</section>
+<section id="websites-1" class="slide level2 center">
+<h2>Websites</h2>
+<ul>
+<li class="fragment"><p>To make a website, you need to create a new project</p></li>
+<li class="fragment"><p>You can create a website with a set of <code>.qmd</code> files and a <code>_quarto.yml</code> file to tie them all together</p></li>
+</ul>
+</section>
+<section id="quarto.yml" class="slide level2 center">
+<h2><code>_quarto.yml</code></h2>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Portland Public Schools Math Proficiency"</span></span>
+<span id="cb46-6"><a href="#cb46-6"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb46-7"><a href="#cb46-7"></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> </span><span class="st">"portland-public-schools-logo.svg"</span></span>
+<span id="cb46-8"><a href="#cb46-8"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb46-9"><a href="#cb46-9"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> index.qmd</span></span>
+<span id="cb46-10"><a href="#cb46-10"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Home"</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> about.qmd</span></span>
+<span id="cb46-12"><a href="#cb46-12"></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"About this Website"</span></span>
+<span id="cb46-13"><a href="#cb46-13"></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb46-14"><a href="#cb46-14"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span><span class="st">"Copyright 2023, Portland Public Schools"</span><span class="at"> </span></span>
+<span id="cb46-15"><a href="#cb46-15"></a></span>
+<span id="cb46-16"><a href="#cb46-16"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb46-17"><a href="#cb46-17"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb46-18"><a href="#cb46-18"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="cb46-19"><a href="#cb46-19"></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> </span><span class="st">"Inter"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="render-your-website" class="slide level2 center">
+<h2>Render Your Website</h2>
+<ul>
+<li class="fragment"><p>Render individual pages with the Render button</p></li>
+<li class="fragment"><p>Render the entire website with the Render Website button</p></li>
+</ul>
+</section>
+<section id="my-turn-9" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ul>
+<li class="fragment">Turn my dashboard into a website</li>
+</ul>
+</section>
+<section id="your-turn-9" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment">Turn your dashboard into a website</li>
+</ul>
+</section></section>
+<section>
+<section id="publishing-your-work" class="title-slide slide level1 inverse center" data-background-image="assets/publish.jpg">
+<h1>Publishing Your Work</h1>
+
+</section>
+<section id="publishing-your-work-1" class="slide level2 center">
+<h2>Publishing Your Work</h2>
+
+<img data-src="assets/quarto-publish.png" class="r-stretch"></section>
+<section id="quarto-pub" class="slide level2 center-slide center">
+<h2>Quarto Pub</h2>
+
+<img data-src="assets/quartopub.png" class="r-stretch"></section>
+<section id="netlify" class="slide level2 center-slide center">
+<h2>Netlify</h2>
+
+<img data-src="assets/netlify.png" class="r-stretch"></section>
+<section id="my-turn-10" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<div class="fragment">
+<p>I’ll publish my website to Quarto Pub and Netlify</p>
+</div>
+</section>
+<section id="your-turn-10" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<div class="fragment">
+<p>Publish your website to Quarto Pub or Netlify</p>
+</div>
+</section></section>
+<section>
+<section id="quarto-extensions" class="title-slide slide level1 inverse center" data-background-image="assets/extension.jpg">
+<h1>Quarto Extensions</h1>
+<aside class="notes">
+<ul>
+<li>What they are</li>
+<li>Types
+<ul>
+<li>Shortcode/filter</li>
+<li>Journal articles</li>
+<li>Custom formats</li>
+<li>Revealjs</li>
+</ul></li>
+<li>I’ve made a custom format for these slides</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="my-turn-11" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ul>
+<li class="fragment">Show three Quarto extensions: <code>lightbox</code>, <code>downloadthis</code>, <code>nutshell</code></li>
+</ul>
+</section>
+<section id="your-turn-11" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment">Try out a Quarto extension</li>
+</ul>
+<div class="footer footer-default">
+
+</div>
+</section></section>
+
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slides-quarto_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slides-quarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slides-quarto_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="slides-quarto_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'print',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

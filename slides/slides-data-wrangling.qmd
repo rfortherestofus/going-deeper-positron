@@ -1,0 +1,1625 @@
+---
+title: Going Deeper with R
+format:
+  rfortherestofus-slides-revealjs:
+    menu: false
+    progress: false
+    slide-number: true
+    show-slide-number: print
+    center: true
+    incremental: true
+    auto-animate: true
+    output-location: fragment
+execute: 
+  message: false
+  warning: false
+  cache: true
+title-slide-attributes:
+  data-background-image: assets/rru-hex-bg-gradient-dark.svg
+  data-background-size: cover
+editor_options: 
+  chunk_output_type: console
+knitr:
+  opts_chunk: 
+    dev: ragg_png
+---
+
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(here)
+library(gt)
+library(rmarkdown)
+library(palmerpenguins)
+library(ggtext)
+library(scales)
+library(ggrepel)
+```
+
+
+# Downloading and Importing Data {.inverse background-image="assets/data.jpg"}
+
+## Downloading Data Directly {.inverse}
+
+## Downloading Data Directly
+
+The `download.file()` function lets us download files directly from websites.
+
+
+```{r}
+#| eval: false
+#| echo: true
+
+download.file(
+  url = "https://example.com/data.xlsx",
+  mode = "wb",
+  destfile = "data-raw/data.xlsx"
+)
+```
+
+
+::: {.notes}
+Benefit = reproducibility
+:::
+
+## Importing Excel Files {.inverse}
+
+---
+
+![](assets/readxl-logo.png){fig-align="center"}
+
+
+## Importing Excel Files
+
+
+```{r}
+#| eval: false
+library(readxl)
+
+data_frame <-
+  read_excel(
+    path = "directory_name/file_name.xlsx",
+    sheet = "name of sheet"
+  )
+```
+
+
+## Importing Excel Files
+
+```{r}
+#| echo: false
+german_speakers <- read_excel(
+  path = here("data-raw", "german-and-french-speakers.xlsx"),
+  sheet = "German speakers"
+) |>
+  clean_names()
+```
+
+
+```{r}
+#| eval: false
+#| echo: true
+german_speakers <-
+  read_excel(
+    path = "data-raw/german-and-french-speakers.xlsx",
+    sheet = "German speakers"
+  ) |>
+  clean_names()
+```
+
+---
+
+```{r}
+#| echo: true
+german_speakers
+```
+
+## Other Packages for Importing Data {.inverse}
+
+---
+
+![](assets/googlesheets4.svg){fig-align="center"}
+
+---
+
+![](assets/haven.svg){fig-align="center"}
+
+---
+
+![](assets/rio-logo.png){fig-align="center"}
+
+## My Turn {.my-turn}
+
+Working with [data on third grade math proficiency in Oregon schools](https://www.oregon.gov/ode/educator-resources/assessment/Pages/Assessment-Group-Reports.aspx), I'll do the following:
+
+1. Create a new project
+
+1. Create a new R script file where I'll do all of my data downloading, cleaning, and importing work
+
+## My Turn, Continued {.my-turn}
+
+3. Download the five recent math proficiency scores (from 2015-2016 to 2018-2019 as well as 2021-2022) and put them in a `data-raw` folder
+
+4. Import the 2021-2022 data into a data frame called `math_scores_2021_2022` using the `clean_names()` function from the `janitor` package to make our variable names easy to work with
+
+
+## Your Turn {.your-turn}
+
+You'll be working with data on [Oregon school enrollment by race/ethnicity](https://www.oregon.gov/ode/reports-and-data/students/Pages/Student-Enrollment-Reports.aspx).
+
+1. Create a new project. Make sure you put it somewhere you'll be able to find it again later!
+
+1. Create a new R script file where you'll do all of your data downloading, cleaning, and importing work.
+
+## Your Turn, Continued {.your-turn}
+
+3. Download the 2018-2019 through 2022-2023 Fall Membership Report files using the `download.file()` function into a `data-raw` folder (which you'll need to create).
+
+4. Import the 2022-2023 spreadsheet into a data frame called `enrollment_2022_2023`, using the `clean_names()` function from the {janitor} package to make our variable names easy to work with.
+
+
+# Overview of Tidy Data {.inverse background-image="assets/berries.jpg"}
+
+
+---
+
+![](assets/tidy-workflow.png)
+
+
+
+## Untidy Data
+
+```{r}
+#| echo: false
+german_speakers_numeric <-
+  read_excel(
+    path = here("data-raw", "german-and-french-speakers.xlsx"),
+    sheet = "German speakers",
+    na = "-"
+  ) |>
+  clean_names()
+```
+
+
+```{r}
+#| eval: false
+#| echo: true
+german_speakers_numeric <-
+  read_excel(
+    path = "data-raw/german-and-french-speakers.xlsx",
+    sheet = "German speakers",
+    na = "-"
+  ) |>
+  clean_names()
+```
+
+---
+
+```{r}
+#| echo: true
+german_speakers_numeric
+```
+
+
+
+## Untidy Data
+
+```{r}
+#| eval: true
+#| echo: true
+german_speakers_numeric |>
+  mutate(
+    total = number_of_german_speakers_2017 +
+      number_of_german_speakers_2018 +
+      number_of_german_speakers_2019
+  ) |>
+  select(state, total)
+```
+
+::: {.notes}
+But what if we have 10 or 20 years of data? Are we going to write out a all of those years individually?
+:::
+
+
+## Tidy Data
+
+
+```{r}
+#| echo: false
+german_speakers_tidy <-
+  german_speakers_numeric |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number")
+```
+
+```{r}
+german_speakers_tidy
+```
+
+
+
+## Tidy Data
+
+
+```{r}
+#| echo: true
+german_speakers_tidy |>
+  group_by(state) |>
+  summarize(total = sum(number, na.rm = TRUE))
+```
+
+
+::: {.notes}
+The tidyverse wants data in a certain format: tidy. With data in this format, it becomes much easier to work with.
+:::
+
+
+
+
+
+## The Three Rules of Tidy Data
+
+1. Every column is a variable.
+
+1. Every row is an observation.
+
+1. Every cell is a single value.
+
+
+## My Turn {.my-turn}
+
+Let's take a look at the math proficiency data and see which principles of tidy data it violates
+
+## Your Turn {.your-turn}
+
+Take a look at your data and see which principles of tidy data it violates
+
+# Tidy Data Rule #1: Every Column is a Variable {.inverse}
+
+## `pivot_longer()`
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "2"
+data_frame |>
+  pivot_longer(cols = columns_to_use)
+```
+
+. . .
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "4"
+data_frame |>
+  pivot_longer(
+    cols = columns_to_use,
+    names_to = "name_of_identifer_variable"
+  )
+```
+
+. . .
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "5"
+data_frame |>
+  pivot_longer(
+    cols = columns_to_use,
+    names_to = "name_of_identifer_variable",
+    values_to = "name_of_value_variable"
+  )
+```
+
+
+## `pivot_longer()`
+
+```{r}
+#| echo: true
+german_speakers
+```
+
+
+
+## `pivot_longer()`
+
+```{r}
+#| echo: true
+#| output: false
+german_speakers |>
+  pivot_longer(
+    cols = c(
+      number_of_german_speakers_2017,
+      number_of_german_speakers_2018,
+      number_of_german_speakers_2019
+    )
+  )
+```
+
+
+## `pivot_longer()`
+
+```{r}
+#| echo: true
+german_speakers |>
+  pivot_longer(cols = -state)
+```
+
+
+
+## `pivot_longer()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "4,5"
+german_speakers |>
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "number"
+  )
+```
+
+## My Turn {.my-turn}
+
+I'll do the following to create a new data frame called `third_grade_math_proficiency_2021_2022`:
+
+1. Use `filter()` to only keep rows where the `student_group` variable is "Total Population (All Students)"
+
+1. Use `filter()` to only keep third grade students
+
+## My Turn, Continued {.my-turn}
+
+3. Use `select()` to only keep the `year` and `school_id` variables as well as all variables related to the **number** (not percentage) of students who are proficient in math
+
+4. Use `pivot_longer()` to make my data frame tidy
+
+
+## Your Turn {.your-turn}
+
+Do the following to create a new data frame called `enrollment_by_race_ethnicity_2022_2023`:
+
+1. Start with the `enrollment_2022_2023` data frame.
+
+1. `select()` the `district_institution_id` and `school_institution_id` variables as well as those about number of students by race/ethnicity and get rid of all others.
+
+## Your Turn, Continued {.your-turn}
+
+3. Use `pivot_longer()` to convert all of the race/ethnicity variables into one variable.
+
+4. Within `pivot_longer()`, use the `names_to` argument to call that variable `race_ethnicity`.
+
+5. Within `pivot_longer()`, use the `values_to` argument to call that variable `number_of_students`.
+
+
+# Tidy Data Rule #3: Every Cell is a Single Value {.inverse}
+
+::: {.notes}
+These are also just good data wrangling functions
+:::
+
+## Every Cell is a Single Value
+
+```{r}
+german_speakers |>
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "number"
+  )
+```
+
+## `str_remove()`
+
+```{r}
+#| eval: false
+#| echo: true
+data_frame |>
+  mutate(variable = str_remove(variable, pattern = "text to remove"))
+```
+
+## `str_remove()`
+
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7"
+german_speakers |>
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "number"
+  ) |>
+  mutate(year = str_remove(year, "number_of_german_speakers_"))
+```
+
+::: {.notes}
+Mention there are a whole bunch of other stringr functions
+:::
+
+
+## `recode_values()`
+
+```{r}
+#| eval: false
+#| echo: true
+data_frame |>
+  mutate(variable = recode_values(variable, "old_value" = "new_value"))
+```
+
+## `recode_values()`
+
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7-14"
+german_speakers |>
+  pivot_longer(
+    cols = -state,
+    names_to = "year",
+    values_to = "number"
+  ) |>
+  mutate(
+    year = recode_values(
+      year,
+      "number_of_german_speakers_2017" ~ "2017",
+      "number_of_german_speakers_2018" ~ "2018",
+      "number_of_german_speakers_2019" ~ "2019",
+    )
+  )
+```
+
+
+
+## `if_else()`
+
+```{r}
+#| eval: false
+#| echo: true
+data_frame |>
+  mutate(
+    variable = if_else(
+      variable == "some_value",
+      true = "if_true_value",
+      false = "else_value"
+    )
+  )
+```
+
+
+
+## `if_else()`
+
+```{r if_else-example}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "3-23"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(
+    year = if_else(
+      year == "number_of_german_speakers_2017",
+      true = "2017",
+      false = year
+    )
+  ) |>
+  mutate(
+    year = if_else(
+      year == "number_of_german_speakers_2018",
+      true = "2018",
+      false = year
+    )
+  ) |>
+  mutate(
+    year = if_else(
+      year == "number_of_german_speakers_2019",
+      true = "2019",
+      false = year
+    )
+  )
+```
+
+## `if_else()`
+
+```{r ref.label = "if_else-example"}
+#| echo: true
+```
+
+
+
+
+## `case_when()`
+
+```{r}
+#| echo: true
+#| eval: false
+data_frame |>
+  mutate(
+    variable = case_when(
+      variable == "some_value" ~ "new_value",
+      variable == "some_other_value" ~ "new_value_2",
+      variable == "some_third_value" ~ "new_value_3",
+      .default = "value_for_all_observations_that_dont_match_any_above_criteria"
+    )
+  )
+```
+
+
+## `case_when()`
+
+```{r case_when-example}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "5,6,7,8,9"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(
+    year = case_when(
+      year == "number_of_german_speakers_2017" ~ "2017",
+      year == "number_of_german_speakers_2018" ~ "2018",
+      year == "number_of_german_speakers_2019" ~ "2019"
+    )
+  )
+```
+
+## `case_when()`
+
+```{r ref.label = "case_when-example"}
+#| echo: true
+```
+
+
+
+
+
+
+---
+
+![](assets/parse_number.png){fig-align="center"}
+
+::: {.center-slide .small}
+Image courtesy of [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+:::
+
+
+## `parse_number()`
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "2"
+data_frame |>
+  mutate(variable = parse_number(variable))
+```
+
+
+
+## `parse_number()`
+
+```{r parse_number-example}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "5"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(year = parse_number(year))
+```
+
+
+
+## `parse_number()`
+
+```{r ref.label = "parse_number-example"}
+#| echo: true
+```
+
+## My Turn {.my-turn}
+
+I'll convert all instances of the `proficiency_level` variable to more meaningful observations using:
+
+1. `str_remove()`
+
+1. `recode_values()`
+
+1. `if_else()`
+
+1. `case_when()`
+
+1. `parse_number()`
+
+
+## Your Turn {.your-turn}
+
+1. Remove the "x2022_23_" portion of the `race_ethnicity` variable using `str_remove()`.
+
+1. Convert all instances of the `race_ethnicity` variable to more meaningful observations (e.g. turn "american_indian_alaska_native" into "American Indian/Alaska Native") using `recode()`, `if_else()`, or `case_when()`.
+
+## Your Turn, Continued {.your-turn}
+
+3. Add your code to the pipeline where you initially create `enrollment_by_race_ethnicity_2022_2023`. You only need to use one of the options of `recode()`, `if_else()`, or `case_when()` for this.
+
+# Tidy Data Rule #2: Every Row is an Observation {.inverse}
+
+## Select All That Apply Questions Often Break This Rule
+
+![](assets/google-form.png)
+
+## Every Row is an Observation
+
+```{r}
+#| echo: false
+activities_survey <-
+  read_excel(here("data-raw", "google-forms-data.xlsx")) |>
+  clean_names() |>
+  rename(activities = select_all_the_things_youve_done_in_the_past_24hours) |>
+  select(-timestamp) |>
+  mutate(respondent_id = row_number(), .before = 1)
+```
+
+```{r}
+#| eval: true
+#| echo: true
+activities_survey
+```
+
+## What is Our Unit of Analysis?
+
+Right now: 
+
+. . .
+
+**one row = one individual**
+
+. . .
+
+But if we care about activities, we need: 
+
+. . .
+
+**one row = one activity**
+
+
+## `separate_longer_delim()`
+
+```{r}
+#| echo: true
+#| eval: false
+activities_survey |>
+  separate_longer_delim(
+    cols = activities,
+    delim = ", "
+  )
+```
+
+## Before We Couldn't Easily Count Responses
+
+```{r}
+activities_survey
+```
+
+
+## Now We Can!
+
+```{r}
+#| echo: true
+activities_survey |>
+  separate_longer_delim(cols = activities, delim = ", ") |>
+  count(activities)
+```
+
+## Your Turn {.your-turn}
+
+- Run the following code to view the built-in `gss_cat` data frame. 
+
+```{r}
+#| echo: true
+
+library(tidyverse)
+
+gss_cat |>
+  view()
+```
+
+
+- Then, write code to count the number of unique responses in the `partyid` variable.
+
+- You'll need to use the `separate_longer_delim()` and `count()` functions to do this.
+
+
+
+# Changing Variable Types {.inverse background-image="assets/types.jpg"}
+
+## Changing Variable Types
+
+```{r}
+#| echo: true
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number")
+```
+
+
+
+## Changing Variable Types
+
+```{r cant-sum}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "3"
+
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  summarize(total = sum(number, na.rm = TRUE))
+```
+
+. . .
+
+```{r ref.label="cant-sum"}
+#| error: true
+```
+
+
+
+
+## Changing Variable Types
+
+To change variable types, you use the `mutate()` function combined with `as.numeric()`, `as.character()`, etc.
+
+```{r}
+#| echo: true
+#| code-line-numbers: "3"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = as.numeric(number)) |>
+  summarize(total = sum(number, na.rm = TRUE))
+```
+
+
+::: {.notes}
+Point to https://github.com/davidsjoberg/hablar
+:::
+
+## Changing Variable Types
+
+You can also use `parse_number()` to change the variable to numeric.
+
+```{r}
+#| echo: true
+#| code-line-numbers: "3"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number))
+```
+
+
+
+## My Turn {.my-turn}
+
+1. Convert the `number_of_students` variable to numeric by using `as.numeric()` and `parse_number()`
+
+1. Count the number of students at each proficiency level
+
+## Your Turn {.your-turn}
+
+1. Convert the `number_of_students` variable to numeric by using `as.numeric()` and `parse_number()`
+
+1. Make sure you can use your `number_of_students` variable to count the total number of students in Oregon
+
+
+# Dealing with Missing Data {.inverse background-image="assets/missing.jpg"}
+
+## Use the `na` Argument When Importing Data
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "4"
+math_scores_2021_2022 <-
+  read_excel(
+    path = "data-raw/pagr_schools_math_tot_raceethnicity_2122.xlsx",
+    na = c("*", "-", "--")
+  ) |>
+  clean_names()
+```
+
+
+## `na_if()`
+
+```{r}
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number")
+```
+
+
+
+## `na_if()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "3"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = na_if(number, "-"))
+```
+
+
+::: {.notes}
+The `na_if()` function turns values that represent missing data into actual NAs
+:::
+
+## `replace_na()`
+
+
+```{r}
+#| echo: true
+#| code-line-numbers: "4"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = na_if(number, "-")) |>
+  mutate(number = replace_na(number, "0"))
+```
+
+
+::: {.notes}
+The `replace_na()` function does the opposite: turns NAs into values.
+:::
+
+## My Turn {.my-turn}
+
+Working with my data before I changed the `number_of_students` to numeric, I'll convert all of the missing values in the `number_of_students` variable to NA using `na_if()`
+
+::: {.notes}
+I don't have any values where using `replace_na()` makes sense, but you'll use it shortly!
+:::
+
+
+
+## Your Turn {.your-turn}
+
+1. Convert all of the missing values in the `number_of_students` variable to NA using `na_if()`
+
+1. Convert all of the NA values you just made to 0 using `replace_na()`.
+
+
+
+
+
+# Advanced Summarizing {.inverse background-image="assets/summarize.jpg"}
+
+
+
+## `group_by()` + `mutate()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7,8"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  group_by(year) |>
+  mutate(pct = number / sum(number, na.rm = TRUE)) |>
+  arrange(year, state)
+```
+
+
+
+
+## `ungroup()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7,8,9"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  group_by(year) |>
+  mutate(pct = number / sum(number, na.rm = TRUE)) |>
+  slice_max(order_by = pct, n = 1) |>
+  arrange(year, state)
+```
+
+
+
+## `ungroup()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7"
+german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  group_by(year) |>
+  mutate(pct = number / sum(number, na.rm = TRUE)) |>
+  ungroup() |>
+  slice_max(order_by = pct, n = 1) |>
+  arrange(year, state)
+```
+
+
+
+## My Turn {.my-turn}
+
+I'll calculate the percent of students at each school who are at each proficient level in math. 
+
+And I can't forget to `ungroup()`!
+
+
+
+## Your Turn {.your-turn}
+
+::: {.fragment}
+Create a new variable called `pct` that shows each race/ethnicity as a percentage of all students in each district. This will require two steps.
+:::
+
+1. Use `group_by()` and `summarize()` to calculate the number of students in each race/ethnicity group in each district. 
+
+1. Use `group_by()` and `mutate()` to calculate the percentage of students in each race/ethnicity group in each district.
+
+## Your Turn, Continued {.your-turn}
+
+Don’t forget to `ungroup()` at the end of each step.
+
+
+
+
+# Binding Data Frames {.inverse background-image="assets/bind.jpg"}
+
+
+
+::: {.notes}
+What if you want to do more than one year?
+
+Discuss why bind_cols() doesn't give you tidy data
+:::
+
+## bind_rows()
+
+```{r}
+#| eval: true
+#| echo: false
+german_speakers_2019 <-
+  german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  filter(year == 2019)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+german_speakers_2018 <-
+  german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  filter(year == 2018)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+german_speakers_2018
+```
+
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+german_speakers_2019
+```
+
+:::
+
+::::
+
+
+
+## bind_rows()
+
+```{r bind_rows_example}
+#| echo: true
+#| eval: false
+bind_rows(german_speakers_2018, german_speakers_2019)
+```
+
+## bind_rows()
+
+```{r}
+#| echo: false
+#| eval: true
+bind_rows(german_speakers_2018, german_speakers_2019) |>
+  paged_table()
+```
+
+
+
+
+## bind_cols()
+
+```{r}
+#| echo: true
+bind_cols(german_speakers_2018, german_speakers_2019)
+```
+
+
+
+## My Turn {.my-turn}
+
+I'll import 2018-2019 math proficiency data and then use `bind_rows()` to make a `third_grade_math_proficiency` data frame.
+
+## Your Turn {.your-turn}
+
+1. Import 2021-2022 enrollment data into a data frame called `enrollment_by_race_ethnicity_2021_2022` and clean it using the code you used for the 2022-2023 data. 
+
+1. Add a `year` variable to the `enrollment_by_race_ethnicity_2021_2022` and `enrollment_by_race_ethnicity_2022_2023` data frames.
+
+## Your Turn, Continued {.your-turn}
+
+3. Use bind_rows() to make a `enrollment_by_race_ethnicity` data frame by combining the `enrollment_by_race_ethnicity_2021_2022` and `enrollment_by_race_ethnicity_2022_2023` data frames.
+
+::: {.fragment}
+You'll need to change bits of your code to make it work, including renaming variables so they are consistent across the two data frames. Use the starter code to help you.
+:::
+
+## Renaming Variables
+
+## `rename()`
+
+```{r}
+#| eval: false
+#| echo: true
+
+data_frame |>
+  rename(new_variable_name = old_variable_name)
+```
+
+
+## `set_names()`
+
+```{r}
+#| eval: false
+#| echo: true
+
+data_frame |>
+  set_names("variable1", "variable2", "variable3")
+```
+
+
+
+# Functions {.inverse background-image="assets/code-heart.jpg"}
+
+::: {.notes}
+Show example of my turn and talk about if I want to add more years and/or change the code
+
+Let's talk about the why and the when before we get into how functions work
+:::
+
+## When to Use Functions?
+
+> A good rule of thumb is to consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)
+
+::: {.small}
+Source: Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund in [R for Data Science](https://r4ds.hadley.nz/functions#:~:text=A%20good%20rule%20of%20thumb%20is%20to%20consider%20writing%20a%20function%20whenever%20you%E2%80%99ve%20copied%20and%20pasted%20a%20block%20of%20code%20more%20than%20twice%20(i.e.%C2%A0you%20now%20have%20three%20copies%20of%20the%20same%20code))
+:::
+
+
+## Why Use Functions?
+
+1. You can give a function an evocative name that makes your code easier to understand.
+
+2. As requirements change, you only need to update code in one place, instead of many.
+
+## Why Use Functions?
+
+3. You eliminate the chance of making incidental mistakes when you copy and paste (i.e. updating a variable name in one place, but not in another).
+
+4. It makes it easier to reuse work from project-to-project, increasing your productivity over time.
+
+::: {.fragment .small}
+Source: [R for Data Science](https://r4ds.hadley.nz/functions#:~:text=You%20can%20give,productivity%20over%20time.)
+:::
+
+
+
+## How do Functions Work?
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+::: {.fragment}
+
+```{r}
+#| echo: true
+german_speakers_2018
+```
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+::: {.fragment}
+
+```{r}
+#| eval: true
+#| echo: true
+
+find_most_german_speakers <- function() {
+  german_speakers_2018 |>
+    slice_max(order_by = number, n = 1)
+}
+```
+
+:::
+
+::: {.fragment}
+```{r}
+#| echo: true
+
+find_most_german_speakers()
+```
+
+:::
+
+:::
+
+::::
+
+## Function Arguments
+
+```{r}
+#| eval: true
+#| echo: true
+
+find_most_german_speakers <- function(df) {
+  df |>
+    slice_max(order_by = number, n = 1)
+}
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+find_most_german_speakers(df = german_speakers_2018)
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+find_most_german_speakers(df = german_speakers_2019)
+```
+
+
+## My Turn {.my-turn}
+
+I'll create a function to clean each year of math proficiency data, then use `bind_rows()` to bind them together.
+
+
+## Your Turn {.your-turn}
+
+1. Create a function to clean each year of enrollment data. 
+
+1. To check that your function works, create `
+enrollment_by_race_ethnicity_2021_2022
+` and `
+enrollment_by_race_ethnicity_2022_2023
+` data frames and then bind them together with `
+bind_rows()
+`.
+
+::: {.fragment}
+This exercise is challenging! Use the starter code to help you if you need to. 
+:::
+
+::: {.notes}
+- Need to select by position
+- Need to use set_names() to give consistent variable names
+:::
+
+
+
+
+
+
+# Data Merging {.inverse background-image="assets/highway.jpg"}
+
+
+---
+
+```{r}
+#| eval: true
+#| echo: false
+german_speakers_2019 <-
+  german_speakers |>
+  pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
+  mutate(number = parse_number(number)) |>
+  mutate(year = parse_number(year)) |>
+  filter(year == 2019) |>
+  select(-year)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+french_speakers_2019 <- read_excel(
+  path = here("data-raw", "german-and-french-speakers.xlsx"),
+  sheet = "French speakers 2019"
+)
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: true
+german_speakers_2019
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+french_speakers_2019
+```
+
+:::
+
+::::
+
+
+# Joins {.inverse}
+
+
+---
+
+[![](assets/tidyexplain.png){fig-align="center"}](https://www.garrickadenbuie.com/project/tidyexplain/)
+
+
+::: {.notes}
+All of the animations and explanations used here come from the [tidyexplain project by Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/).
+:::
+
+
+---
+
+![](assets/original-dfs.png){fig-align="center"}
+
+
+## Join with variables in common in `x` and `y`
+
+```{r}
+#| eval: false
+#| echo: true
+type_of_join(x, y, join_by(id_variable))
+```
+
+
+## What if we don't have a variable with the same name in both data frames?
+
+```{r}
+#| eval: false
+#| echo: true
+type_of_join(
+  x,
+  y,
+  join_by(
+    id_variable_1 == id_variable_2
+  )
+)
+```
+
+
+## What if we need to join on multiple variables with different names in both data frames?
+
+```{r}
+#| eval: false
+#| echo: true
+type_of_join(
+  x,
+  y,
+  join_by(
+    id_variable_1 == id_variable_2,
+    id_variable_3 == id_variable_4
+  )
+)
+```
+
+
+
+## Types of Joins
+
+- `left_join()`
+
+- `right_join()`
+
+- `full_join()`
+
+- `semi_join()`
+
+- `anti_join()`
+
+## Which Join Should You Use?
+
+![](assets/claus-wilke-left-join.png)
+
+
+---
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**`left_join()`**
+
+All rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns.
+:::
+
+::: {.column width="50%"}
+![](assets/left-join.gif)
+:::
+
+::::
+
+---
+
+### `left_join()`
+
+```{r}
+#| eval: false
+#| echo: true
+left_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+)
+```
+
+```{r}
+#| echo: false
+left_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+) |>
+  paged_table()
+```
+
+
+---
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**`right_join()`**
+
+All rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns.
+:::
+
+::: {.column width="50%"}
+![](assets/right-join.gif)
+:::
+
+::::
+
+## `right_join()`
+
+```{r}
+#| eval: false
+#| echo: true
+right_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+)
+```
+
+
+
+```{r}
+#| echo: false
+right_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+) |>
+  paged_table()
+```
+
+---
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**`full_join()`**
+
+All rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.
+:::
+
+::: {.column width="50%"}
+![](assets/full-join.gif)
+:::
+
+::::
+
+## `full_join()`
+
+```{r}
+#| eval: false
+#| echo: true
+full_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+)
+```
+
+
+
+```{r}
+#| echo: false
+full_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+) |>
+  paged_table()
+```
+
+---
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**`semi_join()`**
+
+All rows from x where there are matching values in y, keeping just columns from x.
+:::
+
+::: {.column width="50%"}
+![](assets/semi-join.gif)
+:::
+
+::::
+
+## `semi_join()`
+
+```{r}
+#| eval: false
+#| echo: true
+semi_join(german_speakers_2019, french_speakers_2019, join_by(state))
+```
+
+
+
+```{r}
+#| echo: false
+semi_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+) |>
+  paged_table()
+```
+
+---
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**`anti_join()`**
+
+All rows from x where there are not matching values in y, keeping just columns from x.
+:::
+
+::: {.column width="50%"}
+![](assets/anti-join.gif)
+:::
+
+::::
+
+## `anti_join()`
+
+```{r}
+#| eval: false
+#| echo: true
+anti_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+)
+```
+
+
+
+```{r}
+#| echo: false
+anti_join(
+  german_speakers_2019,
+  french_speakers_2019,
+  join_by(state)
+) |>
+  paged_table()
+```
+
+
+
+## My Turn {.my-turn}
+
+1. Download the `oregon-districts-and-schools.xlsx` file into the `data-raw` folder.
+
+1. Import a new data frame called `oregon_districts_and_schools` from `oregon-districts-and-schools.xlsx`.
+
+1. Merge the `oregon_districts_and_schools` data frame into the `third_grade_math_proficiency` data frame so I can see the names of the schools as well as associated districts.
+
+
+
+
+## Your Turn {.your-turn}
+
+1. Download the `oregon-districts.xlsx` file into the `data-raw` folder.
+
+1. Import a new data frame called `oregon_districts` from `oregon-districts.xlsx`.
+
+1. Merge the `oregon_districts` data frame into the `enrollment_by_race_ethnicity` data frame so you can see the names of the districts.
+
+
+# Exporting Data {.inverse background-image="assets/ship-export.jpg"}
+
+## `write_csv()`
+
+```{r}
+#| echo: true
+#| eval: false
+write_csv(
+  french_and_german_speakers_2019,
+  file = "data/french_and_german_speakers_2019.csv"
+)
+```
+
+## `write_rds()`
+
+```{r}
+#| echo: true
+#| eval: false
+write_rds(
+  french_and_german_speakers_2019,
+  file = "data/french_and_german_speakers_2019.rds"
+)
+```
+
+## My Turn {.my-turn}
+
+1. Export my `third_grade_math_proficiency` data frame as a CSV.
+
+1. Export my `third_grade_math_proficiency` data frame as an RDS file.
+
+## Your Turn {.your-turn}
+
+1. Make a `data` folder using the `dir_create()` function from the `fs` package. 
+
+1. Export the `enrollment_by_race_ethnicity` data frame as an RDS file in the `data` folder.
+

@@ -1,0 +1,159 @@
+---
+title: "Portland Public Schools Math Proficiency Report"
+format: 
+  dashboard:
+    scrolling: true 
+logo: "ode-logo.jpg"
+execute: 
+  echo: false
+  warning: false
+  message: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(fs)
+library(scales)
+library(ggrepel)
+library(ggtext)
+library(ragg)
+library(here)
+library(flextable)
+```
+
+## {.sidebar}
+
+This is some text in my sidebar
+
+```{r}
+third_grade_math_proficiency <- 
+  read_rds(here("data/third_grade_math_proficiency.rds")) |> 
+  select(academic_year, school, school_id, district, proficiency_level, number_of_students) |> 
+  mutate(is_proficient = case_when(
+    proficiency_level >= 3 ~ TRUE,
+    .default = FALSE
+  )) |> 
+  group_by(academic_year, school, district, school_id, is_proficient) |> 
+  summarize(number_of_students = sum(number_of_students, na.rm = TRUE)) |> 
+  ungroup() |> 
+  group_by(academic_year, school, district, school_id) |> 
+  mutate(percent_proficient = number_of_students / sum(number_of_students, na.rm = TRUE)) |> 
+  ungroup() |> 
+  filter(is_proficient == TRUE) |> 
+  select(academic_year, school, district, percent_proficient) |> 
+  rename(year = academic_year) |> 
+  mutate(percent_proficient = case_when(
+    is.nan(percent_proficient) ~ NA,
+    .default = percent_proficient
+  )) |> 
+  mutate(percent_proficient_formatted = percent(percent_proficient,
+                                                accuracy = 1))
+```
+
+```{r}
+theme_dk <- function() {
+  
+  theme_minimal(base_family = "IBM Plex Mono") +
+    theme(axis.title = element_blank(),
+          axis.text = element_text(color = "grey60",
+                                   size = 10),
+          plot.title = element_markdown(),
+          plot.title.position = "plot",
+          panel.grid = element_blank(),
+          legend.position = "none")
+  
+}
+```
+
+
+## Chart
+
+```{r}
+#| fig-height: 5
+#| fig-alt: A line chart showing math proficiency rates among all PPS schools in 2018-2019 and 2021-2022
+
+top_growth_school <- 
+  third_grade_math_proficiency |>
+  filter(district == "Portland SD 1J") |> 
+  group_by(school) |> 
+  mutate(growth_from_previous_year = percent_proficient - lag(percent_proficient)) |> 
+  ungroup() |> 
+  drop_na(growth_from_previous_year) |>
+  slice_max(order_by = growth_from_previous_year,
+            n = 1) |> 
+  pull(school)
+
+third_grade_math_proficiency |>
+  filter(district == "Portland SD 1J") |>
+  mutate(highlight_school = case_when(
+    school == top_growth_school ~ "Y",
+    .default = "N"
+  )) |> 
+  mutate(percent_proficient_formatted = case_when(
+    highlight_school == "Y" & year == "2021-2022" ~ str_glue("{percent_proficient_formatted} of students
+                                                             were proficient
+                                                             in {year}"),
+    highlight_school == "Y" & year == "2018-2019" ~ percent_proficient_formatted,
+    .default = NA
+  )) |> 
+  mutate(school = fct_relevel(school, top_growth_school, after = Inf)) |>
+  ggplot(aes(x = year,
+             y = percent_proficient,
+             group = school,
+             color = highlight_school,
+             label = percent_proficient_formatted)) +
+  geom_line() +
+  geom_text_repel(hjust = 0,
+                  lineheight = 0.9,
+                  family = "IBM Plex Mono",
+                  direction = "x") +
+  scale_color_manual(values = c(
+    "N" = "grey90",
+    "Y" = "orange"
+  )) +
+  scale_y_continuous(labels = percent_format()) +
+  scale_x_discrete(expand = expansion(mult = c(0.05, 0.5))) +
+  annotate(geom = "text",
+           x = 2.02,
+           y = 0.6,
+           hjust = 0,
+           lineheight = 0.9,
+           color = "grey70",
+           family = "IBM Plex Mono",
+           label = str_glue("Each grey line
+                            represents one school")) +
+  labs(title = str_glue("<b style='color: orange;'>{top_growth_school}</b> showed large growth<br>in math proficiency over the last two years")) +
+  theme_dk()
+```
+
+## Table {background-color="red"}
+
+```{r}
+#| tbl-cap: Math proficiency among third graders in five Portland schools
+
+flextable_data <- 
+  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |> 
+  filter(district == "Portland SD 1J") |> 
+  filter(school %in% c("Abernethy Elementary School",
+                       "Ainsworth Elementary School",
+                       "Alameda Elementary School",
+                       "Arleta Elementary School",
+                       "Atkinson Elementary School")) |> 
+  select(year, school, percent_proficient_formatted) |> 
+  arrange(school) |> 
+  pivot_wider(id_cols = school,
+              names_from = year,
+              values_from = percent_proficient_formatted)
+
+
+flextable_data |> 
+  flextable() |> 
+  set_header_labels(school = "School") |> 
+  align(j = 2, align = "center") |> 
+  # width(j = 1, width = 10) |> 
+  autofit() |> 
+  set_caption("Math proficiency among third graders in five Portland schools")
+```
+

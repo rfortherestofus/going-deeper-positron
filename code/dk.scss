@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+
+$body-bg: red;
+$body-color: white;
+$font-size-root: 20px;
+
+/*-- scss:rules --*/
+
+h1 {
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, .3);
+}

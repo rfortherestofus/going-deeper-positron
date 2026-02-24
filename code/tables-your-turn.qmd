@@ -1,0 +1,48 @@
+---
+title: "Oregon Department of Education Diversity Report"
+format: html
+---
+
+```{r}
+library(tidyverse)
+```
+
+![](ode-logo.jpg)
+
+This is a report for the [Oregon Department of Education](https://www.oregon.gov/ode/pages/default.aspx) on diversity in Oregon school districts.
+
+> The Oregon Department of Education fosters equity and excellence for every learner through collaboration with educators, partners, and communities.^[https://www.oregon.gov/ode/about-us/Pages/default.aspx]
+
+
+
+```{r}
+# The code below will bring in the enrollment by race/ethnicity data
+# It will then filter to only include one school district (Baker SD 5J)
+# It then use select() to drop a few columns that we don't need
+
+baker_enrollment_by_race_ethnicity <-
+  read_rds("https://github.com/rfortherestofus/going-deeper-v2/raw/main/data/enrollment_by_race_ethnicity.rds") |> 
+  select(-district_institution_id)  |> 
+  select(year, district, everything()) |> 
+  mutate(year = case_when(
+    year == "School 2021-22" ~ "2021-2022",
+    year == "School 2022-23" ~ "2022-2023",
+  )) |> 
+  filter(district == "Baker SD 5J") |> 
+  select(-c(district, number_of_students)) 
+```
+
+```{r}
+# Use pivot_wider() to make the race/ethnicity groups into the columns (keep year in rows)
+# Then create a table with the flextable or gt package
+# Work on adjusting your column names, column width, number formatting, 
+# and anything else you might want to try out.
+
+baker_enrollment_by_race_ethnicity |> 
+  pivot_wider(id_cols = year,
+              names_from = race_ethnicity,
+              values_from = pct)
+```
+
+
+

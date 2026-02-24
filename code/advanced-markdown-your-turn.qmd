@@ -1,0 +1,10 @@
+---
+title: "Oregon Department of Education Diversity Report"
+format: html
+---
+
+![](ode-logo.jpg)
+
+This is a report for the [Oregon Department of Education](https://www.oregon.gov/ode/pages/default.aspx) on diversity in Oregon school districts.
+
+> The Oregon Department of Education fosters equity and excellence for every learner through collaboration with educators, partners, and communities.^[https://www.oregon.gov/ode/about-us/Pages/default.aspx]

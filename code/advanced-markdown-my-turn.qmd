@@ -1,0 +1,12 @@
+---
+title: "Portland Public Schools Math Proficiency Report"
+format: html
+---
+
+![Portland Public Schools](portland-public-schools-logo.svg){width=300px fig-align="right" fig-alt="Portland Public Schools"}
+
+# Introduction
+
+This is a report on math proficiency results in [Portland Public Schools (PPS)](https://www.pps.net/domain/551). The PPS mission statement is:
+
+> ... to educate all children to their highest potential to be productive, respectful, self-reliant, and responsible citizens who value the richness of diversity. In partnership with families and the community, we are committed to excellence in a dynamic, child-centered, nurturing environment that provides the foundation and enthusiasm for life-long learning.^[https://www.pps.net/domain/551]

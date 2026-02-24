@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slides-data-wrangling_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slides-data-wrangling_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slides-data-wrangling_files/libs/quarto-html/popper.min.js"></script>
+<script src="slides-data-wrangling_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slides-data-wrangling_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slides-data-wrangling_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slides-data-wrangling_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <title>Going Deeper with R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slides-data-wrangling_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slides-data-wrangling_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="slides-data-wrangling_files/libs/revealjs/dist/theme/quarto-2359791251bcc11f9c147695f895f17f.css">
+  <link href="slides-data-wrangling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slides-data-wrangling_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slides-data-wrangling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slides-data-wrangling_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="slides-data-wrangling_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+  <script src="slides-data-wrangling_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="assets/rru-hex-bg-gradient-dark.svg" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Going Deeper with R</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section>
+<section id="downloading-and-importing-data" class="title-slide slide level1 inverse center" data-background-image="assets/data.jpg">
+<h1>Downloading and Importing Data</h1>
+
+</section>
+<section id="downloading-data-directly" class="slide level2 inverse center">
+<h2>Downloading Data Directly</h2>
+</section>
+<section id="downloading-data-directly-1" class="slide level2 center">
+<h2>Downloading Data Directly</h2>
+<p>The <code>download.file()</code> function lets us download files directly from websites.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">download.file</span>(</span>
+<span id="cb1-2"><a href=""></a>  <span class="at">url =</span> <span class="st">"https://example.com/data.xlsx"</span>,</span>
+<span id="cb1-3"><a href=""></a>  <span class="at">mode =</span> <span class="st">"wb"</span>,</span>
+<span id="cb1-4"><a href=""></a>  <span class="at">destfile =</span> <span class="st">"data-raw/data.xlsx"</span></span>
+<span id="cb1-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<aside class="notes">
+<p>Benefit = reproducibility</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="importing-excel-files" class="slide level2 inverse center">
+<h2>Importing Excel Files</h2>
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/readxl-logo.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="importing-excel-files-1" class="slide level2 center">
+<h2>Importing Excel Files</h2>
+</section>
+<section id="importing-excel-files-2" class="slide level2 center">
+<h2>Importing Excel Files</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>german_speakers <span class="ot">&lt;-</span></span>
+<span id="cb2-2"><a href=""></a>  <span class="fu">read_excel</span>(</span>
+<span id="cb2-3"><a href=""></a>    <span class="at">path =</span> <span class="st">"data-raw/german-and-french-speakers.xlsx"</span>,</span>
+<span id="cb2-4"><a href=""></a>    <span class="at">sheet =</span> <span class="st">"German speakers"</span></span>
+<span id="cb2-5"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href=""></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>german_speakers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 4
+   state    number_of_german_spe…¹ number_of_german_spe…² number_of_german_spe…³
+   &lt;chr&gt;    &lt;chr&gt;                  &lt;chr&gt;                  &lt;chr&gt;                 
+ 1 Alabama  426                    395                    711                   
+ 2 Alaska   331                    201                    131                   
+ 3 Arizona  636                    858                    136                   
+ 4 Arkansas -                      635                    557                   
+ 5 Califor… 440                    318                    854                   
+ 6 Colorado 251                    498                    768                   
+ 7 Connect… 187                    334                    586                   
+ 8 Delaware -                      998                    453                   
+ 9 Distric… 799                    745                    180                   
+10 Florida  399                    924                    958                   
+# ℹ 41 more rows
+# ℹ abbreviated names: ¹​number_of_german_speakers_2017,
+#   ²​number_of_german_speakers_2018, ³​number_of_german_speakers_2019</code></pre>
+</div>
+</div>
+</section>
+<section id="other-packages-for-importing-data" class="slide level2 inverse center">
+<h2>Other Packages for Importing Data</h2>
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/googlesheets4.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/haven.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/rio-logo.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="my-turn" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>Working with <a href="https://www.oregon.gov/ode/educator-resources/assessment/Pages/Assessment-Group-Reports.aspx">data on third grade math proficiency in Oregon schools</a>, I’ll do the following:</p>
+<ol type="1">
+<li class="fragment"><p>Create a new project</p></li>
+<li class="fragment"><p>Create a new R script file where I’ll do all of my data downloading, cleaning, and importing work</p></li>
+</ol>
+</section>
+<section id="my-turn-continued" class="slide level2 my-turn center">
+<h2>My Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment"><p>Download the five recent math proficiency scores (from 2015-2016 to 2018-2019 as well as 2021-2022) and put them in a <code>data-raw</code> folder</p></li>
+<li class="fragment"><p>Import the 2021-2022 data into a data frame called <code>math_scores_2021_2022</code> using the <code>clean_names()</code> function from the <code>janitor</code> package to make our variable names easy to work with</p></li>
+</ol>
+</section>
+<section id="your-turn" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>You’ll be working with data on <a href="https://www.oregon.gov/ode/reports-and-data/students/Pages/Student-Enrollment-Reports.aspx">Oregon school enrollment by race/ethnicity</a>.</p>
+<ol type="1">
+<li class="fragment"><p>Create a new project. Make sure you put it somewhere you’ll be able to find it again later!</p></li>
+<li class="fragment"><p>Create a new R script file where you’ll do all of your data downloading, cleaning, and importing work.</p></li>
+</ol>
+</section>
+<section id="your-turn-continued" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment"><p>Download the 2018-2019 through 2022-2023 Fall Membership Report files using the <code>download.file()</code> function into a <code>data-raw</code> folder (which you’ll need to create).</p></li>
+<li class="fragment"><p>Import the 2022-2023 spreadsheet into a data frame called <code>enrollment_2022_2023</code>, using the <code>clean_names()</code> function from the {janitor} package to make our variable names easy to work with.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="overview-of-tidy-data" class="title-slide slide level1 inverse center" data-background-image="assets/berries.jpg">
+<h1>Overview of Tidy Data</h1>
+
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/tidy-workflow.png" class="r-stretch"></section>
+<section id="untidy-data" class="slide level2 center">
+<h2>Untidy Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>german_speakers_numeric <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href=""></a>  <span class="fu">read_excel</span>(</span>
+<span id="cb5-3"><a href=""></a>    <span class="at">path =</span> <span class="st">"data-raw/german-and-french-speakers.xlsx"</span>,</span>
+<span id="cb5-4"><a href=""></a>    <span class="at">sheet =</span> <span class="st">"German speakers"</span>,</span>
+<span id="cb5-5"><a href=""></a>    <span class="at">na =</span> <span class="st">"-"</span></span>
+<span id="cb5-6"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href=""></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>german_speakers_numeric</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 4
+   state    number_of_german_spe…¹ number_of_german_spe…² number_of_german_spe…³
+   &lt;chr&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 Alabama                     426                    395                    711
+ 2 Alaska                      331                    201                    131
+ 3 Arizona                     636                    858                    136
+ 4 Arkansas                     NA                    635                    557
+ 5 Califor…                    440                    318                    854
+ 6 Colorado                    251                    498                    768
+ 7 Connect…                    187                    334                    586
+ 8 Delaware                     NA                    998                    453
+ 9 Distric…                    799                    745                    180
+10 Florida                     399                    924                    958
+# ℹ 41 more rows
+# ℹ abbreviated names: ¹​number_of_german_speakers_2017,
+#   ²​number_of_german_speakers_2018, ³​number_of_german_speakers_2019</code></pre>
+</div>
+</div>
+</section>
+<section id="untidy-data-1" class="slide level2 center">
+<h2>Untidy Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>german_speakers_numeric <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href=""></a>    <span class="at">total =</span> number_of_german_speakers_2017 <span class="sc">+</span></span>
+<span id="cb8-4"><a href=""></a>      number_of_german_speakers_2018 <span class="sc">+</span></span>
+<span id="cb8-5"><a href=""></a>      number_of_german_speakers_2019</span>
+<span id="cb8-6"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href=""></a>  <span class="fu">select</span>(state, total)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                total
+   &lt;chr&gt;                &lt;dbl&gt;
+ 1 Alabama               1532
+ 2 Alaska                 663
+ 3 Arizona               1630
+ 4 Arkansas                NA
+ 5 California            1612
+ 6 Colorado              1517
+ 7 Connecticut           1107
+ 8 Delaware                NA
+ 9 District of Columbia  1724
+10 Florida               2281
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>But what if we have 10 or 20 years of data? Are we going to write out a all of those years individually?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tidy-data" class="slide level2 center">
+<h2>Tidy Data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                           &lt;dbl&gt;
+ 1 Alabama  number_of_german_speakers_2017    426
+ 2 Alabama  number_of_german_speakers_2018    395
+ 3 Alabama  number_of_german_speakers_2019    711
+ 4 Alaska   number_of_german_speakers_2017    331
+ 5 Alaska   number_of_german_speakers_2018    201
+ 6 Alaska   number_of_german_speakers_2019    131
+ 7 Arizona  number_of_german_speakers_2017    636
+ 8 Arizona  number_of_german_speakers_2018    858
+ 9 Arizona  number_of_german_speakers_2019    136
+10 Arkansas number_of_german_speakers_2017     NA
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="tidy-data-1" class="slide level2 center">
+<h2>Tidy Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>german_speakers_tidy <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href=""></a>  <span class="fu">group_by</span>(state) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                total
+   &lt;chr&gt;                &lt;dbl&gt;
+ 1 Alabama               1532
+ 2 Alaska                 663
+ 3 Arizona               1630
+ 4 Arkansas              1192
+ 5 California            1612
+ 6 Colorado              1517
+ 7 Connecticut           1107
+ 8 Delaware              1451
+ 9 District of Columbia  1724
+10 Florida               2281
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>The tidyverse wants data in a certain format: tidy. With data in this format, it becomes much easier to work with.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-three-rules-of-tidy-data" class="slide level2 center">
+<h2>The Three Rules of Tidy Data</h2>
+<ol type="1">
+<li class="fragment"><p>Every column is a variable.</p></li>
+<li class="fragment"><p>Every row is an observation.</p></li>
+<li class="fragment"><p>Every cell is a single value.</p></li>
+</ol>
+</section>
+<section id="my-turn-1" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>Let’s take a look at the math proficiency data and see which principles of tidy data it violates</p>
+</section>
+<section id="your-turn-1" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>Take a look at your data and see which principles of tidy data it violates</p>
+</section></section>
+<section>
+<section id="tidy-data-rule-1-every-column-is-a-variable" class="title-slide slide level1 inverse center">
+<h1>Tidy Data Rule #1: Every Column is a Variable</h1>
+
+</section>
+<section id="pivot_longer" class="slide level2 center">
+<h2><code>pivot_longer()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> columns_to_use)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-3"><a href=""></a>    <span class="at">cols =</span> columns_to_use,</span>
+<span id="cb14-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"name_of_identifer_variable"</span></span>
+<span id="cb14-5"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb15-3"><a href=""></a>    <span class="at">cols =</span> columns_to_use,</span>
+<span id="cb15-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"name_of_identifer_variable"</span>,</span>
+<span id="cb15-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"name_of_value_variable"</span></span>
+<span id="cb15-6"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</div>
+</section>
+<section id="pivot_longer-1" class="slide level2 center">
+<h2><code>pivot_longer()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>german_speakers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 4
+   state    number_of_german_spe…¹ number_of_german_spe…² number_of_german_spe…³
+   &lt;chr&gt;    &lt;chr&gt;                  &lt;chr&gt;                  &lt;chr&gt;                 
+ 1 Alabama  426                    395                    711                   
+ 2 Alaska   331                    201                    131                   
+ 3 Arizona  636                    858                    136                   
+ 4 Arkansas -                      635                    557                   
+ 5 Califor… 440                    318                    854                   
+ 6 Colorado 251                    498                    768                   
+ 7 Connect… 187                    334                    586                   
+ 8 Delaware -                      998                    453                   
+ 9 Distric… 799                    745                    180                   
+10 Florida  399                    924                    958                   
+# ℹ 41 more rows
+# ℹ abbreviated names: ¹​number_of_german_speakers_2017,
+#   ²​number_of_german_speakers_2018, ³​number_of_german_speakers_2019</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot_longer-2" class="slide level2 center">
+<h2><code>pivot_longer()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">c</span>(</span>
+<span id="cb18-4"><a href=""></a>      number_of_german_speakers_2017,</span>
+<span id="cb18-5"><a href=""></a>      number_of_german_speakers_2018,</span>
+<span id="cb18-6"><a href=""></a>      number_of_german_speakers_2019</span>
+<span id="cb18-7"><a href=""></a>    )</span>
+<span id="cb18-8"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="pivot_longer-3" class="slide level2 center">
+<h2><code>pivot_longer()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    name                           value
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt;
+ 1 Alabama  number_of_german_speakers_2017 426  
+ 2 Alabama  number_of_german_speakers_2018 395  
+ 3 Alabama  number_of_german_speakers_2019 711  
+ 4 Alaska   number_of_german_speakers_2017 331  
+ 5 Alaska   number_of_german_speakers_2018 201  
+ 6 Alaska   number_of_german_speakers_2019 131  
+ 7 Arizona  number_of_german_speakers_2017 636  
+ 8 Arizona  number_of_german_speakers_2018 858  
+ 9 Arizona  number_of_german_speakers_2019 136  
+10 Arkansas number_of_german_speakers_2017 -    
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="pivot_longer-4" class="slide level2 center">
+<h2><code>pivot_longer()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb21-3"><a href=""></a>    <span class="at">cols =</span> <span class="sc">-</span>state,</span>
+<span id="cb21-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb21-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"number"</span></span>
+<span id="cb21-6"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="my-turn-2" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll do the following to create a new data frame called <code>third_grade_math_proficiency_2021_2022</code>:</p>
+<ol type="1">
+<li class="fragment"><p>Use <code>filter()</code> to only keep rows where the <code>student_group</code> variable is “Total Population (All Students)”</p></li>
+<li class="fragment"><p>Use <code>filter()</code> to only keep third grade students</p></li>
+</ol>
+</section>
+<section id="my-turn-continued-1" class="slide level2 my-turn center">
+<h2>My Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment"><p>Use <code>select()</code> to only keep the <code>year</code> and <code>school_id</code> variables as well as all variables related to the <strong>number</strong> (not percentage) of students who are proficient in math</p></li>
+<li class="fragment"><p>Use <code>pivot_longer()</code> to make my data frame tidy</p></li>
+</ol>
+</section>
+<section id="your-turn-2" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>Do the following to create a new data frame called <code>enrollment_by_race_ethnicity_2022_2023</code>:</p>
+<ol type="1">
+<li class="fragment"><p>Start with the <code>enrollment_2022_2023</code> data frame.</p></li>
+<li class="fragment"><p><code>select()</code> the <code>district_institution_id</code> and <code>school_institution_id</code> variables as well as those about number of students by race/ethnicity and get rid of all others.</p></li>
+</ol>
+</section>
+<section id="your-turn-continued-1" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment"><p>Use <code>pivot_longer()</code> to convert all of the race/ethnicity variables into one variable.</p></li>
+<li class="fragment"><p>Within <code>pivot_longer()</code>, use the <code>names_to</code> argument to call that variable <code>race_ethnicity</code>.</p></li>
+<li class="fragment"><p>Within <code>pivot_longer()</code>, use the <code>values_to</code> argument to call that variable <code>number_of_students</code>.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="tidy-data-rule-3-every-cell-is-a-single-value" class="title-slide slide level1 inverse center">
+<h1>Tidy Data Rule #3: Every Cell is a Single Value</h1>
+<aside class="notes">
+<p>These are also just good data wrangling functions</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="every-cell-is-a-single-value" class="slide level2 center">
+<h2>Every Cell is a Single Value</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="str_remove" class="slide level2 center">
+<h2><code>str_remove()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">str_remove</span>(variable, <span class="at">pattern =</span> <span class="st">"text to remove"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="str_remove-1" class="slide level2 center">
+<h2><code>str_remove()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb25-3"><a href=""></a>    <span class="at">cols =</span> <span class="sc">-</span>state,</span>
+<span id="cb25-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb25-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"number"</span></span>
+<span id="cb25-6"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">str_remove</span>(year, <span class="st">"number_of_german_speakers_"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year  number
+   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; 
+ 1 Alabama  2017  426   
+ 2 Alabama  2018  395   
+ 3 Alabama  2019  711   
+ 4 Alaska   2017  331   
+ 5 Alaska   2018  201   
+ 6 Alaska   2019  131   
+ 7 Arizona  2017  636   
+ 8 Arizona  2018  858   
+ 9 Arizona  2019  136   
+10 Arkansas 2017  -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>Mention there are a whole bunch of other stringr functions</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="recode_values" class="slide level2 center">
+<h2><code>recode_values()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">recode_values</span>(variable, <span class="st">"old_value"</span> <span class="ot">=</span> <span class="st">"new_value"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="recode_values-1" class="slide level2 center">
+<h2><code>recode_values()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28" data-code-line-numbers="7-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb28-3"><a href=""></a>    <span class="at">cols =</span> <span class="sc">-</span>state,</span>
+<span id="cb28-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb28-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"number"</span></span>
+<span id="cb28-6"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-8"><a href=""></a>    <span class="at">year =</span> <span class="fu">recode_values</span>(</span>
+<span id="cb28-9"><a href=""></a>      year,</span>
+<span id="cb28-10"><a href=""></a>      <span class="st">"number_of_german_speakers_2017"</span> <span class="sc">~</span> <span class="st">"2017"</span>,</span>
+<span id="cb28-11"><a href=""></a>      <span class="st">"number_of_german_speakers_2018"</span> <span class="sc">~</span> <span class="st">"2018"</span>,</span>
+<span id="cb28-12"><a href=""></a>      <span class="st">"number_of_german_speakers_2019"</span> <span class="sc">~</span> <span class="st">"2019"</span>,</span>
+<span id="cb28-13"><a href=""></a>    )</span>
+<span id="cb28-14"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year  number
+   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; 
+ 1 Alabama  2017  426   
+ 2 Alabama  2018  395   
+ 3 Alabama  2019  711   
+ 4 Alaska   2017  331   
+ 5 Alaska   2018  201   
+ 6 Alaska   2019  131   
+ 7 Arizona  2017  636   
+ 8 Arizona  2018  858   
+ 9 Arizona  2019  136   
+10 Arkansas 2017  -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="if_else" class="slide level2 center">
+<h2><code>if_else()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-3"><a href=""></a>    <span class="at">variable =</span> <span class="fu">if_else</span>(</span>
+<span id="cb30-4"><a href=""></a>      variable <span class="sc">==</span> <span class="st">"some_value"</span>,</span>
+<span id="cb30-5"><a href=""></a>      <span class="at">true =</span> <span class="st">"if_true_value"</span>,</span>
+<span id="cb30-6"><a href=""></a>      <span class="at">false =</span> <span class="st">"else_value"</span></span>
+<span id="cb30-7"><a href=""></a>    )</span>
+<span id="cb30-8"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="if_else-1" class="slide level2 center">
+<h2><code>if_else()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" data-code-line-numbers="3-23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb31-4"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb31-5"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2017"</span>,</span>
+<span id="cb31-6"><a href=""></a>      <span class="at">true =</span> <span class="st">"2017"</span>,</span>
+<span id="cb31-7"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb31-8"><a href=""></a>    )</span>
+<span id="cb31-9"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb31-10"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb31-11"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb31-12"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2018"</span>,</span>
+<span id="cb31-13"><a href=""></a>      <span class="at">true =</span> <span class="st">"2018"</span>,</span>
+<span id="cb31-14"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb31-15"><a href=""></a>    )</span>
+<span id="cb31-16"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb31-17"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb31-18"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb31-19"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2019"</span>,</span>
+<span id="cb31-20"><a href=""></a>      <span class="at">true =</span> <span class="st">"2019"</span>,</span>
+<span id="cb31-21"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb31-22"><a href=""></a>    )</span>
+<span id="cb31-23"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="if_else-2" class="slide level2 center">
+<h2><code>if_else()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-4"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb32-5"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2017"</span>,</span>
+<span id="cb32-6"><a href=""></a>      <span class="at">true =</span> <span class="st">"2017"</span>,</span>
+<span id="cb32-7"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb32-8"><a href=""></a>    )</span>
+<span id="cb32-9"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb32-10"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-11"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb32-12"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2018"</span>,</span>
+<span id="cb32-13"><a href=""></a>      <span class="at">true =</span> <span class="st">"2018"</span>,</span>
+<span id="cb32-14"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb32-15"><a href=""></a>    )</span>
+<span id="cb32-16"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb32-17"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-18"><a href=""></a>    <span class="at">year =</span> <span class="fu">if_else</span>(</span>
+<span id="cb32-19"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2019"</span>,</span>
+<span id="cb32-20"><a href=""></a>      <span class="at">true =</span> <span class="st">"2019"</span>,</span>
+<span id="cb32-21"><a href=""></a>      <span class="at">false =</span> year</span>
+<span id="cb32-22"><a href=""></a>    )</span>
+<span id="cb32-23"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year  number
+   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; 
+ 1 Alabama  2017  426   
+ 2 Alabama  2018  395   
+ 3 Alabama  2019  711   
+ 4 Alaska   2017  331   
+ 5 Alaska   2018  201   
+ 6 Alaska   2019  131   
+ 7 Arizona  2017  636   
+ 8 Arizona  2018  858   
+ 9 Arizona  2019  136   
+10 Arkansas 2017  -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="case_when" class="slide level2 center">
+<h2><code>case_when()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href=""></a>    <span class="at">variable =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-4"><a href=""></a>      variable <span class="sc">==</span> <span class="st">"some_value"</span> <span class="sc">~</span> <span class="st">"new_value"</span>,</span>
+<span id="cb34-5"><a href=""></a>      variable <span class="sc">==</span> <span class="st">"some_other_value"</span> <span class="sc">~</span> <span class="st">"new_value_2"</span>,</span>
+<span id="cb34-6"><a href=""></a>      variable <span class="sc">==</span> <span class="st">"some_third_value"</span> <span class="sc">~</span> <span class="st">"new_value_3"</span>,</span>
+<span id="cb34-7"><a href=""></a>      <span class="at">.default =</span> <span class="st">"value_for_all_observations_that_dont_match_any_above_criteria"</span></span>
+<span id="cb34-8"><a href=""></a>    )</span>
+<span id="cb34-9"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="case_when-1" class="slide level2 center">
+<h2><code>case_when()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" data-code-line-numbers="5,6,7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-4"><a href=""></a>    <span class="at">year =</span> <span class="fu">case_when</span>(</span>
+<span id="cb35-5"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2017"</span> <span class="sc">~</span> <span class="st">"2017"</span>,</span>
+<span id="cb35-6"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2018"</span> <span class="sc">~</span> <span class="st">"2018"</span>,</span>
+<span id="cb35-7"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2019"</span> <span class="sc">~</span> <span class="st">"2019"</span></span>
+<span id="cb35-8"><a href=""></a>    )</span>
+<span id="cb35-9"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="case_when-2" class="slide level2 center">
+<h2><code>case_when()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-4"><a href=""></a>    <span class="at">year =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-5"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2017"</span> <span class="sc">~</span> <span class="st">"2017"</span>,</span>
+<span id="cb36-6"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2018"</span> <span class="sc">~</span> <span class="st">"2018"</span>,</span>
+<span id="cb36-7"><a href=""></a>      year <span class="sc">==</span> <span class="st">"number_of_german_speakers_2019"</span> <span class="sc">~</span> <span class="st">"2019"</span></span>
+<span id="cb36-8"><a href=""></a>    )</span>
+<span id="cb36-9"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year  number
+   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; 
+ 1 Alabama  2017  426   
+ 2 Alabama  2018  395   
+ 3 Alabama  2019  711   
+ 4 Alaska   2017  331   
+ 5 Alaska   2018  201   
+ 6 Alaska   2019  131   
+ 7 Arizona  2017  636   
+ 8 Arizona  2018  858   
+ 9 Arizona  2019  136   
+10 Arkansas 2017  -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/parse_number.png" class="quarto-figure quarto-figure-center r-stretch"><div class="center-slide small">
+<p>Image courtesy of <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst</a></p>
+</div>
+</section>
+<section id="parse_number" class="slide level2 center">
+<h2><code>parse_number()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">parse_number</span>(variable))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="parse_number-1" class="slide level2 center">
+<h2><code>parse_number()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="parse_number-2" class="slide level2 center">
+<h2><code>parse_number()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state     year number
+   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; 
+ 1 Alabama   2017 426   
+ 2 Alabama   2018 395   
+ 3 Alabama   2019 711   
+ 4 Alaska    2017 331   
+ 5 Alaska    2018 201   
+ 6 Alaska    2019 131   
+ 7 Arizona   2017 636   
+ 8 Arizona   2018 858   
+ 9 Arizona   2019 136   
+10 Arkansas  2017 -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="my-turn-3" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll convert all instances of the <code>proficiency_level</code> variable to more meaningful observations using:</p>
+<ol type="1">
+<li class="fragment"><p><code>str_remove()</code></p></li>
+<li class="fragment"><p><code>recode_values()</code></p></li>
+<li class="fragment"><p><code>if_else()</code></p></li>
+<li class="fragment"><p><code>case_when()</code></p></li>
+<li class="fragment"><p><code>parse_number()</code></p></li>
+</ol>
+</section>
+<section id="your-turn-3" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Remove the “x2022_23_” portion of the <code>race_ethnicity</code> variable using <code>str_remove()</code>.</p></li>
+<li class="fragment"><p>Convert all instances of the <code>race_ethnicity</code> variable to more meaningful observations (e.g.&nbsp;turn “american_indian_alaska_native” into “American Indian/Alaska Native”) using <code>recode()</code>, <code>if_else()</code>, or <code>case_when()</code>.</p></li>
+</ol>
+</section>
+<section id="your-turn-continued-2" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment">Add your code to the pipeline where you initially create <code>enrollment_by_race_ethnicity_2022_2023</code>. You only need to use one of the options of <code>recode()</code>, <code>if_else()</code>, or <code>case_when()</code> for this.</li>
+</ol>
+</section></section>
+<section>
+<section id="tidy-data-rule-2-every-row-is-an-observation" class="title-slide slide level1 inverse center">
+<h1>Tidy Data Rule #2: Every Row is an Observation</h1>
+
+</section>
+<section id="select-all-that-apply-questions-often-break-this-rule" class="slide level2 center">
+<h2>Select All That Apply Questions Often Break This Rule</h2>
+
+<img data-src="assets/google-form.png" class="r-stretch"></section>
+<section id="every-row-is-an-observation" class="slide level2 center">
+<h2>Every Row is an Observation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>activities_survey</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 134 × 2
+   respondent_id activities                                                     
+           &lt;int&gt; &lt;chr&gt;                                                          
+ 1             1 Slept, Eaten food, Cooked food, Gone to work                   
+ 2             2 Slept, Eaten food, Gone to work, Commuted for work, Relaxed wi…
+ 3             3 Slept, Eaten food, Cooked food                                 
+ 4             4 Slept, Eaten food, Cooked food, Relaxed with a hobby (TELL US …
+ 5             5 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 6             6 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 7             7 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 8             8 Slept, Eaten food, Gone to work                                
+ 9             9 Slept, Eaten food, Gone to work, Commuted for work             
+10            10 Slept, Eaten food, Gone to work, Commuted for work             
+# ℹ 124 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="what-is-our-unit-of-analysis" class="slide level2 center">
+<h2>What is Our Unit of Analysis?</h2>
+<p>Right now:</p>
+<div class="fragment">
+<p><strong>one row = one individual</strong></p>
+</div>
+<div class="fragment">
+<p>But if we care about activities, we need:</p>
+</div>
+<div class="fragment">
+<p><strong>one row = one activity</strong></p>
+</div>
+</section>
+<section id="separate_longer_delim" class="slide level2 center">
+<h2><code>separate_longer_delim()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href=""></a>activities_survey <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href=""></a>  <span class="fu">separate_longer_delim</span>(</span>
+<span id="cb44-3"><a href=""></a>    <span class="at">cols =</span> activities,</span>
+<span id="cb44-4"><a href=""></a>    <span class="at">delim =</span> <span class="st">", "</span></span>
+<span id="cb44-5"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="before-we-couldnt-easily-count-responses" class="slide level2 center">
+<h2>Before We Couldn’t Easily Count Responses</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 134 × 2
+   respondent_id activities                                                     
+           &lt;int&gt; &lt;chr&gt;                                                          
+ 1             1 Slept, Eaten food, Cooked food, Gone to work                   
+ 2             2 Slept, Eaten food, Gone to work, Commuted for work, Relaxed wi…
+ 3             3 Slept, Eaten food, Cooked food                                 
+ 4             4 Slept, Eaten food, Cooked food, Relaxed with a hobby (TELL US …
+ 5             5 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 6             6 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 7             7 Slept, Eaten food, Cooked food, Gone to work, Relaxed with a h…
+ 8             8 Slept, Eaten food, Gone to work                                
+ 9             9 Slept, Eaten food, Gone to work, Commuted for work             
+10            10 Slept, Eaten food, Gone to work, Commuted for work             
+# ℹ 124 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="now-we-can" class="slide level2 center">
+<h2>Now We Can!</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a>activities_survey <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href=""></a>  <span class="fu">separate_longer_delim</span>(<span class="at">cols =</span> activities, <span class="at">delim =</span> <span class="st">", "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href=""></a>  <span class="fu">count</span>(activities)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 80 × 2
+   activities                                          n
+   &lt;chr&gt;                                           &lt;int&gt;
+ 1 Amateur R                                           1
+ 2 Basketball                                          1
+ 3 Being lazy                                          1
+ 4 Birding!                                            1
+ 5 Coding                                              1
+ 6 Coding/programming - but is it really relaxing?     1
+ 7 Comic book reading                                  1
+ 8 Commuted for work                                  49
+ 9 Cooked food                                        72
+10 Cycling                                             1
+# ℹ 70 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="your-turn-4" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ul>
+<li class="fragment">Run the following code to view the built-in <code>gss_cat</code> data frame.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb48-2"><a href=""></a></span>
+<span id="cb48-3"><a href=""></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href=""></a>  <span class="fu">view</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<ul>
+<li class="fragment"><p>Then, write code to count the number of unique responses in the <code>partyid</code> variable.</p></li>
+<li class="fragment"><p>You’ll need to use the <code>separate_longer_delim()</code> and <code>count()</code> functions to do this.</p></li>
+</ul>
+</section></section>
+<section>
+<section id="changing-variable-types" class="title-slide slide level1 inverse center" data-background-image="assets/types.jpg">
+<h1>Changing Variable Types</h1>
+
+</section>
+<section id="changing-variable-types-1" class="slide level2 center">
+<h2>Changing Variable Types</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="changing-variable-types-2" class="slide level2 center">
+<h2>Changing Variable Types</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in `summarize()`:
+ℹ In argument: `total = sum(number, na.rm = TRUE)`.
+Caused by error in `sum()`:
+! invalid 'type' (character) of argument</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="changing-variable-types-3" class="slide level2 center">
+<h2>Changing Variable Types</h2>
+<p>To change variable types, you use the <code>mutate()</code> function combined with <code>as.numeric()</code>, <code>as.character()</code>, etc.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">as.numeric</span>(number)) <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  total
+  &lt;dbl&gt;
+1 80314</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>Point to https://github.com/davidsjoberg/hablar</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="changing-variable-types-4" class="slide level2 center">
+<h2>Changing Variable Types</h2>
+<p>You can also use <code>parse_number()</code> to change the variable to numeric.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb55-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">parse_number</span>(number))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                           &lt;dbl&gt;
+ 1 Alabama  number_of_german_speakers_2017    426
+ 2 Alabama  number_of_german_speakers_2018    395
+ 3 Alabama  number_of_german_speakers_2019    711
+ 4 Alaska   number_of_german_speakers_2017    331
+ 5 Alaska   number_of_german_speakers_2018    201
+ 6 Alaska   number_of_german_speakers_2019    131
+ 7 Arizona  number_of_german_speakers_2017    636
+ 8 Arizona  number_of_german_speakers_2018    858
+ 9 Arizona  number_of_german_speakers_2019    136
+10 Arkansas number_of_german_speakers_2017     NA
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="my-turn-4" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Convert the <code>number_of_students</code> variable to numeric by using <code>as.numeric()</code> and <code>parse_number()</code></p></li>
+<li class="fragment"><p>Count the number of students at each proficiency level</p></li>
+</ol>
+</section>
+<section id="your-turn-5" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Convert the <code>number_of_students</code> variable to numeric by using <code>as.numeric()</code> and <code>parse_number()</code></p></li>
+<li class="fragment"><p>Make sure you can use your <code>number_of_students</code> variable to count the total number of students in Oregon</p></li>
+</ol>
+</section></section>
+<section>
+<section id="dealing-with-missing-data" class="title-slide slide level1 inverse center" data-background-image="assets/missing.jpg">
+<h1>Dealing with Missing Data</h1>
+
+</section>
+<section id="use-the-na-argument-when-importing-data" class="slide level2 center">
+<h2>Use the <code>na</code> Argument When Importing Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a>math_scores_2021_2022 <span class="ot">&lt;-</span></span>
+<span id="cb57-2"><a href=""></a>  <span class="fu">read_excel</span>(</span>
+<span id="cb57-3"><a href=""></a>    <span class="at">path =</span> <span class="st">"data-raw/pagr_schools_math_tot_raceethnicity_2122.xlsx"</span>,</span>
+<span id="cb57-4"><a href=""></a>    <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"*"</span>, <span class="st">"-"</span>, <span class="st">"--"</span>)</span>
+<span id="cb57-5"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb57-6"><a href=""></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="na_if" class="slide level2 center">
+<h2><code>na_if()</code></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 -     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="na_if-1" class="slide level2 center">
+<h2><code>na_if()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb59-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">na_if</span>(number, <span class="st">"-"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 &lt;NA&gt;  
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>The <code>na_if()</code> function turns values that represent missing data into actual NAs</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="replace_na" class="slide level2 center">
+<h2><code>replace_na()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">na_if</span>(number, <span class="st">"-"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb61-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">replace_na</span>(number, <span class="st">"0"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 3
+   state    year                           number
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;chr&gt; 
+ 1 Alabama  number_of_german_speakers_2017 426   
+ 2 Alabama  number_of_german_speakers_2018 395   
+ 3 Alabama  number_of_german_speakers_2019 711   
+ 4 Alaska   number_of_german_speakers_2017 331   
+ 5 Alaska   number_of_german_speakers_2018 201   
+ 6 Alaska   number_of_german_speakers_2019 131   
+ 7 Arizona  number_of_german_speakers_2017 636   
+ 8 Arizona  number_of_german_speakers_2018 858   
+ 9 Arizona  number_of_german_speakers_2019 136   
+10 Arkansas number_of_german_speakers_2017 0     
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>The <code>replace_na()</code> function does the opposite: turns NAs into values.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="my-turn-5" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>Working with my data before I changed the <code>number_of_students</code> to numeric, I’ll convert all of the missing values in the <code>number_of_students</code> variable to NA using <code>na_if()</code></p>
+<aside class="notes">
+<p>I don’t have any values where using <code>replace_na()</code> makes sense, but you’ll use it shortly!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="your-turn-6" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Convert all of the missing values in the <code>number_of_students</code> variable to NA using <code>na_if()</code></p></li>
+<li class="fragment"><p>Convert all of the NA values you just made to 0 using <code>replace_na()</code>.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="advanced-summarizing" class="title-slide slide level1 inverse center" data-background-image="assets/summarize.jpg">
+<h1>Advanced Summarizing</h1>
+
+</section>
+<section id="group_by-mutate" class="slide level2 center">
+<h2><code>group_by()</code> + <code>mutate()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63" data-code-line-numbers="7,8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb63-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb63-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">parse_number</span>(number)) <span class="sc">|&gt;</span></span>
+<span id="cb63-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb63-5"><a href=""></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb63-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> number <span class="sc">/</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb63-7"><a href=""></a>  <span class="fu">arrange</span>(year, state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 153 × 4
+# Groups:   year [3]
+   state                 year number      pct
+   &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Alabama               2017    426  0.0162 
+ 2 Alaska                2017    331  0.0126 
+ 3 Arizona               2017    636  0.0242 
+ 4 Arkansas              2017     NA NA      
+ 5 California            2017    440  0.0168 
+ 6 Colorado              2017    251  0.00956
+ 7 Connecticut           2017    187  0.00712
+ 8 Delaware              2017     NA NA      
+ 9 District of Columbia  2017    799  0.0304 
+10 Florida               2017    399  0.0152 
+# ℹ 143 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="ungroup" class="slide level2 center">
+<h2><code>ungroup()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65" data-code-line-numbers="7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb65-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb65-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">parse_number</span>(number)) <span class="sc">|&gt;</span></span>
+<span id="cb65-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb65-5"><a href=""></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb65-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> number <span class="sc">/</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb65-7"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> pct, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb65-8"><a href=""></a>  <span class="fu">arrange</span>(year, state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+# Groups:   year [3]
+  state          year number    pct
+  &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Ohio           2017    960 0.0365
+2 Delaware       2018    998 0.0372
+3 West Virginia  2019    974 0.0358</code></pre>
+</div>
+</div>
+</section>
+<section id="ungroup-1" class="slide level2 center">
+<h2><code>ungroup()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href=""></a>german_speakers <span class="sc">|&gt;</span></span>
+<span id="cb67-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"number"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb67-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">number =</span> <span class="fu">parse_number</span>(number)) <span class="sc">|&gt;</span></span>
+<span id="cb67-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">parse_number</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb67-5"><a href=""></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb67-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> number <span class="sc">/</span> <span class="fu">sum</span>(number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb67-7"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb67-8"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> pct, <span class="at">n =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb67-9"><a href=""></a>  <span class="fu">arrange</span>(year, state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  state     year number    pct
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Delaware  2018    998 0.0372</code></pre>
+</div>
+</div>
+</section>
+<section id="my-turn-6" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll calculate the percent of students at each school who are at each proficient level in math.</p>
+<p>And I can’t forget to <code>ungroup()</code>!</p>
+</section>
+<section id="your-turn-7" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<div class="fragment">
+<p>Create a new variable called <code>pct</code> that shows each race/ethnicity as a percentage of all students in each district. This will require two steps.</p>
+</div>
+<ol type="1">
+<li class="fragment"><p>Use <code>group_by()</code> and <code>summarize()</code> to calculate the number of students in each race/ethnicity group in each district.</p></li>
+<li class="fragment"><p>Use <code>group_by()</code> and <code>mutate()</code> to calculate the percentage of students in each race/ethnicity group in each district.</p></li>
+</ol>
+</section>
+<section id="your-turn-continued-3" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<p>Don’t forget to <code>ungroup()</code> at the end of each step.</p>
+</section></section>
+<section>
+<section id="binding-data-frames" class="title-slide slide level1 inverse center" data-background-image="assets/bind.jpg">
+<h1>Binding Data Frames</h1>
+<aside class="notes">
+<p>What if you want to do more than one year?</p>
+<p>Discuss why bind_cols() doesn’t give you tidy data</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bind_rows" class="slide level2 center">
+<h2>bind_rows()</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href=""></a>german_speakers_2018</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 3
+   state                 year number
+   &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Alabama               2018    395
+ 2 Alaska                2018    201
+ 3 Arizona               2018    858
+ 4 Arkansas              2018    635
+ 5 California            2018    318
+ 6 Colorado              2018    498
+ 7 Connecticut           2018    334
+ 8 Delaware              2018    998
+ 9 District of Columbia  2018    745
+10 Florida               2018    924
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href=""></a>german_speakers_2019</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 3
+   state                 year number
+   &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Alabama               2019    711
+ 2 Alaska                2019    131
+ 3 Arizona               2019    136
+ 4 Arkansas              2019    557
+ 5 California            2019    854
+ 6 Colorado              2019    768
+ 7 Connecticut           2019    586
+ 8 Delaware              2019    453
+ 9 District of Columbia  2019    180
+10 Florida               2019    958
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="bind_rows-1" class="slide level2 center">
+<h2>bind_rows()</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href=""></a><span class="fu">bind_rows</span>(german_speakers_2018, german_speakers_2019)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="bind_rows-2" class="slide level2 center">
+<h2>bind_rows()</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["number"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"2018","3":"395"},{"1":"Alaska","2":"2018","3":"201"},{"1":"Arizona","2":"2018","3":"858"},{"1":"Arkansas","2":"2018","3":"635"},{"1":"California","2":"2018","3":"318"},{"1":"Colorado","2":"2018","3":"498"},{"1":"Connecticut","2":"2018","3":"334"},{"1":"Delaware","2":"2018","3":"998"},{"1":"District of Columbia","2":"2018","3":"745"},{"1":"Florida","2":"2018","3":"924"},{"1":"Georgia","2":"2018","3":"293"},{"1":"Hawaii","2":"2018","3":"303"},{"1":"Idaho","2":"2018","3":"349"},{"1":"Illinois","2":"2018","3":"573"},{"1":"Indiana","2":"2018","3":"188"},{"1":"Iowa","2":"2018","3":"330"},{"1":"Kansas","2":"2018","3":"546"},{"1":"Kentucky","2":"2018","3":"976"},{"1":"Louisiana","2":"2018","3":"NA"},{"1":"Maine","2":"2018","3":"127"},{"1":"Montana","2":"2018","3":"296"},{"1":"Nebraska","2":"2018","3":"726"},{"1":"Nevada","2":"2018","3":"526"},{"1":"New Hampshire","2":"2018","3":"109"},{"1":"New Jersey","2":"2018","3":"961"},{"1":"New Mexico","2":"2018","3":"771"},{"1":"New York","2":"2018","3":"637"},{"1":"North Carolina","2":"2018","3":"970"},{"1":"North Dakota","2":"2018","3":"307"},{"1":"Ohio","2":"2018","3":"900"},{"1":"Oklahoma","2":"2018","3":"699"},{"1":"Oregon","2":"2018","3":"762"},{"1":"Maryland","2":"2018","3":"106"},{"1":"Massachusetts","2":"2018","3":"507"},{"1":"Michigan","2":"2018","3":"503"},{"1":"Minnesota","2":"2018","3":"344"},{"1":"Mississippi","2":"2018","3":"246"},{"1":"Missouri","2":"2018","3":"250"},{"1":"Pennsylvania","2":"2018","3":"475"},{"1":"Rhode Island","2":"2018","3":"852"},{"1":"South Carolina","2":"2018","3":"815"},{"1":"South Dakota","2":"2018","3":"601"},{"1":"Tennessee","2":"2018","3":"568"},{"1":"Texas","2":"2018","3":"571"},{"1":"Utah","2":"2018","3":"486"},{"1":"Vermont","2":"2018","3":"470"},{"1":"Virginia","2":"2018","3":"105"},{"1":"Washington","2":"2018","3":"474"},{"1":"West Virginia","2":"2018","3":"600"},{"1":"Wisconsin","2":"2018","3":"997"},{"1":"Wyoming","2":"2018","3":"593"},{"1":"Alabama","2":"2019","3":"711"},{"1":"Alaska","2":"2019","3":"131"},{"1":"Arizona","2":"2019","3":"136"},{"1":"Arkansas","2":"2019","3":"557"},{"1":"California","2":"2019","3":"854"},{"1":"Colorado","2":"2019","3":"768"},{"1":"Connecticut","2":"2019","3":"586"},{"1":"Delaware","2":"2019","3":"453"},{"1":"District of Columbia","2":"2019","3":"180"},{"1":"Florida","2":"2019","3":"958"},{"1":"Georgia","2":"2019","3":"821"},{"1":"Hawaii","2":"2019","3":"931"},{"1":"Idaho","2":"2019","3":"NA"},{"1":"Illinois","2":"2019","3":"827"},{"1":"Indiana","2":"2019","3":"728"},{"1":"Iowa","2":"2019","3":"657"},{"1":"Kansas","2":"2019","3":"501"},{"1":"Kentucky","2":"2019","3":"332"},{"1":"Louisiana","2":"2019","3":"490"},{"1":"Maine","2":"2019","3":"206"},{"1":"Montana","2":"2019","3":"527"},{"1":"Nebraska","2":"2019","3":"232"},{"1":"Nevada","2":"2019","3":"647"},{"1":"New Hampshire","2":"2019","3":"818"},{"1":"New Jersey","2":"2019","3":"168"},{"1":"New Mexico","2":"2019","3":"336"},{"1":"New York","2":"2019","3":"207"},{"1":"North Carolina","2":"2019","3":"508"},{"1":"North Dakota","2":"2019","3":"652"},{"1":"Ohio","2":"2019","3":"186"},{"1":"Oklahoma","2":"2019","3":"621"},{"1":"Oregon","2":"2019","3":"471"},{"1":"Maryland","2":"2019","3":"507"},{"1":"Massachusetts","2":"2019","3":"859"},{"1":"Michigan","2":"2019","3":"467"},{"1":"Minnesota","2":"2019","3":"251"},{"1":"Mississippi","2":"2019","3":"372"},{"1":"Missouri","2":"2019","3":"972"},{"1":"Pennsylvania","2":"2019","3":"956"},{"1":"Rhode Island","2":"2019","3":"900"},{"1":"South Carolina","2":"2019","3":"182"},{"1":"South Dakota","2":"2019","3":"584"},{"1":"Tennessee","2":"2019","3":"476"},{"1":"Texas","2":"2019","3":"292"},{"1":"Utah","2":"2019","3":"758"},{"1":"Vermont","2":"2019","3":"158"},{"1":"Virginia","2":"2019","3":"432"},{"1":"Washington","2":"2019","3":"615"},{"1":"West Virginia","2":"2019","3":"974"},{"1":"Wisconsin","2":"2019","3":"842"},{"1":"Wyoming","2":"2019","3":"431"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="bind_cols" class="slide level2 center">
+<h2>bind_cols()</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href=""></a><span class="fu">bind_cols</span>(german_speakers_2018, german_speakers_2019)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 6
+   state...1            year...2 number...3 state...4        year...5 number...6
+   &lt;chr&gt;                   &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Alabama                  2018        395 Alabama              2019        711
+ 2 Alaska                   2018        201 Alaska               2019        131
+ 3 Arizona                  2018        858 Arizona              2019        136
+ 4 Arkansas                 2018        635 Arkansas             2019        557
+ 5 California               2018        318 California           2019        854
+ 6 Colorado                 2018        498 Colorado             2019        768
+ 7 Connecticut              2018        334 Connecticut          2019        586
+ 8 Delaware                 2018        998 Delaware             2019        453
+ 9 District of Columbia     2018        745 District of Col…     2019        180
+10 Florida                  2018        924 Florida              2019        958
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="my-turn-7" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll import 2018-2019 math proficiency data and then use <code>bind_rows()</code> to make a <code>third_grade_math_proficiency</code> data frame.</p>
+</section>
+<section id="your-turn-8" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Import 2021-2022 enrollment data into a data frame called <code>enrollment_by_race_ethnicity_2021_2022</code> and clean it using the code you used for the 2022-2023 data.</p></li>
+<li class="fragment"><p>Add a <code>year</code> variable to the <code>enrollment_by_race_ethnicity_2021_2022</code> and <code>enrollment_by_race_ethnicity_2022_2023</code> data frames.</p></li>
+</ol>
+</section>
+<section id="your-turn-continued-4" class="slide level2 your-turn center">
+<h2>Your Turn, Continued</h2>
+<ol start="3" type="1">
+<li class="fragment">Use bind_rows() to make a <code>enrollment_by_race_ethnicity</code> data frame by combining the <code>enrollment_by_race_ethnicity_2021_2022</code> and <code>enrollment_by_race_ethnicity_2022_2023</code> data frames.</li>
+</ol>
+<div class="fragment">
+<p>You’ll need to change bits of your code to make it work, including renaming variables so they are consistent across the two data frames. Use the starter code to help you.</p>
+</div>
+</section>
+<section id="renaming-variables" class="slide level2 center">
+<h2>Renaming Variables</h2>
+</section>
+<section id="rename" class="slide level2 center">
+<h2><code>rename()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb76-2"><a href=""></a>  <span class="fu">rename</span>(<span class="at">new_variable_name =</span> old_variable_name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="set_names" class="slide level2 center">
+<h2><code>set_names()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href=""></a>data_frame <span class="sc">|&gt;</span></span>
+<span id="cb77-2"><a href=""></a>  <span class="fu">set_names</span>(<span class="st">"variable1"</span>, <span class="st">"variable2"</span>, <span class="st">"variable3"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section></section>
+<section>
+<section id="functions" class="title-slide slide level1 inverse center" data-background-image="assets/code-heart.jpg">
+<h1>Functions</h1>
+<aside class="notes">
+<p>Show example of my turn and talk about if I want to add more years and/or change the code</p>
+<p>Let’s talk about the why and the when before we get into how functions work</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="when-to-use-functions" class="slide level2 center">
+<h2>When to Use Functions?</h2>
+<blockquote>
+<p>A good rule of thumb is to consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e.&nbsp;you now have three copies of the same code)</p>
+</blockquote>
+<div class="small">
+<p>Source: Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund in <a href="https://r4ds.hadley.nz/functions#:~:text=A%20good%20rule%20of%20thumb%20is%20to%20consider%20writing%20a%20function%20whenever%20you%E2%80%99ve%20copied%20and%20pasted%20a%20block%20of%20code%20more%20than%20twice%20(i.e.%C2%A0you%20now%20have%20three%20copies%20of%20the%20same%20code)">R for Data Science</a></p>
+</div>
+</section>
+<section id="why-use-functions" class="slide level2 center">
+<h2>Why Use Functions?</h2>
+<ol type="1">
+<li class="fragment"><p>You can give a function an evocative name that makes your code easier to understand.</p></li>
+<li class="fragment"><p>As requirements change, you only need to update code in one place, instead of many.</p></li>
+</ol>
+</section>
+<section id="why-use-functions-1" class="slide level2 center">
+<h2>Why Use Functions?</h2>
+<ol start="3" type="1">
+<li class="fragment"><p>You eliminate the chance of making incidental mistakes when you copy and paste (i.e.&nbsp;updating a variable name in one place, but not in another).</p></li>
+<li class="fragment"><p>It makes it easier to reuse work from project-to-project, increasing your productivity over time.</p></li>
+</ol>
+<div class="fragment small">
+<p>Source: <a href="https://r4ds.hadley.nz/functions#:~:text=You%20can%20give,productivity%20over%20time.">R for Data Science</a></p>
+</div>
+</section>
+<section id="how-do-functions-work" class="slide level2 center">
+<h2>How do Functions Work?</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href=""></a>german_speakers_2018</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 3
+   state                 year number
+   &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Alabama               2018    395
+ 2 Alaska                2018    201
+ 3 Arizona               2018    858
+ 4 Arkansas              2018    635
+ 5 California            2018    318
+ 6 Colorado              2018    498
+ 7 Connecticut           2018    334
+ 8 Delaware              2018    998
+ 9 District of Columbia  2018    745
+10 Florida               2018    924
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href=""></a>find_most_german_speakers <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb80-2"><a href=""></a>  german_speakers_2018 <span class="sc">|&gt;</span></span>
+<span id="cb80-3"><a href=""></a>    <span class="fu">slice_max</span>(<span class="at">order_by =</span> number, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb80-4"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href=""></a><span class="fu">find_most_german_speakers</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  state     year number
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 Delaware  2018    998</code></pre>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="function-arguments" class="slide level2 center">
+<h2>Function Arguments</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href=""></a>find_most_german_speakers <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb83-2"><a href=""></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb83-3"><a href=""></a>    <span class="fu">slice_max</span>(<span class="at">order_by =</span> number, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb83-4"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href=""></a><span class="fu">find_most_german_speakers</span>(<span class="at">df =</span> german_speakers_2018)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  state     year number
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 Delaware  2018    998</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href=""></a><span class="fu">find_most_german_speakers</span>(<span class="at">df =</span> german_speakers_2019)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  state          year number
+  &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+1 West Virginia  2019    974</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="my-turn-8" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<p>I’ll create a function to clean each year of math proficiency data, then use <code>bind_rows()</code> to bind them together.</p>
+</section>
+<section id="your-turn-9" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Create a function to clean each year of enrollment data.</p></li>
+<li class="fragment"><p>To check that your function works, create <code>enrollment_by_race_ethnicity_2021_2022</code> and <code>enrollment_by_race_ethnicity_2022_2023</code> data frames and then bind them together with <code>bind_rows()</code>.</p></li>
+</ol>
+<div class="fragment">
+<p>This exercise is challenging! Use the starter code to help you if you need to.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Need to select by position</li>
+<li>Need to use set_names() to give consistent variable names</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="data-merging" class="title-slide slide level1 inverse center" data-background-image="assets/highway.jpg">
+<h1>Data Merging</h1>
+
+</section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href=""></a>german_speakers_2019</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 2
+   state                number
+   &lt;chr&gt;                 &lt;dbl&gt;
+ 1 Alabama                 711
+ 2 Alaska                  131
+ 3 Arizona                 136
+ 4 Arkansas                557
+ 5 California              854
+ 6 Colorado                768
+ 7 Connecticut             586
+ 8 Delaware                453
+ 9 District of Columbia    180
+10 Florida                 958
+# ℹ 41 more rows</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href=""></a>french_speakers_2019</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  state                french_speakers
+  &lt;chr&gt;                          &lt;dbl&gt;
+1 Alabama                         1678
+2 Alaska                          1441
+3 Arizona                         1002
+4 Arkansas                        1558
+5 California                      1935
+6 Colorado                        1714
+7 Connecticut                     1536
+8 Delaware                        1824
+9 District of Columbia            1601</code></pre>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="joins" class="title-slide slide level1 inverse center">
+<h1>Joins</h1>
+
+</section>
+<section class="slide level2 center">
+
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://www.garrickadenbuie.com/project/tidyexplain/"><img data-src="assets/tidyexplain.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<aside class="notes">
+<p>All of the animations and explanations used here come from the <a href="https://www.garrickadenbuie.com/project/tidyexplain/">tidyexplain project by Garrick Aden-Buie</a>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2 center">
+
+
+<img data-src="assets/original-dfs.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="join-with-variables-in-common-in-x-and-y" class="slide level2 center">
+<h2>Join with variables in common in <code>x</code> and <code>y</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href=""></a><span class="fu">type_of_join</span>(x, y, <span class="fu">join_by</span>(id_variable))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="what-if-we-dont-have-a-variable-with-the-same-name-in-both-data-frames" class="slide level2 center">
+<h2>What if we don’t have a variable with the same name in both data frames?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href=""></a><span class="fu">type_of_join</span>(</span>
+<span id="cb93-2"><a href=""></a>  x,</span>
+<span id="cb93-3"><a href=""></a>  y,</span>
+<span id="cb93-4"><a href=""></a>  <span class="fu">join_by</span>(</span>
+<span id="cb93-5"><a href=""></a>    id_variable_1 <span class="sc">==</span> id_variable_2</span>
+<span id="cb93-6"><a href=""></a>  )</span>
+<span id="cb93-7"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="what-if-we-need-to-join-on-multiple-variables-with-different-names-in-both-data-frames" class="slide level2 center">
+<h2>What if we need to join on multiple variables with different names in both data frames?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href=""></a><span class="fu">type_of_join</span>(</span>
+<span id="cb94-2"><a href=""></a>  x,</span>
+<span id="cb94-3"><a href=""></a>  y,</span>
+<span id="cb94-4"><a href=""></a>  <span class="fu">join_by</span>(</span>
+<span id="cb94-5"><a href=""></a>    id_variable_1 <span class="sc">==</span> id_variable_2,</span>
+<span id="cb94-6"><a href=""></a>    id_variable_3 <span class="sc">==</span> id_variable_4</span>
+<span id="cb94-7"><a href=""></a>  )</span>
+<span id="cb94-8"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="types-of-joins" class="slide level2 center">
+<h2>Types of Joins</h2>
+<ul>
+<li class="fragment"><p><code>left_join()</code></p></li>
+<li class="fragment"><p><code>right_join()</code></p></li>
+<li class="fragment"><p><code>full_join()</code></p></li>
+<li class="fragment"><p><code>semi_join()</code></p></li>
+<li class="fragment"><p><code>anti_join()</code></p></li>
+</ul>
+</section>
+<section id="which-join-should-you-use" class="slide level2 center">
+<h2>Which Join Should You Use?</h2>
+
+<img data-src="assets/claus-wilke-left-join.png" class="r-stretch"></section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>left_join()</code></strong></p>
+<p>All rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/left-join.gif"></p>
+</div></div>
+</section>
+<section class="slide level2 center">
+
+<h3 id="left_join"><code>left_join()</code></h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href=""></a><span class="fu">left_join</span>(</span>
+<span id="cb95-2"><a href=""></a>  german_speakers_2019,</span>
+<span id="cb95-3"><a href=""></a>  french_speakers_2019,</span>
+<span id="cb95-4"><a href=""></a>  <span class="fu">join_by</span>(state)</span>
+<span id="cb95-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["number"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["french_speakers"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"711","3":"1678"},{"1":"Alaska","2":"131","3":"1441"},{"1":"Arizona","2":"136","3":"1002"},{"1":"Arkansas","2":"557","3":"1558"},{"1":"California","2":"854","3":"1935"},{"1":"Colorado","2":"768","3":"1714"},{"1":"Connecticut","2":"586","3":"1536"},{"1":"Delaware","2":"453","3":"1824"},{"1":"District of Columbia","2":"180","3":"1601"},{"1":"Florida","2":"958","3":"NA"},{"1":"Georgia","2":"821","3":"NA"},{"1":"Hawaii","2":"931","3":"NA"},{"1":"Idaho","2":"NA","3":"NA"},{"1":"Illinois","2":"827","3":"NA"},{"1":"Indiana","2":"728","3":"NA"},{"1":"Iowa","2":"657","3":"NA"},{"1":"Kansas","2":"501","3":"NA"},{"1":"Kentucky","2":"332","3":"NA"},{"1":"Louisiana","2":"490","3":"NA"},{"1":"Maine","2":"206","3":"NA"},{"1":"Montana","2":"527","3":"NA"},{"1":"Nebraska","2":"232","3":"NA"},{"1":"Nevada","2":"647","3":"NA"},{"1":"New Hampshire","2":"818","3":"NA"},{"1":"New Jersey","2":"168","3":"NA"},{"1":"New Mexico","2":"336","3":"NA"},{"1":"New York","2":"207","3":"NA"},{"1":"North Carolina","2":"508","3":"NA"},{"1":"North Dakota","2":"652","3":"NA"},{"1":"Ohio","2":"186","3":"NA"},{"1":"Oklahoma","2":"621","3":"NA"},{"1":"Oregon","2":"471","3":"NA"},{"1":"Maryland","2":"507","3":"NA"},{"1":"Massachusetts","2":"859","3":"NA"},{"1":"Michigan","2":"467","3":"NA"},{"1":"Minnesota","2":"251","3":"NA"},{"1":"Mississippi","2":"372","3":"NA"},{"1":"Missouri","2":"972","3":"NA"},{"1":"Pennsylvania","2":"956","3":"NA"},{"1":"Rhode Island","2":"900","3":"NA"},{"1":"South Carolina","2":"182","3":"NA"},{"1":"South Dakota","2":"584","3":"NA"},{"1":"Tennessee","2":"476","3":"NA"},{"1":"Texas","2":"292","3":"NA"},{"1":"Utah","2":"758","3":"NA"},{"1":"Vermont","2":"158","3":"NA"},{"1":"Virginia","2":"432","3":"NA"},{"1":"Washington","2":"615","3":"NA"},{"1":"West Virginia","2":"974","3":"NA"},{"1":"Wisconsin","2":"842","3":"NA"},{"1":"Wyoming","2":"431","3":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>right_join()</code></strong></p>
+<p>All rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/right-join.gif"></p>
+</div></div>
+</section>
+<section id="right_join" class="slide level2 center">
+<h2><code>right_join()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href=""></a><span class="fu">right_join</span>(</span>
+<span id="cb96-2"><a href=""></a>  german_speakers_2019,</span>
+<span id="cb96-3"><a href=""></a>  french_speakers_2019,</span>
+<span id="cb96-4"><a href=""></a>  <span class="fu">join_by</span>(state)</span>
+<span id="cb96-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["number"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["french_speakers"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"711","3":"1678"},{"1":"Alaska","2":"131","3":"1441"},{"1":"Arizona","2":"136","3":"1002"},{"1":"Arkansas","2":"557","3":"1558"},{"1":"California","2":"854","3":"1935"},{"1":"Colorado","2":"768","3":"1714"},{"1":"Connecticut","2":"586","3":"1536"},{"1":"Delaware","2":"453","3":"1824"},{"1":"District of Columbia","2":"180","3":"1601"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>full_join()</code></strong></p>
+<p>All rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/full-join.gif"></p>
+</div></div>
+</section>
+<section id="full_join" class="slide level2 center">
+<h2><code>full_join()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href=""></a><span class="fu">full_join</span>(</span>
+<span id="cb97-2"><a href=""></a>  german_speakers_2019,</span>
+<span id="cb97-3"><a href=""></a>  french_speakers_2019,</span>
+<span id="cb97-4"><a href=""></a>  <span class="fu">join_by</span>(state)</span>
+<span id="cb97-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["number"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["french_speakers"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"711","3":"1678"},{"1":"Alaska","2":"131","3":"1441"},{"1":"Arizona","2":"136","3":"1002"},{"1":"Arkansas","2":"557","3":"1558"},{"1":"California","2":"854","3":"1935"},{"1":"Colorado","2":"768","3":"1714"},{"1":"Connecticut","2":"586","3":"1536"},{"1":"Delaware","2":"453","3":"1824"},{"1":"District of Columbia","2":"180","3":"1601"},{"1":"Florida","2":"958","3":"NA"},{"1":"Georgia","2":"821","3":"NA"},{"1":"Hawaii","2":"931","3":"NA"},{"1":"Idaho","2":"NA","3":"NA"},{"1":"Illinois","2":"827","3":"NA"},{"1":"Indiana","2":"728","3":"NA"},{"1":"Iowa","2":"657","3":"NA"},{"1":"Kansas","2":"501","3":"NA"},{"1":"Kentucky","2":"332","3":"NA"},{"1":"Louisiana","2":"490","3":"NA"},{"1":"Maine","2":"206","3":"NA"},{"1":"Montana","2":"527","3":"NA"},{"1":"Nebraska","2":"232","3":"NA"},{"1":"Nevada","2":"647","3":"NA"},{"1":"New Hampshire","2":"818","3":"NA"},{"1":"New Jersey","2":"168","3":"NA"},{"1":"New Mexico","2":"336","3":"NA"},{"1":"New York","2":"207","3":"NA"},{"1":"North Carolina","2":"508","3":"NA"},{"1":"North Dakota","2":"652","3":"NA"},{"1":"Ohio","2":"186","3":"NA"},{"1":"Oklahoma","2":"621","3":"NA"},{"1":"Oregon","2":"471","3":"NA"},{"1":"Maryland","2":"507","3":"NA"},{"1":"Massachusetts","2":"859","3":"NA"},{"1":"Michigan","2":"467","3":"NA"},{"1":"Minnesota","2":"251","3":"NA"},{"1":"Mississippi","2":"372","3":"NA"},{"1":"Missouri","2":"972","3":"NA"},{"1":"Pennsylvania","2":"956","3":"NA"},{"1":"Rhode Island","2":"900","3":"NA"},{"1":"South Carolina","2":"182","3":"NA"},{"1":"South Dakota","2":"584","3":"NA"},{"1":"Tennessee","2":"476","3":"NA"},{"1":"Texas","2":"292","3":"NA"},{"1":"Utah","2":"758","3":"NA"},{"1":"Vermont","2":"158","3":"NA"},{"1":"Virginia","2":"432","3":"NA"},{"1":"Washington","2":"615","3":"NA"},{"1":"West Virginia","2":"974","3":"NA"},{"1":"Wisconsin","2":"842","3":"NA"},{"1":"Wyoming","2":"431","3":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>semi_join()</code></strong></p>
+<p>All rows from x where there are matching values in y, keeping just columns from x.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/semi-join.gif"></p>
+</div></div>
+</section>
+<section id="semi_join" class="slide level2 center">
+<h2><code>semi_join()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href=""></a><span class="fu">semi_join</span>(german_speakers_2019, french_speakers_2019, <span class="fu">join_by</span>(state))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["number"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Alabama","2":"711"},{"1":"Alaska","2":"131"},{"1":"Arizona","2":"136"},{"1":"Arkansas","2":"557"},{"1":"California","2":"854"},{"1":"Colorado","2":"768"},{"1":"Connecticut","2":"586"},{"1":"Delaware","2":"453"},{"1":"District of Columbia","2":"180"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><code>anti_join()</code></strong></p>
+<p>All rows from x where there are not matching values in y, keeping just columns from x.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="assets/anti-join.gif"></p>
+</div></div>
+</section>
+<section id="anti_join" class="slide level2 center">
+<h2><code>anti_join()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href=""></a><span class="fu">anti_join</span>(</span>
+<span id="cb99-2"><a href=""></a>  german_speakers_2019,</span>
+<span id="cb99-3"><a href=""></a>  french_speakers_2019,</span>
+<span id="cb99-4"><a href=""></a>  <span class="fu">join_by</span>(state)</span>
+<span id="cb99-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["number"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Florida","2":"958"},{"1":"Georgia","2":"821"},{"1":"Hawaii","2":"931"},{"1":"Idaho","2":"NA"},{"1":"Illinois","2":"827"},{"1":"Indiana","2":"728"},{"1":"Iowa","2":"657"},{"1":"Kansas","2":"501"},{"1":"Kentucky","2":"332"},{"1":"Louisiana","2":"490"},{"1":"Maine","2":"206"},{"1":"Montana","2":"527"},{"1":"Nebraska","2":"232"},{"1":"Nevada","2":"647"},{"1":"New Hampshire","2":"818"},{"1":"New Jersey","2":"168"},{"1":"New Mexico","2":"336"},{"1":"New York","2":"207"},{"1":"North Carolina","2":"508"},{"1":"North Dakota","2":"652"},{"1":"Ohio","2":"186"},{"1":"Oklahoma","2":"621"},{"1":"Oregon","2":"471"},{"1":"Maryland","2":"507"},{"1":"Massachusetts","2":"859"},{"1":"Michigan","2":"467"},{"1":"Minnesota","2":"251"},{"1":"Mississippi","2":"372"},{"1":"Missouri","2":"972"},{"1":"Pennsylvania","2":"956"},{"1":"Rhode Island","2":"900"},{"1":"South Carolina","2":"182"},{"1":"South Dakota","2":"584"},{"1":"Tennessee","2":"476"},{"1":"Texas","2":"292"},{"1":"Utah","2":"758"},{"1":"Vermont","2":"158"},{"1":"Virginia","2":"432"},{"1":"Washington","2":"615"},{"1":"West Virginia","2":"974"},{"1":"Wisconsin","2":"842"},{"1":"Wyoming","2":"431"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="my-turn-9" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Download the <code>oregon-districts-and-schools.xlsx</code> file into the <code>data-raw</code> folder.</p></li>
+<li class="fragment"><p>Import a new data frame called <code>oregon_districts_and_schools</code> from <code>oregon-districts-and-schools.xlsx</code>.</p></li>
+<li class="fragment"><p>Merge the <code>oregon_districts_and_schools</code> data frame into the <code>third_grade_math_proficiency</code> data frame so I can see the names of the schools as well as associated districts.</p></li>
+</ol>
+</section>
+<section id="your-turn-10" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Download the <code>oregon-districts.xlsx</code> file into the <code>data-raw</code> folder.</p></li>
+<li class="fragment"><p>Import a new data frame called <code>oregon_districts</code> from <code>oregon-districts.xlsx</code>.</p></li>
+<li class="fragment"><p>Merge the <code>oregon_districts</code> data frame into the <code>enrollment_by_race_ethnicity</code> data frame so you can see the names of the districts.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="exporting-data" class="title-slide slide level1 inverse center" data-background-image="assets/ship-export.jpg">
+<h1>Exporting Data</h1>
+
+</section>
+<section id="write_csv" class="slide level2 center">
+<h2><code>write_csv()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href=""></a><span class="fu">write_csv</span>(</span>
+<span id="cb100-2"><a href=""></a>  french_and_german_speakers_2019,</span>
+<span id="cb100-3"><a href=""></a>  <span class="at">file =</span> <span class="st">"data/french_and_german_speakers_2019.csv"</span></span>
+<span id="cb100-4"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="write_rds" class="slide level2 center">
+<h2><code>write_rds()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href=""></a><span class="fu">write_rds</span>(</span>
+<span id="cb101-2"><a href=""></a>  french_and_german_speakers_2019,</span>
+<span id="cb101-3"><a href=""></a>  <span class="at">file =</span> <span class="st">"data/french_and_german_speakers_2019.rds"</span></span>
+<span id="cb101-4"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell fragment">
+
+</div>
+</section>
+<section id="my-turn-10" class="slide level2 my-turn center">
+<h2>My Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Export my <code>third_grade_math_proficiency</code> data frame as a CSV.</p></li>
+<li class="fragment"><p>Export my <code>third_grade_math_proficiency</code> data frame as an RDS file.</p></li>
+</ol>
+</section>
+<section id="your-turn-11" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Make a <code>data</code> folder using the <code>dir_create()</code> function from the <code>fs</code> package.</p></li>
+<li class="fragment"><p>Export the <code>enrollment_by_race_ethnicity</code> data frame as an RDS file in the <code>data</code> folder.</p></li>
+</ol>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slides-data-wrangling_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="slides-data-wrangling_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'print',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
