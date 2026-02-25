@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(quarto:*)",
-      "Bash(~/.positron/extensions/posit.air-vscode-0.20.0/bundled/bin/air format --check slides/slides-quarto.qmd)",
-      "Bash(~/.positron/extensions/posit.air-vscode-0.20.0/bundled/bin/air format --check slides/images.qmd)"
-    ]
-  }
-}
