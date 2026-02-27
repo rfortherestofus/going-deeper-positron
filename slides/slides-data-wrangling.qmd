@@ -449,7 +449,7 @@ Mention there are a whole bunch of other stringr functions
 #| eval: false
 #| echo: true
 data_frame |>
-  mutate(variable = recode_values(variable, "old_value" = "new_value"))
+  mutate(variable = recode_values(variable, "old_value" ~ "new_value"))
 ```
 
 ## `recode_values()`
@@ -497,8 +497,8 @@ data_frame |>
 
 ```{r if_else-example}
 #| echo: true
-#| eval: false
 #| code-line-numbers: "3-23"
+#| output-location: "slide"
 german_speakers |>
   pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
   mutate(
@@ -522,12 +522,6 @@ german_speakers |>
       false = year
     )
   )
-```
-
-## `if_else()`
-
-```{r ref.label = "if_else-example"}
-#| echo: true
 ```
 
 
@@ -554,8 +548,7 @@ data_frame |>
 
 ```{r case_when-example}
 #| echo: true
-#| eval: false
-#| code-line-numbers: "5,6,7,8,9"
+#| code-line-numbers: "3-9"
 german_speakers |>
   pivot_longer(cols = -state, names_to = "year", values_to = "number") |>
   mutate(
@@ -565,12 +558,6 @@ german_speakers |>
       year == "number_of_german_speakers_2019" ~ "2019"
     )
   )
-```
-
-## `case_when()`
-
-```{r ref.label = "case_when-example"}
-#| echo: true
 ```
 
 

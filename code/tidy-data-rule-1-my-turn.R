@@ -39,16 +39,15 @@ math_scores_2021_2022 <-
   read_excel(path = "data-raw/pagr_schools_math_tot_raceethnicity_2122.xlsx") |>
   clean_names()
 
-
 # Tidy and Clean Data -----------------------------------------------------
 
 third_grade_math_proficiency_2021_2022 <-
   math_scores_2021_2022 |>
   filter(student_group == "Total Population (All Students)") |>
   filter(grade_level == "Grade 3") |>
-  select(academic_year, school_id, contains("number_level")) |>
+  select(school_id, contains("number_level")) |>
   pivot_longer(
-    cols = starts_with("number_level"),
+    cols = -school_id,
     names_to = "proficiency_level",
     values_to = "number_of_students"
   )
