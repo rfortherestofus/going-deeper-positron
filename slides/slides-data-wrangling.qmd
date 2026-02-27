@@ -142,7 +142,7 @@ Working with [data on third grade math proficiency in Oregon schools](https://ww
 
 ## My Turn, Continued {.my-turn}
 
-3. Download the five recent math proficiency scores (from 2015-2016 to 2018-2019 as well as 2021-2022) and put them in a `data-raw` folder
+3. Download five recent Excel files with math proficiency scores (from 2015-2016 to 2018-2019 as well as 2021-2022) and put them in a `data-raw` folder
 
 4. Import the 2021-2022 data into a data frame called `math_scores_2021_2022` using the `clean_names()` function from the `janitor` package to make our variable names easy to work with
 
@@ -330,7 +330,7 @@ german_speakers
 
 ```{r}
 #| echo: true
-#| output: false
+#| code-line-numbers: "2-8"
 german_speakers |>
   pivot_longer(
     cols = c(

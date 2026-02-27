@@ -88,7 +88,7 @@ h3.title {
 
   h1,
   h2,
-  h1 > code {
+  h1>code {
     color: $body-bg;
     line-height: 1;
     letter-spacing: -2px;
@@ -110,17 +110,17 @@ h3.title {
 // slide backgrounds
 .has-bg-image {
   color: $body-color;
-  
+
 
   .slide-background-content {
-    box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
     background-color: $body-color;
     background-image: none;
   }
 
   h1,
   h2,
-  h1 > code {
+  h1>code {
     color: $body-bg;
     line-height: 1;
     letter-spacing: -2px;
@@ -152,9 +152,10 @@ h3.title {
   h3 {
     color: $body-bg;
   }
-  
-   a,
-  a:hover {
+
+  a,
+  a:hover,
+  a:visited {
     color: #ffffff;
     text-decoration: underline;
     text-underline-offset: 8px;
@@ -171,7 +172,7 @@ h3.title {
   code {
     color: #ffffff;
   }
-  
+
 }
 
 // your turn slides
@@ -192,8 +193,8 @@ h3.title {
 
   a,
   a:hover,
-  p > a,
-  li > a {
+  p>a,
+  li>a {
     color: #ffffff;
     text-decoration: underline;
     text-underline-offset: 8px;
@@ -207,11 +208,12 @@ h3.title {
     list-style: none;
   }
 
-  code, blockquote>p {
+  code,
+  blockquote>p {
     color: #ffffff;
   }
-  
-  
+
+
 
 
 }
@@ -234,11 +236,23 @@ h3.title {
 }
 
 a,
-a > code,
+a>code,
 .reveal a {
   color: #6cabdd;
   text-decoration: underline;
   text-underline-offset: 8px;
+}
+
+.reveal .my-turn a,
+.reveal .my-turn a:hover,
+.reveal .my-turn a:visited {
+  color: #ffffff;
+}
+
+.reveal .your-turn a,
+.reveal .your-turn a:hover,
+.reveal .your-turn a:visited {
+  color: #ffffff;
 }
 
 .error-text {
@@ -262,7 +276,7 @@ a > code,
 
 
 .center-slide {
-    text-align: center;
+  text-align: center;
 }
 
 .reveal .slide blockquote {
@@ -276,11 +290,11 @@ a > code,
   color: white;
 }
 
-#your-turn-continued-5 > div > blockquote  {
-  border-left: #ffffff 3px solid; 
-    font-style: italic;
-    color: #ffffff;
-    margin-bottom: 1em;
+#your-turn-continued-5>div>blockquote {
+  border-left: #ffffff 3px solid;
+  font-style: italic;
+  color: #ffffff;
+  margin-bottom: 1em;
 }
 
 .pagedtable-footer {
@@ -288,6 +302,5 @@ a > code,
 }
 
 .reveal .slides section .fragment.visible {
-    margin-top: 0.5em;
+  margin-top: 0.5em;
 }
-
