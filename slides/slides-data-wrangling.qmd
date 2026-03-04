@@ -624,11 +624,11 @@ I'll convert all instances of the `proficiency_level` variable to more meaningfu
 
 1. Remove the "x2022_23_" portion of the `race_ethnicity` variable using `str_remove()`.
 
-1. Convert all instances of the `race_ethnicity` variable to more meaningful observations (e.g. turn "american_indian_alaska_native" into "American Indian/Alaska Native") using `recode()`, `if_else()`, or `case_when()`.
+1. Convert all instances of the `race_ethnicity` variable to more meaningful observations (e.g. turn "american_indian_alaska_native" into "American Indian/Alaska Native") using `recode_values()`, `if_else()`, or `case_when()`.
 
 ## Your Turn, Continued {.your-turn}
 
-3. Add your code to the pipeline where you initially create `enrollment_by_race_ethnicity_2022_2023`. You only need to use one of the options of `recode()`, `if_else()`, or `case_when()` for this.
+3. Add your code to the pipeline where you initially create `enrollment_by_race_ethnicity_2022_2023`. You only need to use one of the options of `recode_values()`, `if_else()`, or `case_when()` for this.
 
 # Tidy Data Rule #2: Every Row is an Observation {.inverse}
 

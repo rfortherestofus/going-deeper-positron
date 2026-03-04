@@ -11,64 +11,56 @@ dir_create("data-raw")
 
 # Download Data -----------------------------------------------------------
 
-# https://www.oregon.gov/ode/reports-and-data/students/Pages/Student-Enrollment-Reports.aspx
+# https://www.oregon.gov/ode/educator-resources/assessment/Pages/Assessment-Group-Reports.aspx
 
-# download.file("https://www.oregon.gov/ode/reports-and-data/students/Documents/fallmembershipreport_20222023.xlsx",
+# download.file("https://www.oregon.gov/ode/educator-resources/assessment/Documents/TestResults2122/pagr_schools_math_tot_raceethnicity_2122.xlsx",
 #               mode = "wb",
-#               destfile = "data-raw/fallmembershipreport_20222023.xlsx")
+#               destfile = "data-raw/pagr_schools_math_tot_raceethnicity_2122.xlsx")
 #
-# download.file("https://www.oregon.gov/ode/reports-and-data/students/Documents/fallmembershipreport_20212022.xlsx",
+# download.file("https://www.oregon.gov/ode/educator-resources/assessment/Documents/TestResults2122/TestResults2019/pagr_schools_math_tot_raceethnicity_1819.xlsx",
 #               mode = "wb",
-#               destfile = "data-raw/fallmembershipreport_20212022.xlsx")
+#               destfile = "data-raw/pagr_schools_math_tot_raceethnicity_1819.xlsx")
 #
-# download.file("https://www.oregon.gov/ode/reports-and-data/students/Documents/fallmembershipreport_20202021.xlsx",
+# download.file("https://www.oregon.gov/ode/educator-resources/assessment/TestResults2018/pagr_schools_math_raceethnicity_1718.xlsx",
 #               mode = "wb",
-#               destfile = "data-raw/fallmembershipreport_20202021.xlsx")
+#               destfile = "data-raw/pagr_schools_math_raceethnicity_1718.xlsx")
 #
-# download.file("https://www.oregon.gov/ode/reports-and-data/students/Documents/fallmembershipreport_20192020.xlsx",
+# download.file("https://www.oregon.gov/ode/educator-resources/assessment/TestResults2017/pagr_schools_math_raceethnicity_1617.xlsx",
 #               mode = "wb",
-#               destfile = "data-raw/fallmembershipreport_20192020.xlsx")
+#               destfile = "data-raw/pagr_schools_math_raceethnicity_1617.xlsx")
 #
-# download.file("https://www.oregon.gov/ode/reports-and-data/students/Documents/fallmembershipreport_20182019.xlsx",
+# download.file("https://www.oregon.gov/ode/educator-resources/assessment/TestResults2016/pagr_schools_math_raceethnicity_1516.xlsx",
 #               mode = "wb",
-#               destfile = "data-raw/fallmembershipreport_20182019.xlsx")
+#               destfile = "data-raw/pagr_schools_math_raceethnicity_1516.xlsx")
 
 # Import Data -------------------------------------------------------------
 
-enrollment_2022_2023 <- read_excel(
-  path = "data-raw/fallmembershipreport_20222023.xlsx",
-  sheet = "School 2022-23"
-) |>
+math_scores_2021_2022 <-
+  read_excel(path = "data-raw/pagr_schools_math_tot_raceethnicity_2122.xlsx") |>
   clean_names()
+
 
 # Tidy and Clean Data -----------------------------------------------------
 
-enrollment_by_race_ethnicity_2022_2023 <-
-  enrollment_2022_2023 |>
-  select(
-    district_institution_id,
-    x2022_23_american_indian_alaska_native:x2022_23_percent_multi_racial
-  ) |>
-  select(-contains("percent")) |>
+third_grade_math_proficiency_2021_2022 <-
+  math_scores_2021_2022 |>
+  filter(student_group == "Total Population (All Students)") |>
+  filter(grade_level == "Grade 3") |>
+  select(academic_year, school_id, contains("number_level")) |>
   pivot_longer(
-    cols = -district_institution_id,
-    names_to = "race_ethnicity",
+    cols = starts_with("number_level"),
+    names_to = "proficiency_level",
     values_to = "number_of_students"
   ) |>
-  mutate(race_ethnicity = str_remove(race_ethnicity, pattern = "x2022_23_")) |>
-  mutate(
-    race_ethnicity = case_when(
-      race_ethnicity ==
-        "american_indian_alaska_native" ~ "American Indian Alaska Native",
-      race_ethnicity == "asian" ~ "Asian",
-      race_ethnicity == "black_african_american" ~ "Black/African American",
-      race_ethnicity == "hispanic_latino" ~ "Hispanic/Latino",
-      race_ethnicity == "multi_racial" ~ "Multiracial",
-      race_ethnicity ==
-        "native_hawaiian_pacific_islander" ~ "Native Hawaiian Pacific Islander",
-      race_ethnicity == "white" ~ "White"
-    )
-  ) |>
+  mutate(proficiency_level = parse_number(proficiency_level)) |>
   mutate(number_of_students = parse_number(number_of_students))
 
-enrollment_by_race_ethnicity_2022_2023
+third_grade_math_proficiency_2021_2022 |>
+  # group_by(school_id) |>
+  mutate(
+    pct = number_of_students / sum(number_of_students, na.rm = TRUE),
+    .by = school_id
+  ) |>
+  # ungroup() |>
+  filter(proficiency_level == 4) |>
+  slice_max(order_by = pct, n = 1)

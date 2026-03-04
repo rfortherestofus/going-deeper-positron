@@ -53,20 +53,19 @@ third_grade_math_proficiency_2021_2022 <-
     values_to = "number_of_students"
   ) |>
   mutate(
-    proficiency_level = case_when(
-      proficiency_level == "number_level_4" ~ "4",
-      proficiency_level == "number_level_3" ~ "3",
-      proficiency_level == "number_level_2" ~ "2",
-      proficiency_level == "number_level_1" ~ "1"
+    proficiency_level = recode_values(
+      proficiency_level,
+      "number_level_4" ~ "4",
+      "number_level_3" ~ "3",
+      "number_level_2" ~ "2",
+      "number_level_1" ~ "1"
     )
   )
 
 third_grade_math_proficiency_2021_2022 |>
   mutate(number_of_students = as.numeric(number_of_students)) |>
-  group_by(proficiency_level) |>
-  summarize(total_students = sum(number_of_students, na.rm = TRUE))
+  summarize(total_student = sum(number_of_students, na.rm = TRUE))
 
 third_grade_math_proficiency_2021_2022 |>
   mutate(number_of_students = parse_number(number_of_students)) |>
-  group_by(proficiency_level) |>
-  summarize(total_students = sum(number_of_students, na.rm = TRUE))
+  summarize(total_student = sum(number_of_students, na.rm = TRUE))

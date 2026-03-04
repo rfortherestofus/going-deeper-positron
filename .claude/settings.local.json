@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"^\\\\`\\\\`\\\\`{\" \"/Users/davidkeyes/Documents/Work/courses/Going Deeper/going-deeper-positron/slides/slides-data-viz.qmd\")",
+      "Bash(quarto preview \"/Users/davidkeyes/Documents/Work/courses/Going Deeper/going-deeper-positron/slides/slides-data-viz.qmd\" --no-browser --no-watch-inputs)"
+    ]
+  }
+}

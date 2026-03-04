@@ -57,10 +57,10 @@ third_grade_math_proficiency_2021_2022 |>
   mutate(
     proficiency_level = recode_values(
       proficiency_level,
-      "number_level_4" = "4",
-      "number_level_3" = "3",
-      "number_level_2" = "2",
-      "number_level_1" = "1"
+      "number_level_4" ~ "4",
+      "number_level_3" ~ "3",
+      "number_level_2" ~ "2",
+      "number_level_1" ~ "1"
     )
   )
 

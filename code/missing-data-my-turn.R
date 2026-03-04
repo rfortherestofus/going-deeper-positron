@@ -53,11 +53,12 @@ third_grade_math_proficiency_2021_2022 <-
     values_to = "number_of_students"
   ) |>
   mutate(
-    proficiency_level = case_when(
-      proficiency_level == "number_level_4" ~ "4",
-      proficiency_level == "number_level_3" ~ "3",
-      proficiency_level == "number_level_2" ~ "2",
-      proficiency_level == "number_level_1" ~ "1"
+    proficiency_level = recode_values(
+      proficiency_level,
+      "number_level_4" ~ "4",
+      "number_level_3" ~ "3",
+      "number_level_2" ~ "2",
+      "number_level_1" ~ "1"
     )
   )
 
