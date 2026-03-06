@@ -12,7 +12,7 @@ format:
 execute: 
   message: false
   warning: false
-  cache: true
+  cache: false
 title-slide-attributes:
   data-background-image: assets/rru-hex-bg-gradient-dark.svg
   data-background-size: cover
@@ -956,7 +956,21 @@ penguins |>
 
 ## {marquee}
 
+. . .
+
 Add markdown in your title
+
+```{r}
+#| eval: false
+#| echo: true
+ labs(
+    title = "**Penguins on Biscoe island**
+      had the longest average bill length in 2008 and 2009"
+  )
+```
+
+. . .
+
 ```{r}
 #| eval: false
 #| echo: true
@@ -1251,7 +1265,7 @@ penguins_bar_chart
 penguins_bar_chart <-
   penguins_bar_chart +
   labs(
-    title = "In 2007, <b style='color: orange;'>Dream island</b> had the most penguins of any island"
+    title = "In 2007, {.orange **Dream island**} had the most penguins of any island"
   )
 ```
 
@@ -1263,7 +1277,7 @@ penguins_bar_chart +
   theme(
     axis.text.y = element_text(),
     legend.position = "none",
-    plot.title = element_markdown(size = 20),
+    plot.title = element_marquee(),
     plot.title.position = "plot"
   )
 ```
@@ -1277,7 +1291,7 @@ theme_bar_chart <- function() {
     theme(
       axis.text.y = element_text(),
       legend.position = "none",
-      plot.title = element_markdown(size = 20),
+      plot.title = element_marquee(),
       plot.title.position = "plot"
     )
 }
@@ -1312,10 +1326,10 @@ penguins_bar_chart +
 
 ## Working with Custom Fonts in R
 
-The `systemfonts` package makes custom fonts available to R.
+The {systemfonts} package makes custom fonts available to R.
 
 ::: {.fragment}
-The `ragg` package enables ggplot to use these fonts when making plots.
+The {ragg} package enables ggplot to use these fonts when making plots.
 :::
 
 ::: {.fragment}
@@ -1332,49 +1346,12 @@ library(systemfonts)
 system_fonts()
 ```
 
-## Rendering Plots in RStudio with Custom Fonts
-
-
-![](assets/graphics-device.png)
-
-## Saving Plots with Custom Fonts
-
-```{r}
-#| echo: true
-#| eval: false
-#| code-line-numbers: "1,5"
-
-library(ragg)
-
-ggsave(
-  plot = penguins_bar_chart,
-  filename = "penguins_bar_chart.png",
-  device = agg_png
-)
-```
-
-
-## Rendering Plots with Custom Fonts in Quarto Documents
-
-```{yaml}
-#| echo: true
-#| eval: false
-#| code-line-numbers: "4-6"
----
-title: "My Report"
-format: html
-knitr:
-  opts_chunk: 
-    dev: ragg_png
----
-```
-  
 ## Where to Apply Custom Fonts: `geom_text()`
   
 ```{r}
 #| echo: true
 #| eval: false
-#| code-line-numbers: "9"
+#| code-line-numbers: "6"
 penguins |>
   filter(year == 2007) |>
   count(island) |>
@@ -1402,7 +1379,7 @@ penguins |>
 ```{r}
 #| echo: true
 #| eval: false
-#| code-line-numbers: "11"
+#| code-line-numbers: "8"
 penguins |>
   filter(year == 2007) |>
   count(island) |>
@@ -1417,7 +1394,6 @@ penguins |>
 
 ```{r}
 #| echo: false
-#| code-line-numbers: "11"
 penguins |>
   filter(year == 2007) |>
   count(island) |>

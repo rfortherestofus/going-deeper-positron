@@ -4,6 +4,7 @@ library(tidyverse)
 library(fs)
 library(scales)
 library(ggrepel)
+library(marquee)
 
 # Create Directory --------------------------------------------------------
 
@@ -64,6 +65,13 @@ top_growth_school <-
   ) |>
   pull(school)
 
+
+plot_title <-
+  marquee_glue(
+    "{.orange **{top_growth_school}**} showed large growth 
+        in math proficiency over the last two years"
+  )
+
 third_grade_math_proficiency |>
   filter(district == "Portland SD 1J") |>
   mutate(
@@ -118,9 +126,14 @@ third_grade_math_proficiency |>
   scale_y_continuous(
     labels = percent_format()
   ) +
+  labs(
+    title = plot_title
+  ) +
   theme_minimal() +
   theme(
     axis.title = element_blank(),
     legend.position = "none",
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    plot.title = element_marquee(width = 1),
+    plot.title.position = "plot"
   )
