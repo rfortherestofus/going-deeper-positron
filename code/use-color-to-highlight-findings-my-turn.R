@@ -9,9 +9,11 @@ dir_create("data")
 
 # Download Data -----------------------------------------------------------
 
-# download.file("https://github.com/rfortherestofus/going-deeper-v2/raw/main/data/third_grade_math_proficiency.rds",
-#               mode = "wb",
-#               destfile = "data/third_grade_math_proficiency.rds")
+download.file(
+  "https://github.com/rfortherestofus/going-deeper-positron/raw/main/data/third_grade_math_proficiency.rds",
+  mode = "wb",
+  destfile = "data/third_grade_math_proficiency.rds"
+)
 
 # Import Data -------------------------------------------------------------
 
@@ -42,13 +44,7 @@ third_grade_math_proficiency <-
   ungroup() |>
   filter(is_proficient == TRUE) |>
   select(academic_year, school, district, percent_proficient) |>
-  rename(year = academic_year) |>
-  mutate(
-    percent_proficient = case_when(
-      is.nan(percent_proficient) ~ NA,
-      .default = percent_proficient
-    )
-  )
+  rename(year = academic_year)
 
 # Plot --------------------------------------------------------------------
 
@@ -60,8 +56,10 @@ top_growth_school <-
     growth_from_previous_year = percent_proficient - lag(percent_proficient)
   ) |>
   ungroup() |>
-  drop_na(growth_from_previous_year) |>
-  slice_max(order_by = growth_from_previous_year, n = 1) |>
+  slice_max(
+    order_by = growth_from_previous_year,
+    n = 1
+  ) |>
   pull(school)
 
 third_grade_math_proficiency |>
@@ -72,17 +70,25 @@ third_grade_math_proficiency |>
       .default = "N"
     )
   ) |>
-  mutate(school = fct_relevel(school, top_growth_school, after = Inf)) |>
-  ggplot(aes(
-    x = year,
-    y = percent_proficient,
-    group = school,
-    color = highlight_school
-  )) +
+  mutate(
+    school = fct_relevel(
+      school,
+      top_growth_school,
+      after = Inf
+    )
+  ) |>
+  ggplot(
+    aes(
+      x = year,
+      y = percent_proficient,
+      color = highlight_school,
+      group = school
+    )
+  ) +
   geom_line() +
   scale_color_manual(
     values = c(
-      "N" = "grey80",
-      "Y" = "orange"
+      "Y" = "orange",
+      "N" = "gray80"
     )
   )

@@ -4,7 +4,6 @@ library(tidyverse)
 library(fs)
 library(scales)
 library(ggrepel)
-library(ggtext)
 
 # Create Directory --------------------------------------------------------
 
@@ -12,9 +11,11 @@ dir_create("data")
 
 # Download Data -----------------------------------------------------------
 
-# download.file("https://github.com/rfortherestofus/going-deeper-v2/raw/main/data/third_grade_math_proficiency.rds",
-#               mode = "wb",
-#               destfile = "data/third_grade_math_proficiency.rds")
+download.file(
+  "https://github.com/rfortherestofus/going-deeper-positron/raw/main/data/third_grade_math_proficiency.rds",
+  mode = "wb",
+  destfile = "data/third_grade_math_proficiency.rds"
+)
 
 # Import Data -------------------------------------------------------------
 
@@ -45,13 +46,7 @@ third_grade_math_proficiency <-
   ungroup() |>
   filter(is_proficient == TRUE) |>
   select(academic_year, school, district, percent_proficient) |>
-  rename(year = academic_year) |>
-  mutate(
-    percent_proficient = case_when(
-      is.nan(percent_proficient) ~ NA,
-      .default = percent_proficient
-    )
-  )
+  rename(year = academic_year)
 
 # Plot --------------------------------------------------------------------
 
@@ -63,8 +58,10 @@ top_growth_school <-
     growth_from_previous_year = percent_proficient - lag(percent_proficient)
   ) |>
   ungroup() |>
-  drop_na(growth_from_previous_year) |>
-  slice_max(order_by = growth_from_previous_year, n = 1) |>
+  slice_max(
+    order_by = growth_from_previous_year,
+    n = 1
+  ) |>
   pull(school)
 
 third_grade_math_proficiency |>
@@ -76,50 +73,54 @@ third_grade_math_proficiency |>
     )
   ) |>
   mutate(
-    percent_proficient_formatted = case_when(
-      school == top_growth_school ~ percent(percent_proficient, accuracy = 1)
+    school = fct_relevel(
+      school,
+      top_growth_school,
+      after = Inf
     )
   ) |>
   mutate(
+    percent_proficient_formatted = percent(percent_proficient, accuracy = 1)
+  ) |>
+  mutate(
     percent_proficient_formatted = case_when(
-      highlight_school == "Y" & year == "2021-2022" ~ str_glue(
-        "{percent_proficient_formatted} of students
-                                                             were proficient 
-                                                             in {year}"
-      ),
-      highlight_school == "Y" &
-        year == "2018-2019" ~ percent_proficient_formatted
+      highlight_school == "Y" & year == "2021-2022" ~
+        str_glue(
+          "{percent_proficient_formatted} of students
+          were proficient
+          in {year}"
+        ),
+      highlight_school == "Y" & year == "2018-2019" ~
+        percent_proficient_formatted
     )
   ) |>
-  mutate(school = fct_relevel(school, top_growth_school, after = Inf)) |>
-  ggplot(aes(
-    x = year,
-    y = percent_proficient,
-    group = school,
-    color = highlight_school,
-    label = percent_proficient_formatted
-  )) +
-  geom_line() +
-  geom_text_repel(hjust = 0, lineheight = 0.9, direction = "x") +
-  scale_color_manual(
-    values = c(
-      "N" = "grey90",
-      "Y" = "orange"
+  ggplot(
+    aes(
+      x = year,
+      y = percent_proficient,
+      color = highlight_school,
+      group = school,
+      label = percent_proficient_formatted
     )
   ) +
-  scale_y_continuous(labels = percent_format()) +
-  labs(
-    title = str_glue(
-      "<b style='color: orange;'>{top_growth_school}</b> 
-                        showed large growth in math proficiency over the
-                        last two years"
+  geom_line() +
+  geom_text_repel(
+    hjust = 0,
+    lineheight = 0.9,
+    direction = "x"
+  ) +
+  scale_color_manual(
+    values = c(
+      "Y" = "orange",
+      "N" = "gray80"
     )
+  ) +
+  scale_y_continuous(
+    labels = percent_format()
   ) +
   theme_minimal() +
   theme(
     axis.title = element_blank(),
     legend.position = "none",
-    plot.title = element_markdown(),
-    plot.title.position = "plot",
     panel.grid = element_blank()
   )

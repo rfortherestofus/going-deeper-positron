@@ -1004,21 +1004,21 @@
 <h2>Use Color in Titles to Highlight Findings</h2>
 
 <img data-src="slides-data-viz_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch"></section>
-<section id="ggtext" class="slide level2 center">
-<h2><code>ggtext</code></h2>
-<div class="fragment">
-<p>Add a <em>little</em> bit of HTML (not too much, I promise!)</p>
+<section id="marquee" class="slide level2 center">
+<h2>{marquee}</h2>
+<p>Add markdown in your title</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">labs</span>(</span>
-<span id="cb36-2"><a href=""></a>  <span class="at">title =</span> <span class="st">"&lt;b style='color: orange;'&gt;Penguins on Biscoe island&lt;/b&gt; </span></span>
-<span id="cb36-3"><a href=""></a><span class="st">     had the longest average bill length in 2008 and 2009"</span></span>
-<span id="cb36-4"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a> <span class="fu">labs</span>(</span>
+<span id="cb36-2"><a href=""></a>    <span class="at">title =</span> <span class="st">"{.orange **Penguins on Biscoe island**}</span></span>
+<span id="cb36-3"><a href=""></a><span class="st">      had the longest average bill length in 2008 and 2009"</span></span>
+<span id="cb36-4"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
-<p>And then tell ggplot to interpret the HTML correctly</p>
+<div class="fragment">
+<p>And then tell ggplot to interpret the title as markdown</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_marquee</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 </div>
 </section>
@@ -1026,7 +1026,7 @@
 <h2>My Turn</h2>
 <ol type="1">
 <li class="fragment"><p>Add a descriptive title to my plot</p></li>
-<li class="fragment"><p>Use color strategically in my title using the <code>ggtext</code> package</p></li>
+<li class="fragment"><p>Use color strategically in my title using the {marquee} package</p></li>
 <li class="fragment"><p>Align my title all the way to the edge of the plot</p></li>
 </ol>
 <aside class="notes">
@@ -1034,10 +1034,6 @@
 <li>Use descriptive titles</li>
 <li>Use color in titles</li>
 <li>Show datawrapper articles</li>
-<li>ggtext</li>
-<li>span</li>
-<li>b</li>
-<li>i</li>
 <li>plot.title.position = “plot”</li>
 </ul>
 <style type="text/css">
@@ -1056,7 +1052,7 @@
 <h2>Your Turn</h2>
 <ol type="1">
 <li class="fragment"><p>Add a descriptive title to your plot</p></li>
-<li class="fragment"><p>Use color strategically in your title using the <code>ggtext</code> package</p></li>
+<li class="fragment"><p>Use color strategically in your title using the {maruqee} package</p></li>
 <li class="fragment"><p>Align your title all the way to the edge of the plot</p></li>
 </ol>
 </section></section>
