@@ -1288,12 +1288,14 @@
 </section>
 <section id="working-with-custom-fonts-in-r" class="slide level2 center">
 <h2>Working with Custom Fonts in R</h2>
+<div class="fragment">
 <p>The {systemfonts} package makes custom fonts available to R.</p>
 <div class="fragment">
 <p>The {ragg} package enables ggplot to use these fonts when making plots.</p>
 </div>
 <div class="fragment">
 <p>Begin by installing both packages.</p>
+</div>
 </div>
 </section>
 <section id="viewing-all-fonts" class="slide level2 center">
@@ -1323,7 +1325,7 @@
 <section id="where-to-apply-custom-fonts-complete-themes" class="slide level2 center">
 <h2>Where to Apply Custom Fonts: Complete Themes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51" data-code-line-numbers="11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a href=""></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
 <span id="cb51-3"><a href=""></a>  <span class="fu">count</span>(island) <span class="sc">|&gt;</span></span>
 <span id="cb51-4"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="fu">reorder</span>(island, n), <span class="at">fill =</span> island, <span class="at">label =</span> n)) <span class="sc">+</span></span>
@@ -1340,7 +1342,7 @@
 <section id="where-to-apply-custom-fonts-theme" class="slide level2 center">
 <h2>Where to Apply Custom Fonts: <code>theme()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52" data-code-line-numbers="9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb52-2"><a href=""></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
 <span id="cb52-3"><a href=""></a>  <span class="fu">count</span>(island) <span class="sc">|&gt;</span></span>
 <span id="cb52-4"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> <span class="fu">reorder</span>(island, n), <span class="at">fill =</span> island, <span class="at">label =</span> n)) <span class="sc">+</span></span>
@@ -1357,10 +1359,7 @@
 <img data-src="slides-data-viz_files/figure-revealjs/unnamed-chunk-63-1.png" width="960" class="r-stretch"></section>
 <section id="my-turn-10" class="slide level2 my-turn center">
 <h2>My Turn</h2>
-<ol type="1">
-<li class="fragment"><p>Set my system up to use custom fonts using the <code>ragg</code> and <code>systemfonts</code> packages.</p></li>
-<li class="fragment"><p>Apply a custom font to my plot.</p></li>
-</ol>
+<p>Apply a custom font to my plot.</p>
 <aside class="notes">
 <ul>
 <li>family in geom_text()</li>
@@ -1382,9 +1381,8 @@
 <section id="your-turn-10" class="slide level2 your-turn center">
 <h2>Your Turn</h2>
 <ol type="1">
-<li class="fragment"><p>Set your system up to work with custom fonts using the <code>ragg</code> and <code>systemfonts</code> packages.</p></li>
+<li class="fragment"><p>Install the {ragg} and {systemfonts} packages.</p></li>
 <li class="fragment"><p>Apply a custom font to your plot.</p></li>
-<li class="fragment"><p>Save your plot using <code>ggsave()</code> and add your plot to a Quarto document to make sure it renders correctly there.</p></li>
 </ol>
 </section></section>
 <section>

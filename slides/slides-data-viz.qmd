@@ -1326,6 +1326,8 @@ penguins_bar_chart +
 
 ## Working with Custom Fonts in R
 
+. . .
+
 The {systemfonts} package makes custom fonts available to R.
 
 ::: {.fragment}
@@ -1409,7 +1411,7 @@ penguins |>
 ```{r}
 #| echo: true
 #| eval: false
-#| code-line-numbers: "12"
+#| code-line-numbers: "9"
 penguins |>
   filter(year == 2007) |>
   count(island) |>
@@ -1441,9 +1443,7 @@ penguins |>
 
 ## My Turn {.my-turn}
 
-1. Set my system up to use custom fonts using the `ragg` and `systemfonts` packages. 
-
-1. Apply a custom font to my plot.
+Apply a custom font to my plot.
 
 ::: {.notes}
 - family in geom_text()
@@ -1453,11 +1453,9 @@ penguins |>
 
 ## Your Turn {.your-turn}
 
-1. Set your system up to work with custom fonts using the `ragg` and `systemfonts` packages. 
+1. Install the {ragg} and {systemfonts} packages. 
 
 1. Apply a custom font to your plot.
-
-1. Save your plot using `ggsave()` and add your plot to a Quarto document to make sure it renders correctly there.
 
 # Try New Plot Types {.inverse}
 

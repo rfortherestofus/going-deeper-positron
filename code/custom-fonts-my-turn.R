@@ -53,7 +53,7 @@ third_grade_math_proficiency <-
 # Theme ------------------------------------------------------------------
 
 theme_dk <- function() {
-  theme_minimal() +
+  theme_minimal(base_family = "IBM Plex Mono") +
     theme(
       axis.title = element_blank(),
       legend.position = "none",
@@ -129,7 +129,8 @@ third_grade_math_proficiency |>
   geom_text_repel(
     hjust = 0,
     lineheight = 0.9,
-    direction = "x"
+    direction = "x",
+    family = "IBM Plex Mono"
   ) +
   scale_color_manual(
     values = c(
@@ -141,7 +142,9 @@ third_grade_math_proficiency |>
     expand = expansion(add = c(0, 0.5))
   ) +
   scale_y_continuous(
-    labels = percent_format()
+    labels = percent_format(),
+    limits = c(0, 1)
+    # expand = expansion(add = c(0.1, 0.2))
   ) +
   annotate(
     geom = "text",

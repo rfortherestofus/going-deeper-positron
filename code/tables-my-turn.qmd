@@ -5,41 +5,46 @@ execute:
   echo: false
   warning: false
   message: false
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r}
 library(tidyverse)
 library(here)
-library(scales)
 library(flextable)
 library(gt)
+library(scales)
 ```
 
 ```{r}
-third_grade_math_proficiency_wide <- 
-  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |> 
-  filter(district == "Portland SD 1J") |> 
-  filter(school %in% c("Abernethy Elementary School",
-                       "Ainsworth Elementary School",
-                       "Alameda Elementary School",
-                       "Arleta Elementary School",
-                       "Atkinson Elementary School")) |> 
-  select(year, school, percent_proficient) |> 
-  arrange(school) |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient)
+third_grade_math_proficiency_wide <-
+  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |>
+  filter(district == "Portland SD 1J") |>
+  filter(
+    school %in%
+      c(
+        "Abernethy Elementary School",
+        "Ainsworth Elementary School",
+        "Alameda Elementary School",
+        "Arleta Elementary School",
+        "Atkinson Elementary School"
+      )
+  ) |>
+  select(year, school, percent_proficient) |>
+  arrange(school) |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient
+  )
 ```
 
-![](portland-public-schools-logo.svg){width=300px fig-align="left"}
+![Portland Public Schools](portland-public-schools-logo.svg){width=300px fig-align="center" fig-alt="Portland Public Schools logo"}
 
 # Introduction
 
-This is a report on math proficiency results in [Portland Public Schools (PPS)](https://www.pps.net/domain/551). The PPS mission statement is:
+This is a report on math proficiency results in [Portland Public Schools (PPS)](https://www.pps.net/). The PPS mission statement is as follows:
 
-> ... to educate all children to their highest potential to be productive, respectful, self-reliant, and responsible citizens who value the richness of diversity. In partnership with families and the community, we are committed to excellence in a dynamic, child-centered, nurturing environment that provides the foundation and enthusiasm for life-long learning.^[https://www.pps.net/domain/551]
+> We provide rigorous, high-quality academic learning experiences that are inclusive and joyful. We disrupt racial inequities to create vibrant environments for every student to demonstrate excellence.^[https://www.pps.net/about/portland-public-schools-information/overview]
 
 # Don’t Use the Default Output
 
@@ -52,98 +57,63 @@ third_grade_math_proficiency_wide
 ```{r}
 #| tbl-cap: Math proficiency among third graders in five Portland schools
 
-flextable_data <- 
-  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |> 
-  filter(district == "Portland SD 1J") |> 
-  filter(school %in% c("Abernethy Elementary School",
-                       "Ainsworth Elementary School",
-                       "Alameda Elementary School",
-                       "Arleta Elementary School",
-                       "Atkinson Elementary School")) |> 
-  select(year, school, percent_proficient_formatted) |> 
-  arrange(school) |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient_formatted)
-
-
-flextable_data |> 
-  flextable() |> 
-  set_header_labels(school = "School") |> 
-  align(j = 2, align = "center") |> 
-  # width(j = 1, width = 10, unit = "cm") |> 
-  # width(j = 2:3, width = 5, unit = "cm") |> 
-  autofit() |> 
-  set_caption("Math proficiency among third graders in five Portland schools")
+third_grade_math_proficiency_wide |>
+  mutate(`2018-2019` = percent(`2018-2019`)) |>
+  mutate(`2021-2022` = percent(`2021-2022`)) |>
+  flextable() |>
+  set_header_labels(school = "School") |>
+  # align(j = 2, align = "center") |>
+  # width(j = 2, 4, unit = "cm") |>
+  # width(j = 3, 2, unit = "cm")
+  autofit()
 ```
 
 # gt
 
 ```{r}
-gt_data <- 
-  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |> 
-  filter(district == "Portland SD 1J") |> 
-  filter(school %in% c("Abernethy Elementary School",
-                       "Ainsworth Elementary School",
-                       "Alameda Elementary School",
-                       "Arleta Elementary School",
-                       "Atkinson Elementary School")) |> 
-  select(year, school, percent_proficient) |> 
-  arrange(school) |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient)
+#| tbl-cap: Math proficiency among third graders in five Portland schools
 
-gt_data |> 
-  gt() |> 
-  cols_label(school = "School") |> 
+third_grade_math_proficiency_wide |>
+  gt() |>
+  cols_label(school = "School") |>
   cols_width(
     school ~ px(100)
-  ) |> 
-  cols_align(
-    columns = 2,
-    align = "center"
-  ) |> 
+  ) |>
+  # cols_align(
+  #   columns = `2018-2019`,
+  #   align = "center"
+  # ) |>
   fmt_percent(
     columns = 2:3,
-    decimals = 0
-  ) |> 
-  tab_caption("Math proficiency among third graders in five Portland schools")
+    decimals = 1
+  )
 ```
 
 # gt interactive
 
 ```{r}
-gt_data_interactive <- 
-  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |> 
-  filter(district == "Portland SD 1J") |> 
-  select(year, school, percent_proficient) |> 
-  arrange(school) |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient)
-
-gt_data_interactive |> 
-  gt() |> 
-  cols_label(school = "School") |> 
-  # cols_width(
-  #   school ~ pct(50)
-  # ) |> 
-  # cols_align(
-  #   columns = `2018-2019`,
-  #   align = "center"
-  # ) |> 
-  fmt_percent(
-    columns = 2:3,
-    decimals = 0
-  ) |> 
-  tab_caption("Math proficiency among third graders in five Portland schools") |> 
-  opt_interactive(
-    use_search = TRUE,
-    use_highlight = TRUE,
-    use_compact_mode = TRUE
+third_grade_math_proficiency_wide_full <-
+  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |>
+  filter(district == "Portland SD 1J") |>
+  select(year, school, percent_proficient) |>
+  arrange(school) |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient
   )
 ```
 
-
-
+```{r}
+third_grade_math_proficiency_wide_full |>
+  gt() |>
+  cols_label(school = "School") |>
+  fmt_percent(
+    columns = 2:3,
+    decimals = 0
+  ) |>
+  opt_interactive(
+    use_search = TRUE,
+    use_highlight = TRUE
+  )
+```
