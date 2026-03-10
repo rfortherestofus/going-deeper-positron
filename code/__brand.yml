@@ -1,0 +1,30 @@
+meta:
+  name: brand.yml
+  link: https://posit-dev.github.io/brand-yml
+
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#FFFFFF"
+    orange: "#FF6F20"
+    pink: "#FF3D7F"
+  foreground: black
+  background: white
+  primary: orange
+  danger: pink
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+    - family: Rubik
+      source: google
+    - family: IBM Plex Mono
+      source: google
+
+  base: Open Sans
+  headings:
+    family: IBM Plex Mono
+    weight: 400
+    color: orange
+  monospace: IBM Plex Mono

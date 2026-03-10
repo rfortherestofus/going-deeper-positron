@@ -658,6 +658,13 @@ typography:
 
 # Making Your Reports Shine: HTML Edition {.inverse background-image="assets/html.jpg"}
 
+
+## brand.yml
+
+::: {.notes}
+
+:::
+
 ## Built-In Themes
 
 [Quarto has a number of built-in themes](https://quarto.org/docs/output-formats/html-themes.html)
@@ -713,6 +720,7 @@ format:
 ```
 
 
+
 ## Creating Your Own Theme
 
 ```{yaml}
@@ -727,7 +735,7 @@ format:
 ## Anatomy of a `.scss` File
 
 ```{scss}
-//| echo: truem
+//| echo: true
 /*-- scss:defaults --*/
 
 /*-- scss:rules --*/
@@ -772,6 +780,8 @@ h1 {
 
 ## My Turn {.my-turn}
 
+1. Apply my brand.yml file to my HTML file.
+
 1. Apply a built-in HTML theme to my report. 
 
 1. Customize the built-in HTML theme.
@@ -779,6 +789,8 @@ h1 {
 1. Create my own theme using an `.scss` file, Sass variables, and some custom CSS.
 
 ## Your Turn {.your-turn}
+
+1. Create and apply a brand.yml file to your HTML file.
 
 1. Apply a built-in HTML theme to your report. 
 
@@ -808,7 +820,6 @@ format:
 ```
 
 ## Revealjs {.inverse}
-
 
 ::: {.notes}
 https://quarto.org/docs/reference/formats/presentations/revealjs.html
@@ -935,6 +946,8 @@ Show https://quarto.org/docs/presentations/revealjs/#footer-logo
 :::
 
 ## Revealjs Themes
+
+- Revealjs will apply styles set in brand.yml
 
 - Revealjs has built-in themes
 

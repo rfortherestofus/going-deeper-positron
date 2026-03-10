@@ -1,6 +1,10 @@
 ---
 title: "Portland Public Schools Math Proficiency Report"
-format: docx
+format: 
+  typst:
+    papersize: us-letter
+    margin:
+      top: 1in
 execute: 
   echo: false
   warning: false
@@ -201,6 +205,8 @@ third_grade_math_proficiency_wide <-
     values_from = percent_proficient
   )
 ```
+
+{{< pagebreak >}}
 
 # Table
 
