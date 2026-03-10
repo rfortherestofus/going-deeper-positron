@@ -1,6 +1,12 @@
 ---
 title: "Portland Public Schools Math Proficiency Report"
-format: html
+format: 
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 1
+    fig-height: 10
+    fig-width: 5
 execute: 
   echo: false
   warning: false
@@ -48,7 +54,7 @@ This is a report on math proficiency results in [Portland Public Schools (PPS)](
 
 > We provide rigorous, high-quality academic learning experiences that are inclusive and joyful. We disrupt racial inequities to create vibrant environments for every student to demonstrate excellence.^[https://www.pps.net/about/portland-public-schools-information/overview]
 
-# Don’t Use the Default Output
+## Don’t Use the Default Output
 
 ```{r}
 third_grade_math_proficiency_wide
@@ -172,6 +178,7 @@ theme_dk <- function() {
 
 ```{r}
 #| fig-alt: Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022
+#| fig-cap: Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022
 
 top_growth_school <-
   third_grade_math_proficiency |>

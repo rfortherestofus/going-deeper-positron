@@ -48,10 +48,24 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#flextable" id="toc-flextable" class="nav-link" data-scroll-target="#flextable">Flextable</a></li>
+  <li><a href="#gt" id="toc-gt" class="nav-link" data-scroll-target="#gt">gt</a></li>
+  <li><a href="#gt-interactive" id="toc-gt-interactive" class="nav-link" data-scroll-target="#gt-interactive">gt interactive</a></li>
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot">Plot</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -85,9 +99,8 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>We provide rigorous, high-quality academic learning experiences that are inclusive and joyful. We disrupt racial inequities to create vibrant environments for every student to demonstrate excellence.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </blockquote>
-</section>
-<section id="dont-use-the-default-output" class="level1">
-<h1>Don’t Use the Default Output</h1>
+<section id="dont-use-the-default-output" class="level2">
+<h2 class="anchored" data-anchor-id="dont-use-the-default-output">Don’t Use the Default Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -101,11 +114,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
+</section>
 <section id="flextable" class="level1">
 <h1>Flextable</h1>
 <div class="cell" data-tbl-cap="Math proficiency among third graders in five Portland schools">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-8984578e{}.cl-8981cf82{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8982d5f8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8982e494{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8982e495{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8982e496{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8982e49e{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8982e49f{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8982e4a0{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-8984578e"><caption><p>Math proficiency among third graders in five Portland schools</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-8982e494"><p class="cl-8982d5f8"><span class="cl-8981cf82">School</span></p></th><th class="cl-8982e495"><p class="cl-8982d5f8"><span class="cl-8981cf82">2018-2019</span></p></th><th class="cl-8982e495"><p class="cl-8982d5f8"><span class="cl-8981cf82">2021-2022</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-8982e496"><p class="cl-8982d5f8"><span class="cl-8981cf82">Abernethy Elementary School</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">70.7%</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">79.2%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8982e496"><p class="cl-8982d5f8"><span class="cl-8981cf82">Ainsworth Elementary School</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">80.4%</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">67.8%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8982e496"><p class="cl-8982d5f8"><span class="cl-8981cf82">Alameda Elementary School</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">83.1%</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">81.7%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8982e496"><p class="cl-8982d5f8"><span class="cl-8981cf82">Arleta Elementary School</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">42.3%</span></p></td><td class="cl-8982e49e"><p class="cl-8982d5f8"><span class="cl-8981cf82">51.9%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-8982e49f"><p class="cl-8982d5f8"><span class="cl-8981cf82">Atkinson Elementary School</span></p></td><td class="cl-8982e4a0"><p class="cl-8982d5f8"><span class="cl-8981cf82">50.8%</span></p></td><td class="cl-8982e4a0"><p class="cl-8982d5f8"><span class="cl-8981cf82">57.7%</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-473b2a50{}.cl-47382ddc{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-47395284{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-473962e2{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-473962ec{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-473962ed{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-473962ee{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-473962f6{width:2.306in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-473962f7{width:1.016in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-473b2a50"><caption><p>Math proficiency among third graders in five Portland schools</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-473962e2"><p class="cl-47395284"><span class="cl-47382ddc">School</span></p></th><th class="cl-473962ec"><p class="cl-47395284"><span class="cl-47382ddc">2018-2019</span></p></th><th class="cl-473962ec"><p class="cl-47395284"><span class="cl-47382ddc">2021-2022</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-473962ed"><p class="cl-47395284"><span class="cl-47382ddc">Abernethy Elementary School</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">70.7%</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">79.2%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-473962ed"><p class="cl-47395284"><span class="cl-47382ddc">Ainsworth Elementary School</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">80.4%</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">67.8%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-473962ed"><p class="cl-47395284"><span class="cl-47382ddc">Alameda Elementary School</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">83.1%</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">81.7%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-473962ed"><p class="cl-47395284"><span class="cl-47382ddc">Arleta Elementary School</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">42.3%</span></p></td><td class="cl-473962ee"><p class="cl-47395284"><span class="cl-47382ddc">51.9%</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-473962f6"><p class="cl-47395284"><span class="cl-47382ddc">Atkinson Elementary School</span></p></td><td class="cl-473962f7"><p class="cl-47395284"><span class="cl-47382ddc">50.8%</span></p></td><td class="cl-473962f7"><p class="cl-47395284"><span class="cl-47382ddc">57.7%</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </section>
@@ -113,23 +127,23 @@ ul.task-list li input[type="checkbox"] {
 <h1>gt</h1>
 <div class="cell" data-tbl-cap="Math proficiency among third graders in five Portland schools">
 <div class="cell-output-display">
-<div id="yopezafmft" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yopezafmft table {
+<div id="yrsktdupcp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yrsktdupcp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yopezafmft thead, #yopezafmft tbody, #yopezafmft tfoot, #yopezafmft tr, #yopezafmft td, #yopezafmft th {
+#yrsktdupcp thead, #yrsktdupcp tbody, #yrsktdupcp tfoot, #yrsktdupcp tr, #yrsktdupcp td, #yrsktdupcp th {
   border-style: none;
 }
 
-#yopezafmft p {
+#yrsktdupcp p {
   margin: 0;
   padding: 0;
 }
 
-#yopezafmft .gt_table {
+#yrsktdupcp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -155,12 +169,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#yopezafmft .gt_caption {
+#yrsktdupcp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yopezafmft .gt_title {
+#yrsktdupcp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -172,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#yopezafmft .gt_subtitle {
+#yrsktdupcp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -184,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#yopezafmft .gt_heading {
+#yrsktdupcp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -196,13 +210,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#yopezafmft .gt_bottom_border {
+#yrsktdupcp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yopezafmft .gt_col_headings {
+#yrsktdupcp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -217,7 +231,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#yopezafmft .gt_col_heading {
+#yrsktdupcp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -237,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#yopezafmft .gt_column_spanner_outer {
+#yrsktdupcp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -249,15 +263,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#yopezafmft .gt_column_spanner_outer:first-child {
+#yrsktdupcp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yopezafmft .gt_column_spanner_outer:last-child {
+#yrsktdupcp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yopezafmft .gt_column_spanner {
+#yrsktdupcp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -269,11 +283,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#yopezafmft .gt_spanner_row {
+#yrsktdupcp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yopezafmft .gt_group_heading {
+#yrsktdupcp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -299,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#yopezafmft .gt_empty_group_heading {
+#yrsktdupcp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -314,15 +328,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#yopezafmft .gt_from_md > :first-child {
+#yrsktdupcp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yopezafmft .gt_from_md > :last-child {
+#yrsktdupcp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yopezafmft .gt_row {
+#yrsktdupcp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -341,7 +355,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#yopezafmft .gt_stub {
+#yrsktdupcp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -354,7 +368,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#yopezafmft .gt_stub_row_group {
+#yrsktdupcp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -368,15 +382,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#yopezafmft .gt_row_group_first td {
+#yrsktdupcp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yopezafmft .gt_row_group_first th {
+#yrsktdupcp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yopezafmft .gt_summary_row {
+#yrsktdupcp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -386,16 +400,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#yopezafmft .gt_first_summary_row {
+#yrsktdupcp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yopezafmft .gt_first_summary_row.thick {
+#yrsktdupcp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yopezafmft .gt_last_summary_row {
+#yrsktdupcp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -405,7 +419,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#yopezafmft .gt_grand_summary_row {
+#yrsktdupcp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -415,7 +429,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#yopezafmft .gt_first_grand_summary_row {
+#yrsktdupcp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,7 +439,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#yopezafmft .gt_last_grand_summary_row_top {
+#yrsktdupcp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -435,11 +449,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#yopezafmft .gt_striped {
+#yrsktdupcp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yopezafmft .gt_table_body {
+#yrsktdupcp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -448,7 +462,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#yopezafmft .gt_footnotes {
+#yrsktdupcp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -462,7 +476,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#yopezafmft .gt_footnote {
+#yrsktdupcp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -471,7 +485,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#yopezafmft .gt_sourcenotes {
+#yrsktdupcp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -485,7 +499,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#yopezafmft .gt_sourcenote {
+#yrsktdupcp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -493,72 +507,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#yopezafmft .gt_left {
+#yrsktdupcp .gt_left {
   text-align: left;
 }
 
-#yopezafmft .gt_center {
+#yrsktdupcp .gt_center {
   text-align: center;
 }
 
-#yopezafmft .gt_right {
+#yrsktdupcp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yopezafmft .gt_font_normal {
+#yrsktdupcp .gt_font_normal {
   font-weight: normal;
 }
 
-#yopezafmft .gt_font_bold {
+#yrsktdupcp .gt_font_bold {
   font-weight: bold;
 }
 
-#yopezafmft .gt_font_italic {
+#yrsktdupcp .gt_font_italic {
   font-style: italic;
 }
 
-#yopezafmft .gt_super {
+#yrsktdupcp .gt_super {
   font-size: 65%;
 }
 
-#yopezafmft .gt_footnote_marks {
+#yrsktdupcp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yopezafmft .gt_asterisk {
+#yrsktdupcp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yopezafmft .gt_indent_1 {
+#yrsktdupcp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yopezafmft .gt_indent_2 {
+#yrsktdupcp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yopezafmft .gt_indent_3 {
+#yrsktdupcp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yopezafmft .gt_indent_4 {
+#yrsktdupcp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yopezafmft .gt_indent_5 {
+#yrsktdupcp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yopezafmft .katex-display {
+#yrsktdupcp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yopezafmft div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#yrsktdupcp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -609,23 +623,23 @@ ul.task-list li input[type="checkbox"] {
 <h1>gt interactive</h1>
 <div class="cell">
 <div class="cell-output-display">
-<div id="lptqrygtkv" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lptqrygtkv table {
+<div id="hbqvtpaplq" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hbqvtpaplq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lptqrygtkv thead, #lptqrygtkv tbody, #lptqrygtkv tfoot, #lptqrygtkv tr, #lptqrygtkv td, #lptqrygtkv th {
+#hbqvtpaplq thead, #hbqvtpaplq tbody, #hbqvtpaplq tfoot, #hbqvtpaplq tr, #hbqvtpaplq td, #hbqvtpaplq th {
   border-style: none;
 }
 
-#lptqrygtkv p {
+#hbqvtpaplq p {
   margin: 0;
   padding: 0;
 }
 
-#lptqrygtkv .gt_table {
+#hbqvtpaplq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -651,12 +665,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_caption {
+#hbqvtpaplq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lptqrygtkv .gt_title {
+#hbqvtpaplq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -668,7 +682,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#lptqrygtkv .gt_subtitle {
+#hbqvtpaplq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -680,7 +694,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#lptqrygtkv .gt_heading {
+#hbqvtpaplq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -692,13 +706,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_bottom_border {
+#hbqvtpaplq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_col_headings {
+#hbqvtpaplq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -713,7 +727,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_col_heading {
+#hbqvtpaplq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -733,7 +747,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#lptqrygtkv .gt_column_spanner_outer {
+#hbqvtpaplq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -745,15 +759,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#lptqrygtkv .gt_column_spanner_outer:first-child {
+#hbqvtpaplq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lptqrygtkv .gt_column_spanner_outer:last-child {
+#hbqvtpaplq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lptqrygtkv .gt_column_spanner {
+#hbqvtpaplq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -765,11 +779,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#lptqrygtkv .gt_spanner_row {
+#hbqvtpaplq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lptqrygtkv .gt_group_heading {
+#hbqvtpaplq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -795,7 +809,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#lptqrygtkv .gt_empty_group_heading {
+#hbqvtpaplq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -810,15 +824,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#lptqrygtkv .gt_from_md > :first-child {
+#hbqvtpaplq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lptqrygtkv .gt_from_md > :last-child {
+#hbqvtpaplq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lptqrygtkv .gt_row {
+#hbqvtpaplq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -837,7 +851,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#lptqrygtkv .gt_stub {
+#hbqvtpaplq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -850,7 +864,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#lptqrygtkv .gt_stub_row_group {
+#hbqvtpaplq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -864,15 +878,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#lptqrygtkv .gt_row_group_first td {
+#hbqvtpaplq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lptqrygtkv .gt_row_group_first th {
+#hbqvtpaplq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lptqrygtkv .gt_summary_row {
+#hbqvtpaplq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -882,16 +896,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#lptqrygtkv .gt_first_summary_row {
+#hbqvtpaplq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_first_summary_row.thick {
+#hbqvtpaplq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lptqrygtkv .gt_last_summary_row {
+#hbqvtpaplq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -901,7 +915,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_grand_summary_row {
+#hbqvtpaplq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -911,7 +925,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#lptqrygtkv .gt_first_grand_summary_row {
+#hbqvtpaplq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -921,7 +935,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_last_grand_summary_row_top {
+#hbqvtpaplq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -931,11 +945,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_striped {
+#hbqvtpaplq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lptqrygtkv .gt_table_body {
+#hbqvtpaplq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -944,7 +958,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_footnotes {
+#hbqvtpaplq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -958,7 +972,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_footnote {
+#hbqvtpaplq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -967,7 +981,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#lptqrygtkv .gt_sourcenotes {
+#hbqvtpaplq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -981,7 +995,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#lptqrygtkv .gt_sourcenote {
+#hbqvtpaplq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -989,77 +1003,77 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#lptqrygtkv .gt_left {
+#hbqvtpaplq .gt_left {
   text-align: left;
 }
 
-#lptqrygtkv .gt_center {
+#hbqvtpaplq .gt_center {
   text-align: center;
 }
 
-#lptqrygtkv .gt_right {
+#hbqvtpaplq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lptqrygtkv .gt_font_normal {
+#hbqvtpaplq .gt_font_normal {
   font-weight: normal;
 }
 
-#lptqrygtkv .gt_font_bold {
+#hbqvtpaplq .gt_font_bold {
   font-weight: bold;
 }
 
-#lptqrygtkv .gt_font_italic {
+#hbqvtpaplq .gt_font_italic {
   font-style: italic;
 }
 
-#lptqrygtkv .gt_super {
+#hbqvtpaplq .gt_super {
   font-size: 65%;
 }
 
-#lptqrygtkv .gt_footnote_marks {
+#hbqvtpaplq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lptqrygtkv .gt_asterisk {
+#hbqvtpaplq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lptqrygtkv .gt_indent_1 {
+#hbqvtpaplq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lptqrygtkv .gt_indent_2 {
+#hbqvtpaplq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lptqrygtkv .gt_indent_3 {
+#hbqvtpaplq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lptqrygtkv .gt_indent_4 {
+#hbqvtpaplq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lptqrygtkv .gt_indent_5 {
+#hbqvtpaplq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lptqrygtkv .katex-display {
+#hbqvtpaplq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lptqrygtkv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hbqvtpaplq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="lptqrygtkv" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="lptqrygtkv">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"school":["Abernethy Elementary School","Ainsworth Elementary School","Alameda Elementary School","Arleta Elementary School","Astor Elementary School","Atkinson Elementary School","Beach Elementary School","Beverly Cleary School","Boise-Eliot Elementary School","Bridger Elementary School","Bridlemile Elementary School","Buckman Elementary School","Capitol Hill Elementary School","Cesar Chavez K-8 School","Chapman Elementary School","Chief Joseph Elementary School","Creative Science School","Creston Elementary School","Duniway Elementary School","Emerson School","Faubion Elementary School","Forest Park Elementary School","Glencoe Elementary School","Grout Elementary School","Harrison Park School","Hayhurst Elementary School","Irvington Elementary School","James John Elementary School","Kairos PDX","Kelly Elementary School","Laurelhurst Elementary School","Le Monde French Immersion Public Charter School","Lee Elementary School","Lent Elementary School","Lewis Elementary School","Llewellyn Elementary School","Maplewood Elementary School","Markham Elementary School","Martin Luther King Jr. School","Marysville Elementary School","Metropolitan Learning Center","Opal School of the Portland Children's Museum","Peninsula Elementary School","Portland Arthur Academy Charter School","Portland Village School","Richmond Elementary School","Rieke Elementary School","Rigler Elementary School","Rosa Parks Elementary School","Rose City Park","Sabin Elementary School","Scott Elementary School","Sitton Elementary School","Skyline Elementary School","Stephenson Elementary School","Sunnyside Environmental School","Trillium","Vernon Elementary School","Vestal Elementary School","Whitman Elementary School","Winterhaven School","Woodlawn Elementary School","Woodmere Elementary School","Woodstock Elementary School"],"2018-2019":[0.706521739130435,0.804347826086957,0.830508474576271,0.423076923076923,0.595238095238095,0.507936507936508,0.565217391304348,0.680555555555556,0.175,0.603174603174603,0.682926829268293,0.564102564102564,0.6625,0.26,0.697368421052632,0.508771929824561,0.375,0.552631578947368,0.705882352941177,0.521739130434783,0.210526315789474,0.696428571428571,0.695121951219512,0.483333333333333,0.164383561643836,0.670212765957447,0.642857142857143,0.418604651162791,0.08,0.233766233766234,0.68,0.841269841269841,0.222222222222222,0.111111111111111,0.546875,0.792682926829268,0.4375,0.714285714285714,0.0909090909090909,0.25,0.428571428571429,0.285714285714286,0.272727272727273,0.428571428571429,0.564102564102564,0.778846153846154,0.754385964912281,0.0666666666666667,0.148936170212766,0.632183908045977,0.619718309859155,0.27027027027027,0.145454545454545,0.5,0.8,0.396551724137931,0.285714285714286,0.523809523809524,0.642857142857143,0.375,0.363636363636364,0.466666666666667,0.212765957446809,0.69620253164557],"2021-2022":[0.791666666666667,0.677777777777778,0.817204301075269,0.518518518518518,0.636363636363636,0.576923076923077,0.738461538461539,0.753623188405797,0.212765957446809,0.344827586206897,0.720588235294118,0.492307692307692,0.672727272727273,0.12962962962963,0.536585365853659,0.5,0.421052631578947,0.612903225806452,0.6625,0.625,0.168831168831169,0.843137254901961,0.566666666666667,0.541666666666667,0.35,0.662162162162162,0.5,0.4,0.516129032258065,0.285714285714286,0.594594594594595,0.772727272727273,0.5,0.114285714285714,0.627118644067797,0.80952380952381,0.66,0.448275862068966,0.36734693877551,0.368421052631579,0.619047619047619,"NA",0.487179487179487,0.5,0.543478260869565,0.726190476190476,0.78,0.3,0.075,0.719512195121951,0.622950819672131,0.46875,0.30188679245283,0.8,0.76271186440678,0.657894736842105,"NA",0.545454545454545,0.548387096774194,0.185185185185185,0.842105263157895,0.442307692307692,0.282051282051282,0.761363636363636]},"columns":[{"id":"school","name":"School","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"2018-2019","name":"2018-2019","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["71%","80%","83%","42%","60%","51%","57%","68%","18%","60%","68%","56%","66%","26%","70%","51%","38%","55%","71%","52%","21%","70%","70%","48%","16%","67%","64%","42%","8%","23%","68%","84%","22%","11%","55%","79%","44%","71%","9%","25%","43%","29%","27%","43%","56%","78%","75%","7%","15%","63%","62%","27%","15%","50%","80%","40%","29%","52%","64%","38%","36%","47%","21%","70%"],"html":true,"align":"right"},{"id":"2021-2022","name":"2021-2022","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["79%","68%","82%","52%","64%","58%","74%","75%","21%","34%","72%","49%","67%","13%","54%","50%","42%","61%","66%","62%","17%","84%","57%","54%","35%","66%","50%","40%","52%","29%","59%","77%","50%","11%","63%","81%","66%","45%","37%","37%","62%","NA","49%","50%","54%","73%","78%","30%","8%","72%","62%","47%","30%","80%","76%","66%","NA","55%","55%","19%","84%","44%","28%","76%"],"html":true,"align":"right"}],"searchable":true,"defaultPageSize":10,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"lptqrygtkv","dataKey":"837e4cd0155e1b04908c540fdfbb7f61"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
+<div id="hbqvtpaplq" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="hbqvtpaplq">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"school":["Abernethy Elementary School","Ainsworth Elementary School","Alameda Elementary School","Arleta Elementary School","Astor Elementary School","Atkinson Elementary School","Beach Elementary School","Beverly Cleary School","Boise-Eliot Elementary School","Bridger Elementary School","Bridlemile Elementary School","Buckman Elementary School","Capitol Hill Elementary School","Cesar Chavez K-8 School","Chapman Elementary School","Chief Joseph Elementary School","Creative Science School","Creston Elementary School","Duniway Elementary School","Emerson School","Faubion Elementary School","Forest Park Elementary School","Glencoe Elementary School","Grout Elementary School","Harrison Park School","Hayhurst Elementary School","Irvington Elementary School","James John Elementary School","Kairos PDX","Kelly Elementary School","Laurelhurst Elementary School","Le Monde French Immersion Public Charter School","Lee Elementary School","Lent Elementary School","Lewis Elementary School","Llewellyn Elementary School","Maplewood Elementary School","Markham Elementary School","Martin Luther King Jr. School","Marysville Elementary School","Metropolitan Learning Center","Opal School of the Portland Children's Museum","Peninsula Elementary School","Portland Arthur Academy Charter School","Portland Village School","Richmond Elementary School","Rieke Elementary School","Rigler Elementary School","Rosa Parks Elementary School","Rose City Park","Sabin Elementary School","Scott Elementary School","Sitton Elementary School","Skyline Elementary School","Stephenson Elementary School","Sunnyside Environmental School","Trillium","Vernon Elementary School","Vestal Elementary School","Whitman Elementary School","Winterhaven School","Woodlawn Elementary School","Woodmere Elementary School","Woodstock Elementary School"],"2018-2019":[0.706521739130435,0.804347826086957,0.830508474576271,0.423076923076923,0.595238095238095,0.507936507936508,0.565217391304348,0.680555555555556,0.175,0.603174603174603,0.682926829268293,0.564102564102564,0.6625,0.26,0.697368421052632,0.508771929824561,0.375,0.552631578947368,0.705882352941177,0.521739130434783,0.210526315789474,0.696428571428571,0.695121951219512,0.483333333333333,0.164383561643836,0.670212765957447,0.642857142857143,0.418604651162791,0.08,0.233766233766234,0.68,0.841269841269841,0.222222222222222,0.111111111111111,0.546875,0.792682926829268,0.4375,0.714285714285714,0.0909090909090909,0.25,0.428571428571429,0.285714285714286,0.272727272727273,0.428571428571429,0.564102564102564,0.778846153846154,0.754385964912281,0.0666666666666667,0.148936170212766,0.632183908045977,0.619718309859155,0.27027027027027,0.145454545454545,0.5,0.8,0.396551724137931,0.285714285714286,0.523809523809524,0.642857142857143,0.375,0.363636363636364,0.466666666666667,0.212765957446809,0.69620253164557],"2021-2022":[0.791666666666667,0.677777777777778,0.817204301075269,0.518518518518518,0.636363636363636,0.576923076923077,0.738461538461539,0.753623188405797,0.212765957446809,0.344827586206897,0.720588235294118,0.492307692307692,0.672727272727273,0.12962962962963,0.536585365853659,0.5,0.421052631578947,0.612903225806452,0.6625,0.625,0.168831168831169,0.843137254901961,0.566666666666667,0.541666666666667,0.35,0.662162162162162,0.5,0.4,0.516129032258065,0.285714285714286,0.594594594594595,0.772727272727273,0.5,0.114285714285714,0.627118644067797,0.80952380952381,0.66,0.448275862068966,0.36734693877551,0.368421052631579,0.619047619047619,"NA",0.487179487179487,0.5,0.543478260869565,0.726190476190476,0.78,0.3,0.075,0.719512195121951,0.622950819672131,0.46875,0.30188679245283,0.8,0.76271186440678,0.657894736842105,"NA",0.545454545454545,0.548387096774194,0.185185185185185,0.842105263157895,0.442307692307692,0.282051282051282,0.761363636363636]},"columns":[{"id":"school","name":"School","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"2018-2019","name":"2018-2019","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["71%","80%","83%","42%","60%","51%","57%","68%","18%","60%","68%","56%","66%","26%","70%","51%","38%","55%","71%","52%","21%","70%","70%","48%","16%","67%","64%","42%","8%","23%","68%","84%","22%","11%","55%","79%","44%","71%","9%","25%","43%","29%","27%","43%","56%","78%","75%","7%","15%","63%","62%","27%","15%","50%","80%","40%","29%","52%","64%","38%","36%","47%","21%","70%"],"html":true,"align":"right"},{"id":"2021-2022","name":"2021-2022","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["79%","68%","82%","52%","64%","58%","74%","75%","21%","34%","72%","49%","67%","13%","54%","50%","42%","61%","66%","62%","17%","84%","57%","54%","35%","66%","50%","40%","52%","29%","59%","77%","50%","11%","63%","81%","66%","45%","37%","37%","62%","NA","49%","50%","54%","73%","78%","30%","8%","72%","62%","47%","30%","80%","76%","66%","NA","55%","55%","19%","84%","44%","28%","76%"],"html":true,"align":"right"}],"searchable":true,"defaultPageSize":10,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"hbqvtpaplq","dataKey":"837e4cd0155e1b04908c540fdfbb7f61"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1068,9 +1082,10 @@ ul.task-list li input[type="checkbox"] {
 <h1>Plot</h1>
 <div class="cell">
 <div class="cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="advanced-yaml-code-chunk-options-my-turn_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" alt="Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022" width="672"></p>
+<p><img src="advanced-yaml-code-chunk-options-my-turn_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" alt="Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022" width="480"></p>
+<figcaption>Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022</figcaption>
 </figure>
 </div>
 </div>
