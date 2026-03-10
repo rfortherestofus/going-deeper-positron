@@ -25,14 +25,15 @@ library(ggrepel)
 
 # Introduction
 
-
 ![Portland Public Schools](portland-public-schools-logo.svg){width=300px fig-align="center" fig-alt="Portland Public Schools logo"}
 
 This is a report on math proficiency results in [Portland Public Schools (PPS)](https://www.pps.net/). The PPS mission statement is as follows:
 
 > We provide rigorous, high-quality academic learning experiences that are inclusive and joyful. We disrupt racial inequities to create vibrant environments for every student to demonstrate excellence.^[https://www.pps.net/about/portland-public-schools-information/overview]
 
-# Plot
+# Chart
+
+The chart below shows math proficiency for all PPS schools.
 
 ```{r}
 third_grade_math_proficiency <-
@@ -209,7 +210,7 @@ third_grade_math_proficiency_wide <-
 
 # Table
 
-The following table shows math proficiency in 2018-2019 and 2021-2022 for all PPS schools. If you want to see Winterhaven School, you can use the search bar to find it.
+The following table shows math proficiency in 2018-2019 and 2021-2022 for all PPS schools. If you want to see `r top_growth_school`, you can use the search bar to find it.
 
 ```{r}
 third_grade_math_proficiency_wide_full <-

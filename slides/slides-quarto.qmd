@@ -207,40 +207,60 @@ This is a report for the [Oregon Department of Education](https://www.oregon.gov
 ## Tables Usually Need Wide Data
 
 ```{r}
-third_grade_math_proficiency <- 
-  read_rds(here("data/third_grade_math_proficiency.rds")) |> 
-  select(academic_year, school, school_id, district, proficiency_level, number_of_students) |> 
-  mutate(is_proficient = case_when(
-    proficiency_level >= 3 ~ TRUE,
-    .default = FALSE
-  )) |> 
-  group_by(academic_year, school, district, school_id, is_proficient) |> 
-  summarize(number_of_students = sum(number_of_students, na.rm = TRUE)) |> 
-  ungroup() |> 
-  group_by(academic_year, school, district, school_id) |> 
-  mutate(percent_proficient = number_of_students / sum(number_of_students, na.rm = TRUE)) |> 
-  ungroup() |> 
-  filter(is_proficient == TRUE) |> 
-  select(academic_year, school, district, percent_proficient) |> 
-  rename(year = academic_year) |> 
-  mutate(percent_proficient = case_when(
-    is.nan(percent_proficient) ~ NA,
-    .default = percent_proficient
-  )) |> 
-  mutate(percent_proficient_formatted = percent(percent_proficient,
-                                                accuracy = 1))
+third_grade_math_proficiency <-
+  read_rds(here("data/third_grade_math_proficiency.rds")) |>
+  select(
+    academic_year,
+    school,
+    school_id,
+    district,
+    proficiency_level,
+    number_of_students
+  ) |>
+  mutate(
+    is_proficient = case_when(
+      proficiency_level >= 3 ~ TRUE,
+      .default = FALSE
+    )
+  ) |>
+  group_by(academic_year, school, district, school_id, is_proficient) |>
+  summarize(number_of_students = sum(number_of_students, na.rm = TRUE)) |>
+  ungroup() |>
+  group_by(academic_year, school, district, school_id) |>
+  mutate(
+    percent_proficient = number_of_students /
+      sum(number_of_students, na.rm = TRUE)
+  ) |>
+  ungroup() |>
+  filter(is_proficient == TRUE) |>
+  select(academic_year, school, district, percent_proficient) |>
+  rename(year = academic_year) |>
+  mutate(
+    percent_proficient = case_when(
+      is.nan(percent_proficient) ~ NA,
+      .default = percent_proficient
+    )
+  ) |>
+  mutate(
+    percent_proficient_formatted = percent(percent_proficient, accuracy = 1)
+  )
 ```
 
 ```{r}
-data_long <- 
-  third_grade_math_proficiency |> 
-  filter(district == "Portland SD 1J") |> 
-  filter(school %in% c("Abernethy Elementary School",
-                       "Ainsworth Elementary School",
-                       "Alameda Elementary School",
-                       "Arleta Elementary School",
-                       "Atkinson Elementary School")) |> 
-  select(year, school, percent_proficient_formatted) |> 
+data_long <-
+  third_grade_math_proficiency |>
+  filter(district == "Portland SD 1J") |>
+  filter(
+    school %in%
+      c(
+        "Abernethy Elementary School",
+        "Ainsworth Elementary School",
+        "Alameda Elementary School",
+        "Arleta Elementary School",
+        "Atkinson Elementary School"
+      )
+  ) |>
+  select(year, school, percent_proficient_formatted) |>
   arrange(school)
 
 data_long
@@ -249,10 +269,12 @@ data_long
 . . .
 
 ```{r}
-data_long |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient_formatted)
+data_long |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient_formatted
+  )
 ```
 
 ## `pivot_wider()`
@@ -267,10 +289,12 @@ data_long
 ```{r}
 #| echo: true
 #| code-line-numbers: "2-4"
-data_long |> 
-  pivot_wider(id_cols = school,
-              names_from = year,
-              values_from = percent_proficient_formatted)
+data_long |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient_formatted
+  )
 ```
 
 
@@ -454,8 +478,8 @@ The goal is to make everything reproducible, including text
 ## Inline R Code
 
 ```{r}
-oregon_school_districts <- 
-  read_excel(here("data-raw/oregon-districts.xlsx")) |>  
+oregon_school_districts <-
+  read_excel(here("data-raw/oregon-districts.xlsx")) |>
   nrow()
 ```
 
@@ -554,13 +578,9 @@ https://github.com/cscheid/2023-posit-conf-talk/blob/main/talk.qmd
 
 ---
 
-![](assets/typst.png){fig-align="center"}
+Show typst.app
 
 ## `typst`
-
-- Very much in development now!
-
-- To use it, you must install a [pre-release version of Quarto](https://quarto.org/docs/download/prerelease)
 
 - Provides syntax to relatively easily adjust page size, margins, font size, etc.
 
@@ -571,16 +591,48 @@ https://github.com/cscheid/2023-posit-conf-talk/blob/main/talk.qmd
 format: 
   typst:
     papersize: us-letter
-    mainfont: Inter
-    fontsize: 20pt
-margin:
-  top: 5in
+    margin:
+      top: 1in
+      bottom: 1in
+      left: 0.5in
+      right: 0.5in
 ```
 
+## `brand.yml`
 
-::: {.notes}
-https://quarto.org/docs/prerelease/1.4/typst.html#typst-format
-:::
+```{yaml}
+meta:
+  name: brand.yml
+  link: https://posit-dev.github.io/brand-yml
+
+logo: logos/icon/brand-yml-icon-color.svg
+
+color:
+  palette:
+    black: "#1A1A1A"
+    white: "#F9F9F9"
+    orange: "#FF6F20"
+    pink: "#FF3D7F"
+  foreground: black
+  background: white
+  primary: orange
+  danger: pink
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+    - family: Rubik
+      source: google
+    - family: IBM Plex Mono
+      source: google
+
+  base: Open Sans
+  headings:
+    family: Rubik
+    weight: 400
+  monospace: IBM Plex Mono
+```
 
 ## Page Breaks
 
