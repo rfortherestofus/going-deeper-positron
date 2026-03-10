@@ -1,6 +1,6 @@
 ---
 title: "Portland Public Schools Math Proficiency Report"
-format: typst
+format: docx
 execute: 
   echo: false
   warning: false
@@ -204,7 +204,7 @@ third_grade_math_proficiency_wide <-
 
 # Table
 
-The following table shows math proficiency in 2018-2019 and 2021-2022 for all PPS schools. 
+The following table shows math proficiency in 2018-2019 and 2021-2022 for all PPS schools. If you want to see `r top_growth_school`, you can use the search bar to find it.
 
 ```{r}
 third_grade_math_proficiency_wide_full <-

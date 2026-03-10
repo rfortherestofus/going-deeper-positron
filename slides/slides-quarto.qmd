@@ -582,7 +582,7 @@ Show typst.app
 
 ## `typst`
 
-- Provides syntax to relatively easily adjust page size, margins, font size, etc.
+- Provides syntax to relatively easily adjust page size and margins
 
 ## `typst`
 
@@ -727,7 +727,7 @@ format:
 ## Anatomy of a `.scss` File
 
 ```{scss}
-#| echo: true
+//| echo: truem
 /*-- scss:defaults --*/
 
 /*-- scss:rules --*/
@@ -736,8 +736,8 @@ format:
 ## Anatomy of a `.scss` File
 
 ```{scss}
-#| echo: true
-#| code-line-numbers: "1-5"
+//| echo: true
+//| code-line-numbers: "1-5"
 /*-- scss:defaults --*/
 
 $body-bg: red;
@@ -755,8 +755,8 @@ https://quarto.org/docs/output-formats/html-themes.html#sass-variables
 ## Anatomy of a `.scss` File
 
 ```{scss}
-#| echo: true
-#| code-line-numbers: "7-11"
+//| echo: true
+//| code-line-numbers: "7-11"
 /*-- scss:defaults --*/
 
 $body-bg: red;
