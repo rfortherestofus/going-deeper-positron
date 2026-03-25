@@ -335,7 +335,7 @@ I'll demonstrate making effective tables using `flextable` and `gt`.
 
 ## Your Turn {.your-turn}
 
-- Copy the starter code below into RStudio and use it to make a table using `flextable` or `gt`.
+- Copy the starter code below into Positron and use it to make a table using `flextable` or `gt`.
 
 - Work on adjusting your column names, column width, number formatting, and anything else you might want to try out.
 
@@ -998,7 +998,7 @@ Allows you to see:
 
 - Turn your report into a Revealjs presentation
 
-- Demonstrate putting content in columns and using incremental reveal
+- Put content in columns and practice using incremental reveal
 
 - Adjust the look-and-feel of your presentation by adding a logo and footer text, adjusting slide backgrounds, and using a custom theme
 
@@ -1039,6 +1039,30 @@ logo: "portland-public-schools-logo.svg"
 ## {.sidebar}
 ````
 
+## Orientation
+
+```{yaml}
+#| echo: true
+---
+title: "My Dashboard"
+format: 
+  dashboard:
+    orientation: rows
+---
+```
+
+. . .
+
+```{yaml}
+#| echo: true
+---
+title: "My Dashboard"
+format: 
+  dashboard:
+    orientation: columns
+---
+```
+
 
 ## Fill Versus Scroll
 
@@ -1057,11 +1081,13 @@ format:
 ```
 :::
 
-## Themes
+## Customization
 
 . . .
 
-Exactly the same as HTML and Revealjs presentations:
+- Applies to dashboards the same as other HTML-based formats
+
+- `brand.yml` works
 
 - Custom themes
 
@@ -1152,7 +1178,7 @@ I'll publish my website to Quarto Pub and Netlify
 
 . . .
 
-Publish your website to Quarto Pub or Netlify
+Publish your website to Netlify
 
 # Quarto Extensions {.inverse background-image="assets/extension.jpg"}
 
@@ -1174,4 +1200,59 @@ Publish your website to Quarto Pub or Netlify
 
 - Try out a Quarto extension
 
+# Parameterized Reporting, Part 1 {.inverse}
 
+## Your Turn {.your-turn}
+
+. . .
+
+I’ve created a starter project to help you. To install it:
+
+1. Download the course project at <https://rfor.us/gdprmp>.
+
+1. Open the course project in Positron.
+
+. . .
+
+Make sure to install the {gapminder}, {rmarkdown}, {rstudioapi}, and {quarto} packages in order to be able to run the code in the project.
+
+
+## Your Turn {.your-turn}
+
+Then, working in the project:
+
+1. Open the file called `your-turn-report.qmd` and render it to see what it looks like.
+
+1. Add a parameter in your YAML for `continent` and set its value to Asia.
+
+1. On line 29, change the code to filter the gapminder data using the `continent` parameter.
+
+1. On line 33, use inline R code to replace Asia with your `continent` parameter.
+
+. . .
+
+Make sure you can render your report and have everything work exactly the same as when you first rendered.
+
+# Parameterized Reporting, Part 2 {.inverse}
+
+## Your Turn {.your-turn}
+
+. . .
+
+Your goal is to render your report on population in Asia using an R script file. To do so:
+
+1. Open the file called `your-turn-render-part-1.R`.
+
+1. Replace all instances of `TODO` with the correct text.
+
+1. Render your report.
+
+# Parameterized Reporting, Part 3 {.inverse}
+
+## Your Turn {.your-turn}
+
+1. Open the file called `your-turn-render-part-2.R`.
+
+1. Replace all instances of TODO with the correct text.
+
+1. Render your reports.

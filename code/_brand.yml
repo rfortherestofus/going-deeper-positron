@@ -22,7 +22,7 @@ typography:
     - family: IBM Plex Mono
       source: google
 
-  base: Open Sans
+  base: IBM Plex Mono
   headings:
     family: IBM Plex Mono
     weight: 400

@@ -6,8 +6,8 @@
 <script src="slides-quarto_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="slides-quarto_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="slides-quarto_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="slides-quarto_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="slides-quarto_files/libs/quarto-html/quarto-syntax-highlighting-6d4e4c6c342646cac9792aff734a6985.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.33">
 
   <title>Going Deeper with R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -94,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/theme/quarto-7feb33af5b36f1a485f4acdcd84b6b37.css">
+  <link rel="stylesheet" href="slides-quarto_files/libs/revealjs/dist/theme/quarto-e90eac1530cb4773e2bdad42ec90538c.css">
   <link href="slides-quarto_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides-quarto_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides-quarto_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -471,7 +474,7 @@
 <section id="your-turn-1" class="slide level2 your-turn center">
 <h2>Your Turn</h2>
 <ul>
-<li class="fragment"><p>Copy the starter code below into RStudio and use it to make a table using <code>flextable</code> or <code>gt</code>.</p></li>
+<li class="fragment"><p>Copy the starter code below into Positron and use it to make a table using <code>flextable</code> or <code>gt</code>.</p></li>
 <li class="fragment"><p>Work on adjusting your column names, column width, number formatting, and anything else you might want to try out.</p></li>
 </ul>
 </section></section>
@@ -1142,7 +1145,7 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 <h2>Your Turn</h2>
 <ul>
 <li class="fragment"><p>Turn your report into a Revealjs presentation</p></li>
-<li class="fragment"><p>Demonstrate putting content in columns and using incremental reveal</p></li>
+<li class="fragment"><p>Put content in columns and practice using incremental reveal</p></li>
 <li class="fragment"><p>Adjust the look-and-feel of your presentation by adding a logo and footer text, adjusting slide backgrounds, and using a custom theme</p></li>
 <li class="fragment"><p>Practice presenting using Revealjs slides</p></li>
 </ul>
@@ -1188,6 +1191,27 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href=""></a><span class="fu">## {.sidebar}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
+<section id="orientation" class="slide level2 center">
+<h2>Orientation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb45-1"><a href=""></a><span class="pp">---</span></span>
+<span id="cb45-2"><a href=""></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
+<span id="cb45-3"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb45-4"><a href=""></a><span class="at">  </span><span class="fu">dashboard</span><span class="kw">:</span></span>
+<span id="cb45-5"><a href=""></a><span class="at">    </span><span class="fu">orientation</span><span class="kw">:</span><span class="at"> rows</span></span>
+<span id="cb45-6"><a href=""></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb46-1"><a href=""></a><span class="pp">---</span></span>
+<span id="cb46-2"><a href=""></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
+<span id="cb46-3"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb46-4"><a href=""></a><span class="at">  </span><span class="fu">dashboard</span><span class="kw">:</span></span>
+<span id="cb46-5"><a href=""></a><span class="at">    </span><span class="fu">orientation</span><span class="kw">:</span><span class="at"> columns</span></span>
+<span id="cb46-6"><a href=""></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
 <section id="fill-versus-scroll" class="slide level2 center">
 <h2>Fill Versus Scroll</h2>
 <ul>
@@ -1196,18 +1220,19 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb45-1"><a href=""></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
-<span id="cb45-2"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb45-3"><a href=""></a><span class="at">  </span><span class="fu">dashboard</span><span class="kw">:</span></span>
-<span id="cb45-4"><a href=""></a><span class="at">    </span><span class="fu">scrolling</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47" data-code-line-numbers="4"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb47-1"><a href=""></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Dashboard"</span></span>
+<span id="cb47-2"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb47-3"><a href=""></a><span class="at">  </span><span class="fu">dashboard</span><span class="kw">:</span></span>
+<span id="cb47-4"><a href=""></a><span class="at">    </span><span class="fu">scrolling</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="at"> </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
-<section id="themes" class="slide level2 center">
-<h2>Themes</h2>
+<section id="customization" class="slide level2 center">
+<h2>Customization</h2>
 <div class="fragment">
-<p>Exactly the same as HTML and Revealjs presentations:</p>
 <ul>
+<li class="fragment"><p>Applies to dashboards the same as other HTML-based formats</p></li>
+<li class="fragment"><p><code>brand.yml</code> works</p></li>
 <li class="fragment"><p>Custom themes</p></li>
 <li class="fragment"><p>You can customize further with <code>.scss</code> file</p></li>
 </ul>
@@ -1254,25 +1279,25 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 <h2><code>_quarto.yml</code></h2>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb46-1"><a href=""></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="cb46-2"><a href=""></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
-<span id="cb46-3"><a href=""></a></span>
-<span id="cb46-4"><a href=""></a><span class="fu">website</span><span class="kw">:</span></span>
-<span id="cb46-5"><a href=""></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Portland Public Schools Math Proficiency"</span></span>
-<span id="cb46-6"><a href=""></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
-<span id="cb46-7"><a href=""></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> </span><span class="st">"portland-public-schools-logo.svg"</span></span>
-<span id="cb46-8"><a href=""></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
-<span id="cb46-9"><a href=""></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> index.qmd</span></span>
-<span id="cb46-10"><a href=""></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Home"</span></span>
-<span id="cb46-11"><a href=""></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> about.qmd</span></span>
-<span id="cb46-12"><a href=""></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"About this Website"</span></span>
-<span id="cb46-13"><a href=""></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb46-14"><a href=""></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span><span class="st">"Copyright 2023, Portland Public Schools"</span><span class="at"> </span></span>
-<span id="cb46-15"><a href=""></a></span>
-<span id="cb46-16"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb46-17"><a href=""></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="cb46-18"><a href=""></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
-<span id="cb46-19"><a href=""></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> </span><span class="st">"Inter"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb48-1"><a href=""></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb48-2"><a href=""></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb48-3"><a href=""></a></span>
+<span id="cb48-4"><a href=""></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="cb48-5"><a href=""></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Portland Public Schools Math Proficiency"</span></span>
+<span id="cb48-6"><a href=""></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb48-7"><a href=""></a><span class="at">    </span><span class="fu">logo</span><span class="kw">:</span><span class="at"> </span><span class="st">"portland-public-schools-logo.svg"</span></span>
+<span id="cb48-8"><a href=""></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb48-9"><a href=""></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> index.qmd</span></span>
+<span id="cb48-10"><a href=""></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Home"</span></span>
+<span id="cb48-11"><a href=""></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">href</span><span class="kw">:</span><span class="at"> about.qmd</span></span>
+<span id="cb48-12"><a href=""></a><span class="at">        </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"About this Website"</span></span>
+<span id="cb48-13"><a href=""></a><span class="at">  </span><span class="fu">page-footer</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb48-14"><a href=""></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span><span class="at"> </span><span class="st">"Copyright 2023, Portland Public Schools"</span><span class="at"> </span></span>
+<span id="cb48-15"><a href=""></a></span>
+<span id="cb48-16"><a href=""></a><span class="fu">format</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb48-17"><a href=""></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb48-18"><a href=""></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="cb48-19"><a href=""></a><span class="at">    </span><span class="fu">mainfont</span><span class="kw">:</span><span class="at"> </span><span class="st">"Inter"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1321,7 +1346,7 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 <section id="your-turn-10" class="slide level2 your-turn center">
 <h2>Your Turn</h2>
 <div class="fragment">
-<p>Publish your website to Quarto Pub or Netlify</p>
+<p>Publish your website to Netlify</p>
 </div>
 </section></section>
 <section>
@@ -1362,6 +1387,66 @@ h1{text-shadow:-1px -1px 0 rgba(0,0,0,0.3)}
 <ul>
 <li class="fragment">Try out a Quarto extension</li>
 </ul>
+</section></section>
+<section>
+<section id="parameterized-reporting-part-1" class="title-slide slide level1 inverse center">
+<h1>Parameterized Reporting, Part 1</h1>
+
+</section>
+<section id="your-turn-12" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<div class="fragment">
+<p>I’ve created a starter project to help you. To install it:</p>
+<ol type="1">
+<li class="fragment"><p>Download the course project at <a href="https://rfor.us/gdprmp" class="uri">https://rfor.us/gdprmp</a>.</p></li>
+<li class="fragment"><p>Open the course project in Positron.</p></li>
+</ol>
+</div>
+<div class="fragment">
+<p>Make sure to install the {gapminder}, {rmarkdown}, {rstudioapi}, and {quarto} packages in order to be able to run the code in the project.</p>
+</div>
+</section>
+<section id="your-turn-13" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<p>Then, working in the project:</p>
+<ol type="1">
+<li class="fragment"><p>Open the file called <code>your-turn-report.qmd</code> and render it to see what it looks like.</p></li>
+<li class="fragment"><p>Add a parameter in your YAML for <code>continent</code> and set its value to Asia.</p></li>
+<li class="fragment"><p>On line 29, change the code to filter the gapminder data using the <code>continent</code> parameter.</p></li>
+<li class="fragment"><p>On line 33, use inline R code to replace Asia with your <code>continent</code> parameter.</p></li>
+</ol>
+<div class="fragment">
+<p>Make sure you can render your report and have everything work exactly the same as when you first rendered.</p>
+</div>
+</section></section>
+<section>
+<section id="parameterized-reporting-part-2" class="title-slide slide level1 inverse center">
+<h1>Parameterized Reporting, Part 2</h1>
+
+</section>
+<section id="your-turn-14" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<div class="fragment">
+<p>Your goal is to render your report on population in Asia using an R script file. To do so:</p>
+<ol type="1">
+<li class="fragment"><p>Open the file called <code>your-turn-render-part-1.R</code>.</p></li>
+<li class="fragment"><p>Replace all instances of <code>TODO</code> with the correct text.</p></li>
+<li class="fragment"><p>Render your report.</p></li>
+</ol>
+</div>
+</section></section>
+<section>
+<section id="parameterized-reporting-part-3" class="title-slide slide level1 inverse center">
+<h1>Parameterized Reporting, Part 3</h1>
+
+</section>
+<section id="your-turn-15" class="slide level2 your-turn center">
+<h2>Your Turn</h2>
+<ol type="1">
+<li class="fragment"><p>Open the file called <code>your-turn-render-part-2.R</code>.</p></li>
+<li class="fragment"><p>Replace all instances of TODO with the correct text.</p></li>
+<li class="fragment"><p>Render your reports.</p></li>
+</ol>
 
 </section></section>
 

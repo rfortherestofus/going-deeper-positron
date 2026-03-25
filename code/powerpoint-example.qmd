@@ -1,23 +1,235 @@
 ---
-title: "Untitled"
+title: "Portland Public Schools Math Proficiency Report"
 format: pptx
+execute: 
+  echo: false
+  warning: false
+  message: false
 ---
 
-## Quarto
+```{r}
+library(tidyverse)
+library(here)
+library(flextable)
+library(gt)
+library(scales)
+library(marquee)
+library(ggrepel)
+```
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+# Introduction
 
-## Bullets
+![Portland Public Schools](portland-public-schools-logo.svg){width=300px fig-align="center" fig-alt="Portland Public Schools logo"}
 
-When you click the **Render** button a document will be generated that includes:
+This is a report on math proficiency results in [Portland Public Schools (PPS)](https://www.pps.net/). The PPS mission statement is as follows:
 
--   Content authored with markdown
--   Output from executable code
+> We provide rigorous, high-quality academic learning experiences that are inclusive and joyful. We disrupt racial inequities to create vibrant environments for every student to demonstrate excellence.^[https://www.pps.net/about/portland-public-schools-information/overview]
 
-## Code
+Hello hello hello!
 
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Plot
 
 ```{r}
-1 + 1
+third_grade_math_proficiency <-
+  read_rds(here("data/third_grade_math_proficiency.rds")) |>
+  select(
+    academic_year,
+    school,
+    school_id,
+    district,
+    proficiency_level,
+    number_of_students
+  ) |>
+  mutate(
+    is_proficient = case_when(
+      proficiency_level >= 3 ~ TRUE,
+      .default = FALSE
+    )
+  ) |>
+  group_by(academic_year, school, district, school_id, is_proficient) |>
+  summarize(number_of_students = sum(number_of_students, na.rm = TRUE)) |>
+  ungroup() |>
+  group_by(academic_year, school, district, school_id) |>
+  mutate(
+    percent_proficient = number_of_students /
+      sum(number_of_students, na.rm = TRUE)
+  ) |>
+  ungroup() |>
+  filter(is_proficient == TRUE) |>
+  select(academic_year, school, district, percent_proficient) |>
+  rename(year = academic_year)
+
 ```
+
+```{r}
+theme_dk <- function() {
+  theme_minimal(base_family = "Geist") +
+    theme(
+      axis.title = element_blank(),
+      legend.position = "none",
+      panel.grid = element_blank(),
+      plot.title = element_marquee(width = 1),
+      plot.title.position = "plot"
+    )
+}
+```
+
+
+```{r}
+#| fig-alt: Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022
+#| fig-cap: Chart showing growth in math proficiency for PPS schools from 2018-2019 to 2021-2022
+
+top_growth_school <-
+  third_grade_math_proficiency |>
+  filter(district == "Portland SD 1J") |>
+  group_by(school) |>
+  mutate(
+    growth_from_previous_year = percent_proficient - lag(percent_proficient)
+  ) |>
+  ungroup() |>
+  slice_max(
+    order_by = growth_from_previous_year,
+    n = 1
+  ) |>
+  pull(school)
+
+
+plot_title <-
+  marquee_glue(
+    "{.orange **{top_growth_school}**} showed large growth 
+        in math proficiency over the last two years"
+  )
+
+third_grade_math_proficiency |>
+  filter(district == "Portland SD 1J") |>
+  mutate(
+    highlight_school = case_when(
+      school == top_growth_school ~ "Y",
+      .default = "N"
+    )
+  ) |>
+  mutate(
+    school = fct_relevel(
+      school,
+      top_growth_school,
+      after = Inf
+    )
+  ) |>
+  mutate(
+    percent_proficient_formatted = percent(percent_proficient, accuracy = 1)
+  ) |>
+  mutate(
+    percent_proficient_formatted = case_when(
+      highlight_school == "Y" & year == "2021-2022" ~
+        str_glue(
+          "{percent_proficient_formatted} of students
+          were proficient
+          in {year}"
+        ),
+      highlight_school == "Y" & year == "2018-2019" ~
+        percent_proficient_formatted
+    )
+  ) |>
+  ggplot(
+    aes(
+      x = year,
+      y = percent_proficient,
+      color = highlight_school,
+      group = school,
+      label = percent_proficient_formatted
+    )
+  ) +
+  geom_line() +
+  geom_text_repel(
+    hjust = 0,
+    lineheight = 0.9,
+    direction = "x",
+    family = "Geist"
+  ) +
+  scale_color_manual(
+    values = c(
+      "Y" = "orange",
+      "N" = "gray80"
+    )
+  ) +
+  scale_x_discrete(
+    expand = expansion(add = c(0, 0.5))
+  ) +
+  scale_y_continuous(
+    labels = percent_format(),
+    limits = c(0, 1)
+    # expand = expansion(add = c(0.1, 0.2))
+  ) +
+  annotate(
+    geom = "text",
+    x = 2.02,
+    y = 0.6,
+    hjust = 0,
+    lineheight = 0.9,
+    color = "gray70",
+    label = str_glue(
+      "Each gray line
+    represents one
+    school"
+    )
+  ) +
+  labs(
+    title = plot_title
+  ) +
+  theme_dk()
+```
+
+```{r}
+third_grade_math_proficiency_wide <-
+  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |>
+  filter(district == "Portland SD 1J") |>
+  filter(
+    school %in%
+      c(
+        "Abernethy Elementary School",
+        "Ainsworth Elementary School",
+        "Alameda Elementary School",
+        "Arleta Elementary School",
+        "Atkinson Elementary School"
+      )
+  ) |>
+  select(year, school, percent_proficient) |>
+  arrange(school) |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient
+  )
+```
+
+{{< pagebreak >}}
+
+# Table
+
+The following table shows math proficiency in 2018-2019 and 2021-2022 for all PPS schools. If you want to see `r top_growth_school`, you can use the search bar to find it.
+
+```{r}
+third_grade_math_proficiency_wide_full <-
+  read_rds(here("data/third_grade_math_proficiency_dichotomous.rds")) |>
+  filter(district == "Portland SD 1J") |>
+  select(year, school, percent_proficient) |>
+  arrange(school) |>
+  pivot_wider(
+    id_cols = school,
+    names_from = year,
+    values_from = percent_proficient
+  )
+```
+
+```{r}
+third_grade_math_proficiency_wide_full |>
+  gt() |>
+  cols_label(school = "School") |>
+  fmt_percent(
+    columns = 2:3,
+    decimals = 0
+  )
+```
+
+
+

@@ -1,10 +1,10 @@
 ---
 title: "Portland Public Schools Math Proficiency Report"
 format: 
-  typst:
-    papersize: us-letter
-    margin:
-      top: 1in
+  html:
+    theme: cosmo
+    mainfont: IBM Plex Mono
+    fontcolor: red
 execute: 
   echo: false
   warning: false
